@@ -259,7 +259,8 @@
           <h2>Disparo por e-mail (Gmail)</h2>
           <p>
             O remetente será o Gmail em que você estiver logado
-            (<strong>gustavo.germano@sankhya.com.br</strong>).
+            (<strong>gustavo.germano@sankhya.com.br</strong>).<br>
+            Os clientes serão adicionados em <strong>CCO</strong>.
           </p>
 
           <label for="emails">Lista de e-mails (um por linha)</label>
@@ -274,7 +275,8 @@
           </button>
 
           <p class="hint">
-            Será aberta uma nova aba do <strong>Gmail</strong> com os destinatários,
+            Será aberta uma nova aba do <strong>Gmail</strong> com o seu e-mail em
+            <strong>Para</strong> e todos os clientes em <strong>CCO</strong>,
             assunto e corpo já preenchidos. Só revisar, anexar a arte
             <code>NPS_Blitz.jpg</code> e enviar.
           </p>
@@ -375,8 +377,11 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     var body = getMessage() +
                '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
 
+    var myEmail = 'gustavo.germano@sankhya.com.br';
+
     var url = 'https://mail.google.com/mail/?view=cm&fs=1' +
-              '&to=' + encodeURIComponent(list.join(',')) +
+              '&to=' + encodeURIComponent(myEmail) +           // você em "Para"
+              '&bcc=' + encodeURIComponent(list.join(',')) +   // todos os clientes em CCO
               '&su=' + encodeURIComponent(subject) +
               '&body=' + encodeURIComponent(body);
 
