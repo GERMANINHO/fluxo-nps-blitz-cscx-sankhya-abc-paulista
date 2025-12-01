@@ -189,6 +189,23 @@
       padding:1px 4px;
       border-radius:4px;
     }
+
+    .img-preview{
+      margin-top:10px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid #1f2937;
+    }
+    .img-preview img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .img-caption{
+      font-size:.76rem;
+      color:var(--muted);
+      margin-top:4px;
+    }
   </style>
 </head>
 <body>
@@ -202,17 +219,17 @@
     <h1>Launcher da Blitz NPS</h1>
     <p class="subtitle">
       Use esta tela todo início de mês para aquecer os clientes
-      selecionados para a pesquisa NPS. Ajuste o texto se precisar,
-      cole os e-mails e telefones e deixe o resto com o Gmail e o WhatsApp Web.
+      selecionados para a pesquisa NPS. O texto abaixo é o padrão
+      oficial da Blitz; você pode fazer pequenos ajustes se precisar.
     </p>
 
     <div class="grid">
-      <!-- Coluna esquerda: texto da Blitz -->
+      <!-- Coluna esquerda: texto da Blitz + imagem -->
       <section class="card">
         <h2>Texto padrão da Blitz</h2>
         <p>
           Este é o texto que será enviado por <strong>e-mail</strong> e
-          <strong>WhatsApp</strong>. Você pode ajustar pontualmente antes de disparar.
+          <strong>WhatsApp</strong>.
         </p>
 
         <label for="blitz-text">Mensagem</label>
@@ -224,8 +241,16 @@
 
         <p class="hint">
           Dica: depois de abrir o Gmail ou o WhatsApp Web, revise o texto,
-          anexe a arte da Blitz NPS e só então clique em <strong>Enviar</strong>.
+          anexe a arte <code>NPS_Blitz.jpg</code> e só então clique em
+          <strong>Enviar</strong>.
         </p>
+
+        <div class="img-preview">
+          <img src="NPS_Blitz.jpg" alt="Arte da Blitz NPS">
+        </div>
+        <div class="img-caption">
+          Preview da arte da Blitz. Arquivo: <code>NPS_Blitz.jpg</code>
+        </div>
       </section>
 
       <!-- Coluna direita: disparos -->
@@ -250,7 +275,8 @@
 
           <p class="hint">
             Será aberta uma nova aba do <strong>Gmail</strong> com os destinatários,
-            assunto e corpo já preenchidos. Só revisar, anexar a arte e enviar.
+            assunto e corpo já preenchidos. Só revisar, anexar a arte
+            <code>NPS_Blitz.jpg</code> e enviar.
           </p>
         </section>
 
@@ -287,7 +313,7 @@
 </div>
 
 <script>
-  // Texto padrão da Blitz
+  // Texto padrão da Blitz (EXATAMENTE como você definiu)
   var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
 O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
