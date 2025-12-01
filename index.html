@@ -4,9 +4,389 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fluxo NPS Blitz — CS/CX Sankhya ABC Paulista</title>
+
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card-bg:#0b1120;
+      --accent:#22c55e;
+      --accent-soft:rgba(34,197,94,.12);
+      --border:#1e293b;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(circle at top,#1e293b 0,#020617 52%,#000 100%);
+      color:var(--text);
+    }
+
+    .app{
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:24px 16px 40px;
+    }
+
+    .shell{
+      width:100%;
+      max-width:1100px;
+    }
+
+    .header-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:.75rem;
+    }
+
+    .logo-dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(34,197,94,.3);
+    }
+
+    h1{
+      margin:.1rem 0 .3rem;
+      font-size:1.9rem;
+    }
+
+    .subtitle{
+      margin:0 0 1.8rem;
+      color:var(--muted);
+      max-width:640px;
+      font-size:.94rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: minmax(0,1.25fr) minmax(0,1fr);
+      gap:18px;
+    }
+
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+    }
+
+    .card{
+      background:rgba(15,23,42,.92);
+      border-radius:16px;
+      border:1px solid var(--border);
+      padding:16px 18px 18px;
+      box-shadow:0 18px 45px rgba(15,23,42,.9);
+      backdrop-filter:blur(12px);
+    }
+
+    .card h2{
+      margin:0 0 .35rem;
+      font-size:1.05rem;
+    }
+
+    .card p{
+      margin:.2rem 0 .7rem;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    label{
+      display:block;
+      font-size:.8rem;
+      font-weight:500;
+      margin-bottom:4px;
+      color:var(--muted);
+    }
+
+    textarea,
+    input[type="text"]{
+      width:100%;
+      border-radius:10px;
+      border:1px solid #1e293b;
+      background:#020617;
+      color:var(--text);
+      padding:8px 10px;
+      font-size:.86rem;
+      font-family:inherit;
+      resize:vertical;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(34,197,94,.35);
+    }
+
+    textarea{
+      min-height:140px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.4rem;
+      border:none;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:.82rem;
+      font-weight:500;
+      cursor:pointer;
+      margin-top:8px;
+      background:var(--accent);
+      color:#022c22;
+      box-shadow:0 10px 30px rgba(16,185,129,.35);
+    }
+    .btn.secondary{
+      background:#0b1120;
+      color:var(--text);
+      box-shadow:none;
+      border:1px solid #1f2937;
+    }
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    .hint{
+      margin-top:6px;
+      font-size:.76rem;
+      color:var(--muted);
+    }
+
+    .links-list a{
+      display:block;
+      font-size:.82rem;
+      padding:3px 0;
+      color:#6ee7b7;
+      text-decoration:none;
+      word-break:break-all;
+    }
+    .links-list a:hover{text-decoration:underline;}
+
+    .footer-note{
+      margin-top:18px;
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
+    code{
+      font-size:.78rem;
+      background:#020617;
+      padding:1px 4px;
+      border-radius:4px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Fluxo NPS Blitz</h1>
-  <p>Página inicial do fluxo NPS Blitz (CS/CX Sankhya ABC Paulista).</p>
+
+<div class="app">
+  <div class="shell">
+    <div class="header-tag">
+      <span class="logo-dot"></span>
+      NPS Blitz • CS/CX Sankhya ABC Paulista
+    </div>
+    <h1>Launcher da Blitz NPS</h1>
+    <p class="subtitle">
+      Use esta tela todo início de mês para aquecer os clientes
+      selecionados para a pesquisa NPS. Ajuste o texto se precisar,
+      cole os e-mails e telefones e deixe o resto com o Gmail e o WhatsApp Web.
+    </p>
+
+    <div class="grid">
+      <!-- Coluna esquerda: texto da Blitz -->
+      <section class="card">
+        <h2>Texto padrão da Blitz</h2>
+        <p>
+          Este é o texto que será enviado por <strong>e-mail</strong> e
+          <strong>WhatsApp</strong>. Você pode ajustar pontualmente antes de disparar.
+        </p>
+
+        <label for="blitz-text">Mensagem</label>
+        <textarea id="blitz-text"></textarea>
+
+        <button class="btn secondary" id="btn-copy">
+          Copiar texto da Blitz
+        </button>
+
+        <p class="hint">
+          Dica: depois de abrir o Gmail ou o WhatsApp Web, revise o texto,
+          anexe a arte da Blitz NPS e só então clique em <strong>Enviar</strong>.
+        </p>
+      </section>
+
+      <!-- Coluna direita: disparos -->
+      <div class="stack">
+        <section class="card">
+          <h2>Disparo por e-mail (Gmail)</h2>
+          <p>
+            O remetente será o Gmail em que você estiver logado
+            (<strong>gustavo.germano@sankhya.com.br</strong>).
+          </p>
+
+          <label for="emails">Lista de e-mails (um por linha)</label>
+          <textarea id="emails" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
+
+          <label for="subject" style="margin-top:8px;">Assunto</label>
+          <input id="subject" type="text"
+                 value="Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
+
+          <button class="btn" id="btn-gmail">
+            Abrir Gmail com a Blitz
+          </button>
+
+          <p class="hint">
+            Será aberta uma nova aba do <strong>Gmail</strong> com os destinatários,
+            assunto e corpo já preenchidos. Só revisar, anexar a arte e enviar.
+          </p>
+        </section>
+
+        <section class="card" style="margin-top:12px;">
+          <h2>Disparo via WhatsApp</h2>
+          <p>
+            Use o WhatsApp Web conectado ao seu celular
+            <strong>11 91441-9960</strong>.
+          </p>
+
+          <label for="whatsapps">Telefones (com DDI/DDD, um por linha)</label>
+          <textarea id="whatsapps"
+            placeholder="5599999999999&#10;5511999999999"></textarea>
+
+          <button class="btn" id="btn-wa">
+            Gerar links de envio
+          </button>
+
+          <p class="hint">
+            Serão criados links <code>wa.me</code> com a mensagem pronta.
+            Clique em cada link para abrir a conversa e enviar.
+          </p>
+
+          <div id="wa-links" class="links-list"></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Observação: esta página não envia nada automaticamente. Ela apenas
+      prepara os disparos no Gmail e no WhatsApp Web para você revisar e confirmar.
+    </div>
+  </div>
+</div>
+
+<script>
+  // Texto padrão da Blitz
+  var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
+
+O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
+
+"Em uma escala de 0 a 10, o quanto você recomendaria a Sankhya para um amigo ou familiar?"
+
+Nessa escala, as notas de 0 a 6 são consideradas como detratores. De 7 a 8 uma posição neutra e de 9 a 10 são consideradas como promotores. Através da sua nota, podemos entender melhor qual a sua percepção sobre a nossa marca e como ela tem te impactado.
+
+Além da nota, é de extrema importância que você explique o motivo dela, para que possamos ser mais assertivos e continuar evoluindo por você!
+
+Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa especializada em pesquisa), por isso fique atento e não deixe de dar a sua opinião!`;
+
+  var blitzTextarea = document.getElementById('blitz-text');
+  blitzTextarea.value = defaultMessage;
+
+  function getMessage(){
+    var txt = (blitzTextarea.value || '').trim();
+    return txt || defaultMessage;
+  }
+
+  // Copiar texto
+  document.getElementById('btn-copy').addEventListener('click', function(){
+    var msg = getMessage();
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(function(){
+        alert('Texto da Blitz copiado para a área de transferência.');
+      }).catch(function(){
+        fallbackCopy(msg);
+      });
+    } else {
+      fallbackCopy(msg);
+    }
+  });
+
+  function fallbackCopy(text){
+    var temp = document.createElement('textarea');
+    temp.value = text;
+    document.body.appendChild(temp);
+    temp.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(temp);
+    alert('Texto da Blitz copiado para a área de transferência.');
+  }
+
+  // Abrir Gmail
+  document.getElementById('btn-gmail').addEventListener('click', function(){
+    var emailsRaw = document.getElementById('emails').value || '';
+    var subject = document.getElementById('subject').value || 'Pesquisa NPS Sankhya';
+
+    var list = emailsRaw.split(/[\n;,]+/).map(function(x){
+      return x.trim();
+    }).filter(Boolean);
+
+    if (!list.length){
+      alert('Informe pelo menos um e-mail (um por linha).');
+      return;
+    }
+
+    var body = getMessage() +
+               '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
+
+    var url = 'https://mail.google.com/mail/?view=cm&fs=1' +
+              '&to=' + encodeURIComponent(list.join(',')) +
+              '&su=' + encodeURIComponent(subject) +
+              '&body=' + encodeURIComponent(body);
+
+    window.open(url,'_blank');
+  });
+
+  // Gerar links de WhatsApp
+  document.getElementById('btn-wa').addEventListener('click', function(){
+    var raw = document.getElementById('whatsapps').value || '';
+    var list = raw.split(/[\n;,]+/).map(function(x){
+      return x.replace(/\D/g,'').trim();
+    }).filter(Boolean);
+
+    var container = document.getElementById('wa-links');
+    container.innerHTML = '';
+
+    if (!list.length){
+      alert('Informe pelo menos um telefone (um por linha).');
+      return;
+    }
+
+    var msg = getMessage();
+
+    list.forEach(function(phone){
+      var url = 'https://wa.me/' + encodeURIComponent(phone) +
+                '?text=' + encodeURIComponent(msg);
+
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Enviar Blitz para ' + phone;
+      container.appendChild(a);
+    });
+  });
+</script>
+
 </body>
 </html>
