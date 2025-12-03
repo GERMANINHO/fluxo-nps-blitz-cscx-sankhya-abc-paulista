@@ -315,7 +315,13 @@
 </div>
 
 <script>
-  // Texto padrão da Blitz (com destaque para o impacto no CS / Gustavo)
+  // >>> AJUSTE AQUI SE O ÍNDICE DO SEU GMAIL FOR OUTRO (u/0, u/1, etc.)
+  // Veja na barra de endereços se está /mail/u/0/, /mail/u/1/ ou /mail/u/2/
+  var GMAIL_USER_INDEX = '2'; // hoje o seu está em /mail/u/2/#inbox
+  var GMAIL_COMPOSE_BASE =
+    'https://mail.google.com/mail/u/' + GMAIL_USER_INDEX + '/?view=cm&fs=1';
+
+  // Texto padrão da Blitz (com impacto direto no CS / Gustavo)
   var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
 O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
@@ -362,7 +368,7 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     alert('Texto da Blitz copiado para a área de transferência.');
   }
 
-  // Disparo por e-mail usando compose do Gmail
+  // Abrir Gmail já com o compose preenchido
   document.getElementById('btn-gmail').addEventListener('click', function(){
     var emailsRaw = document.getElementById('emails').value || '';
     var subject = document.getElementById('subject').value ||
@@ -383,7 +389,7 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     var to  = 'gustavo.germano@sankhya.com.br';
     var bcc = list.join(',');
 
-    var url = 'https://mail.google.com/mail/?view=cm&fs=1' +
+    var url = GMAIL_COMPOSE_BASE +
       '&to='   + encodeURIComponent(to) +
       '&bcc='  + encodeURIComponent(bcc) +
       '&su='   + encodeURIComponent(subject) +
