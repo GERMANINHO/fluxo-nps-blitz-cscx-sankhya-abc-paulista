@@ -240,7 +240,7 @@
         </button>
 
         <p class="hint">
-          Dica: depois de abrir o Gmail ou o WhatsApp Web, revise o texto,
+          Dica: depois de abrir o cliente de e-mail ou o WhatsApp Web, revise o texto,
           anexe a arte <code>NPS_Blitz.jpg</code> e só então clique em
           <strong>Enviar</strong>.
         </p>
@@ -256,10 +256,11 @@
       <!-- Coluna direita: disparos -->
       <div class="stack">
         <section class="card">
-          <h2>Disparo por e-mail (Gmail)</h2>
+          <h2>Disparo por e-mail (Gmail / Outlook)</h2>
           <p>
-            O remetente será o Gmail em que você estiver logado
-            (<strong>gustavo.germano@sankhya.com.br</strong>).<br>
+            O remetente será o <strong>cliente de e-mail padrão</strong> configurado no seu
+            computador/navegador (Gmail, Outlook, etc.), usando a conta
+            <strong>gustavo.germano@sankhya.com.br</strong> em <strong>Para</strong>.
             Os clientes serão adicionados em <strong>CCO</strong>.
           </p>
 
@@ -271,12 +272,12 @@
                  value="Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
 
           <button class="btn" id="btn-gmail">
-            Abrir Gmail com a Blitz
+            Abrir e-mail com a Blitz
           </button>
 
           <p class="hint">
-            Será aberta uma nova aba do <strong>Gmail</strong> com o seu e-mail em
-            <strong>Para</strong> e todos os clientes em <strong>CCO</strong>,
+            Será aberto o seu cliente de e-mail (normalmente o Gmail corporativo) com o seu
+            endereço em <strong>Para</strong> e todos os clientes em <strong>CCO</strong>,
             assunto e corpo já preenchidos. Só revisar, anexar a arte
             <code>NPS_Blitz.jpg</code> e enviar.
           </p>
@@ -309,7 +310,7 @@
 
     <div class="footer-note">
       Observação: esta página não envia nada automaticamente. Ela apenas
-      prepara os disparos no Gmail e no WhatsApp Web para você revisar e confirmar.
+      prepara os disparos no e-mail e no WhatsApp Web para você revisar e confirmar.
     </div>
   </div>
 </div>
@@ -360,10 +361,11 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     alert('Texto da Blitz copiado para a área de transferência.');
   }
 
-  // Abrir Gmail
+  // Disparo por e-mail usando MAILTO (cliente padrão)
   document.getElementById('btn-gmail').addEventListener('click', function(){
     var emailsRaw = document.getElementById('emails').value || '';
-    var subject = document.getElementById('subject').value || 'Pesquisa NPS Sankhya';
+    var subject = document.getElementById('subject').value ||
+      'Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
 
     var list = emailsRaw.split(/[\n;,]+/).map(function(x){
       return x.trim();
@@ -375,17 +377,17 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     }
 
     var body = getMessage() +
-               '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
+      '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
 
-    var myEmail = 'gustavo.germano@sankhya.com.br';
+    var to  = 'gustavo.germano@sankhya.com.br';
+    var bcc = list.join(',');
 
-    var url = 'https://mail.google.com/mail/?view=cm&fs=1' +
-              '&to=' + encodeURIComponent(myEmail) +           // você em "Para"
-              '&bcc=' + encodeURIComponent(list.join(',')) +   // todos os clientes em CCO
-              '&su=' + encodeURIComponent(subject) +
-              '&body=' + encodeURIComponent(body);
+    var mailto = 'mailto:' + encodeURIComponent(to) +
+      '?bcc='    + encodeURIComponent(bcc) +
+      '&subject=' + encodeURIComponent(subject) +
+      '&body='    + encodeURIComponent(body);
 
-    window.open(url,'_blank');
+    window.location.href = mailto;
   });
 
   // Gerar links de WhatsApp
@@ -407,7 +409,7 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
 
     list.forEach(function(phone){
       var url = 'https://wa.me/' + encodeURIComponent(phone) +
-                '?text=' + encodeURIComponent(msg);
+        '?text=' + encodeURIComponent(msg);
 
       var a = document.createElement('a');
       a.href = url;
