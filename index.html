@@ -240,7 +240,7 @@
         </button>
 
         <p class="hint">
-          Dica: depois de abrir o cliente de e-mail ou o WhatsApp Web, revise o texto,
+          Dica: depois de abrir o Gmail ou o WhatsApp Web, revise o texto,
           anexe a arte <code>NPS_Blitz.jpg</code> e só então clique em
           <strong>Enviar</strong>.
         </p>
@@ -256,12 +256,11 @@
       <!-- Coluna direita: disparos -->
       <div class="stack">
         <section class="card">
-          <h2>Disparo por e-mail (Gmail / Outlook)</h2>
+          <h2>Disparo por e-mail (Gmail)</h2>
           <p>
-            O remetente será o <strong>cliente de e-mail padrão</strong> configurado no seu
-            computador/navegador (Gmail, Outlook, etc.), usando a conta
-            <strong>gustavo.germano@sankhya.com.br</strong> em <strong>Para</strong>.
-            Os clientes serão adicionados em <strong>CCO</strong>.
+            O remetente será o <strong>Gmail corporativo</strong> em que você estiver
+            logado (<strong>gustavo.germano@sankhya.com.br</strong>) em
+            <strong>Para</strong>. Os clientes serão adicionados em <strong>CCO</strong>.
           </p>
 
           <label for="emails">Lista de e-mails (um por linha)</label>
@@ -272,14 +271,14 @@
                  value="Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
 
           <button class="btn" id="btn-gmail">
-            Abrir e-mail com a Blitz
+            Abrir Gmail com a Blitz
           </button>
 
           <p class="hint">
-            Será aberto o seu cliente de e-mail (normalmente o Gmail corporativo) com o seu
-            endereço em <strong>Para</strong> e todos os clientes em <strong>CCO</strong>,
-            assunto e corpo já preenchidos. Só revisar, anexar a arte
-            <code>NPS_Blitz.jpg</code> e enviar.
+            Será aberta uma nova aba do <strong>Gmail</strong> com o seu
+            endereço em <strong>Para</strong> e todos os clientes em
+            <strong>CCO</strong>, assunto e corpo já preenchidos. Só revisar,
+            anexar a arte <code>NPS_Blitz.jpg</code> e enviar.
           </p>
         </section>
 
@@ -316,7 +315,7 @@
 </div>
 
 <script>
-  // Texto padrão da Blitz (ajustado para deixar claro o impacto no CS / Gustavo)
+  // Texto padrão da Blitz (com destaque para o impacto no CS / Gustavo)
   var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
 O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
@@ -363,7 +362,7 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     alert('Texto da Blitz copiado para a área de transferência.');
   }
 
-  // Disparo por e-mail usando MAILTO (cliente padrão)
+  // Disparo por e-mail usando compose do Gmail
   document.getElementById('btn-gmail').addEventListener('click', function(){
     var emailsRaw = document.getElementById('emails').value || '';
     var subject = document.getElementById('subject').value ||
@@ -384,12 +383,13 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     var to  = 'gustavo.germano@sankhya.com.br';
     var bcc = list.join(',');
 
-    var mailto = 'mailto:' + encodeURIComponent(to) +
-      '?bcc='    + encodeURIComponent(bcc) +
-      '&subject=' + encodeURIComponent(subject) +
-      '&body='    + encodeURIComponent(body);
+    var url = 'https://mail.google.com/mail/?view=cm&fs=1' +
+      '&to='   + encodeURIComponent(to) +
+      '&bcc='  + encodeURIComponent(bcc) +
+      '&su='   + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
 
-    window.location.href = mailto;
+    window.open(url, '_blank');
   });
 
   // Gerar links de WhatsApp
