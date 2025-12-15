@@ -14,6 +14,9 @@
       --border:#1e293b;
       --text:#e5e7eb;
       --muted:#94a3b8;
+
+      --danger:#fb7185;
+      --danger-soft:rgba(251,113,133,.12);
     }
 
     *{box-sizing:border-box;}
@@ -129,9 +132,7 @@
       box-shadow:0 0 0 1px rgba(34,197,94,.35);
     }
 
-    textarea{
-      min-height:140px;
-    }
+    textarea{ min-height:140px; }
 
     .btn{
       display:inline-flex;
@@ -148,12 +149,18 @@
       background:var(--accent);
       color:#022c22;
       box-shadow:0 10px 30px rgba(16,185,129,.35);
+      text-decoration:none;
     }
     .btn.secondary{
       background:#0b1120;
       color:var(--text);
       box-shadow:none;
       border:1px solid #1f2937;
+    }
+    .btn.danger{
+      background:var(--danger);
+      color:#2b0a12;
+      box-shadow:0 10px 30px rgba(251,113,133,.25);
     }
     .btn:disabled{
       opacity:.55;
@@ -205,6 +212,158 @@
       font-size:.76rem;
       color:var(--muted);
       margin-top:4px;
+    }
+
+    /* Mini-fluxos (SenseData) */
+    .accordion{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .acc-item{
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:rgba(2,6,23,.55);
+    }
+    .acc-head{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 14px;
+      background:rgba(2,6,23,.7);
+      border:none;
+      color:var(--text);
+      cursor:pointer;
+      font:inherit;
+    }
+    .acc-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-align:left;
+      font-weight:600;
+      font-size:.92rem;
+    }
+    .acc-arrow{
+      opacity:.75;
+      transition:transform .2s ease;
+      font-size:1.05rem;
+    }
+    .acc-item.open .acc-arrow{ transform:rotate(90deg); }
+    .acc-body{
+      display:none;
+      padding:12px 14px 14px;
+      border-top:1px solid var(--border);
+    }
+    .acc-item.open .acc-body{ display:block; }
+
+    .flow-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background:rgba(0,0,0,.55);
+      z-index:9999;
+    }
+    .modal.open{ display:flex; }
+    .modal-card{
+      width:100%;
+      max-width:920px;
+      background:rgba(15,23,42,.98);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 22px 70px rgba(0,0,0,.65);
+      overflow:hidden;
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 14px;
+      background:rgba(2,6,23,.65);
+      border-bottom:1px solid var(--border);
+    }
+    .modal-title{
+      margin:0;
+      font-size:1rem;
+      font-weight:700;
+    }
+    .modal-body{
+      padding:14px;
+      max-height:72vh;
+      overflow:auto;
+    }
+    .modal-body h3{
+      margin:.2rem 0 .6rem;
+      font-size:.95rem;
+    }
+    .modal-body p{
+      margin:.4rem 0;
+      color:var(--text);
+      font-size:.9rem;
+      line-height:1.45;
+    }
+    .modal-body .muted{
+      color:var(--muted);
+    }
+    .modal-body ul{
+      margin:.35rem 0 .2rem 1.1rem;
+      padding:0;
+    }
+    .modal-body li{
+      margin:.25rem 0;
+      color:var(--text);
+      font-size:.9rem;
+      line-height:1.45;
+    }
+    .note{
+      padding:10px 12px;
+      border-radius:12px;
+      background:rgba(34,197,94,.10);
+      border:1px solid rgba(34,197,94,.22);
+      margin:.7rem 0;
+    }
+    .note strong{ color:#86efac; }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:.86rem;
+    }
+    .table th, .table td{
+      border:1px solid #1e293b;
+      padding:8px 10px;
+      vertical-align:top;
+    }
+    .table th{
+      background:#0b1120;
+      color:var(--text);
+      font-weight:600;
+      text-align:left;
+    }
+    .kbd{
+      font-size:.78rem;
+      background:#020617;
+      padding:1px 6px;
+      border-radius:6px;
+      border:1px solid #1e293b;
+      color:var(--text);
     }
   </style>
 </head>
@@ -307,12 +466,342 @@
       </div>
     </div>
 
+    <!-- Mini fluxos / gatilhos do SenseData -->
+    <section class="card" style="margin-top:18px;">
+      <h2>Mini fluxos / gatilhos (SenseData)</h2>
+      <p>
+        Use os botões abaixo para abrir os roteiros e checklists de preenchimento.
+      </p>
+
+      <div class="accordion">
+
+        <!-- Monitoramento NPS — Plano de Ação -->
+        <div class="acc-item" id="acc-monitoramento">
+          <button class="acc-head" type="button">
+            <span class="acc-title">Monitoramento NPS — Plano de Ação</span>
+            <span class="acc-arrow">›</span>
+          </button>
+          <div class="acc-body">
+            <div class="flow-actions">
+              <button class="btn secondary" type="button"
+                data-modal="monitoramento-sintese"
+                data-title="Síntese do Plano de Ação NPS">
+                Síntese do Plano de Ação NPS
+              </button>
+            </div>
+            <p class="hint">
+              Dica: este roteiro é o “forecast” (o que você acha que o cliente vai dar de nota).
+            </p>
+          </div>
+        </div>
+
+        <!-- Fechamento de Loop NPS Detratores -->
+        <div class="acc-item" id="acc-detratores">
+          <button class="acc-head" type="button">
+            <span class="acc-title">Fechamento de Loop NPS Detratores</span>
+            <span class="acc-arrow">›</span>
+          </button>
+          <div class="acc-body">
+            <div class="flow-actions">
+              <button class="btn secondary" type="button"
+                data-modal="detratores-entendimento"
+                data-title="Entendimento do cenário e Contato Inicial">
+                Entendimento do cenário e Contato Inicial
+              </button>
+
+              <button class="btn secondary" type="button"
+                data-modal="detratores-montagem"
+                data-title="Montagem e Execução do Plano">
+                Montagem e Execução do Plano
+              </button>
+
+              <button class="btn secondary" type="button"
+                data-modal="detratores-colaboracao"
+                data-title="Plano de Execução com Colaboração de Outras Áreas">
+                Plano de Execução com Colaboração de Outras Áreas
+              </button>
+
+              <button class="btn secondary" type="button"
+                data-modal="detratores-followup"
+                data-title="Plano de Follow-up pós Plano de Ação">
+                Plano de Follow-up pós Plano de Ação
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Card: CS - NPS (Backup / conferência) -->
+    <section class="card" style="margin-top:12px;">
+      <h2>CS - NPS (Backup / conferência)</h2>
+      <p>
+        Caso percamos algum dado (por e-mail ou outro), dá para verificar nesta tela:
+      </p>
+      <p style="margin:.3rem 0;">
+        <strong>Caminho:</strong> Dashboards » Customer Success » CS - NPS
+      </p>
+      <p style="margin:.3rem 0;">
+        <strong>ID:</strong> <code>br.com.sankhya.menu.adicional.nuDsb.1431.1</code>
+      </p>
+    </section>
+
     <div class="footer-note">
       Observação: esta página não envia nada automaticamente. Ela apenas
       prepara os disparos no e-mail e no WhatsApp Web para você revisar e confirmar.
     </div>
   </div>
 </div>
+
+<!-- Modal (genérico) -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title">Roteiro</h3>
+      <button class="btn secondary" type="button" id="modal-close">Fechar</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Templates dos modais -->
+<template id="tpl-monitoramento-sintese">
+  <h3>ROTERIO DO MONITORAMENTO NPS:</h3>
+
+  <div class="note">
+    <strong>FAVOR PREENCHER O CAMPO "CATEGORIA" COM A EXPECTATIVA DA FAIXA.</strong>
+  </div>
+
+  <p class="muted">Explicação sobre os tópicos acima e preenchimento:</p>
+
+  <table class="table" aria-label="Perguntas e preenchimento correto">
+    <thead>
+      <tr>
+        <th>Perguntas</th>
+        <th>Tema Central e preenchimento correto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Possível Faixa do NPS (Promotor, Neutro ou Detrator) - Forecast do NPS.</td>
+        <td>Preenchimento do campo "categoria"</td>
+      </tr>
+      <tr>
+        <td>Alguma situação de insatisfação no cliente? Qual é?</td>
+        <td>Preenchimento do campo "Cliente Insatisfeito"</td>
+      </tr>
+      <tr>
+        <td>Qual será o plano de Ação para essa situação identificada?</td>
+        <td>Plano de ação dado ao cliente</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:10px;"><strong>Checklist (preenchimento no SenseData):</strong></p>
+  <ul>
+    <li>1 - Contato no Cliente &gt; Colocar o nosso contato, aquele que mais falamos.</li>
+    <li>2 - Data de Inicio e Data Final, Horário diferente do primeiro, se for o segundo.</li>
+    <li>3 - 1 hora utilizada.</li>
+    <li>4 - Categoria é o que eu acho que ele vai dar de nota.</li>
+    <li>5 - Cliente insatisfeito na minha opinião ou não.</li>
+  </ul>
+</template>
+
+<template id="tpl-detratores-entendimento">
+  <p>
+    Se o cliente for anônimo, siga as mesmas orientações descritas na aba de instruções,
+    mas direcionando a comunicação ao Patrocinador da empresa.
+  </p>
+
+  <p>
+    Leia atentamente as instruções e siga o roteiro, aplicando as boas práticas recomendadas.
+    Antes de iniciar o contato com o cliente, revise cuidadosamente o feedback do NPS.
+    Prepare perguntas que ajudem a compreender melhor as dores e necessidades do cliente.
+    Consulte os registros de contatos anteriores e certifique-se de ler a aba de instruções para alinhar sua abordagem.
+  </p>
+
+  <p><strong>Pontos importantes:</strong></p>
+  <ul>
+    <li>Revisar histórico e identificar falhas críticas.</li>
+    <li>Ouvir sem interromper e sem justificar.</li>
+    <li>Apresentar plano após a montagem.</li>
+  </ul>
+
+  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
+  <table class="table" aria-label="Tema central e perguntas">
+    <thead>
+      <tr>
+        <th>Tema Central</th>
+        <th>Perguntas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pontos trazidos no contato</td>
+        <td>Quais foram os pontos levantados pelo cliente durante o contato inicial?</td>
+      </tr>
+      <tr>
+        <td>Impactos na operação</td>
+        <td>Quais impactos o cliente mencionou em relação à sua operação ou experiência?</td>
+      </tr>
+      <tr>
+        <td>Essencial para a resolução</td>
+        <td>O que o cliente considera essencial para solucionar a questão?</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:10px;"><strong>Checklist (preenchimento no SenseData):</strong></p>
+  <ul>
+    <li>1 - Contato no Cliente &gt; Colocar o nosso contato, aquele que mais falamos.</li>
+    <li>2 - Data de Inicio e Data Final, Horário diferente do primeiro, se for o segundo.</li>
+    <li>3 - 1 hora utilizada.</li>
+    <li>4 - Categoria: Aquela que for a mais perto da situação.</li>
+    <li>5 - Pontos Trazidos no Contato: Maiores reclamações do cliente.</li>
+    <li>6 - Impactos na Operação: De forma direta o que está ocorrendo no cliente.</li>
+    <li>7 - Essencial para a Resolução: O como podemos resolver os problemas.</li>
+    <li>8 - Produto Citado: O mais perto possível ou exato.</li>
+    <li>9 - Empresa do Grupo Citada: Se não houver deixar em branco.</li>
+  </ul>
+</template>
+
+<template id="tpl-detratores-montagem">
+  <p>
+    Após contato com o cliente e entendimento das dores, elabore um plano de ação.
+    Entenda quais são as causas raízes e trabalhe nos ofensores dela.
+  </p>
+
+  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
+  <table class="table" aria-label="Plano e prazo">
+    <thead>
+      <tr>
+        <th>Tema Central</th>
+        <th>Perguntas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Plano de ação dado ao cliente</td>
+        <td>Qual foi o plano de ação apresentado ao cliente?</td>
+      </tr>
+      <tr>
+        <td>Cliente aprovou a solução</td>
+        <td>O cliente concordou que a solução atende às suas expectativas?</td>
+      </tr>
+      <tr>
+        <td>Prazo combinado para a solução</td>
+        <td>Qual prazo foi acordado para a resolução do problema?</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;"><strong>CRONOGRAMA DO PLANO DE AÇÃO:</strong></p>
+  <table class="table" aria-label="Cronograma do plano de ação">
+    <thead>
+      <tr>
+        <th>Etapa</th>
+        <th>Descrição</th>
+        <th>Responsável</th>
+        <th>Data de Inicio</th>
+        <th>Data de fim</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</template>
+
+<template id="tpl-detratores-colaboracao">
+  <p><strong>Plano de Execução com Colaboração de Outras Áreas</strong></p>
+
+  <p class="muted">
+    Use este gatilho quando o plano depender de colaboração com outras áreas.
+    Preencha os campos com o máximo de clareza e registre tudo em Anotações.
+  </p>
+
+  <table class="table" aria-label="Campos do gatilho colaborativo">
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th>Orientação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contato no cliente</td>
+        <td>Colocar o contato principal (aquele que mais falamos).</td>
+      </tr>
+      <tr>
+        <td>Descrição</td>
+        <td>Plano de Execução com Colaboração de Outras Áreas.</td>
+      </tr>
+      <tr>
+        <td>Data de Início / Hora</td>
+        <td>Registrar a data/hora da ação (ex.: reunião, alinhamento, execução).</td>
+      </tr>
+      <tr>
+        <td>Prev Conclusão / Hora</td>
+        <td>Definir previsão realista de conclusão.</td>
+      </tr>
+      <tr>
+        <td>Valor</td>
+        <td>1 hora utilizada (padrão).</td>
+      </tr>
+      <tr>
+        <td>Prioridade</td>
+        <td>Normal (padrão).</td>
+      </tr>
+      <tr>
+        <td>Categoria</td>
+        <td>Plano Concluído - Somente pelo CS.</td>
+      </tr>
+      <tr>
+        <td>Prazo combinado para a solução</td>
+        <td>Prazo acordado com o cliente.</td>
+      </tr>
+      <tr>
+        <td>Anotações</td>
+        <td>Detalhar conversas, decisões e próximos passos. Anexar evidências se houver.</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<template id="tpl-detratores-followup">
+  <p>
+    Faça com o cliente uma reunião e tangibilize os resultados alcançados com base no plano de ação executado.
+    Lembre-se que quem não mede não gerencia. Compartilhe com o cliente! Detalhe no campo Anotações.
+  </p>
+
+  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
+  <table class="table" aria-label="Follow-up pós plano de ação">
+    <thead>
+      <tr>
+        <th>Tema Central</th>
+        <th>Perguntas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Objetivos do plano atingidos</td>
+        <td>Os objetivos definidos no plano foram atingidos? Se não, quais indicadores ainda precisam de atenção?</td>
+      </tr>
+      <tr>
+        <td>Feedbacks do cliente</td>
+        <td>Quais foram os principais feedbacks do cliente sobre as ações realizadas? Houve percepção de valor ou pontos de insatisfação?</td>
+      </tr>
+      <tr>
+        <td>Lições aprendidas</td>
+        <td>Quais lições aprendidas deste plano podem ser aplicadas para melhorar abordagens futuras?</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
 
 <script>
   // >>> AJUSTE AQUI SE O ÍNDICE DO SEU GMAIL FOR OUTRO (u/0, u/1, etc.)
@@ -425,6 +914,58 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
       a.rel = 'noopener';
       a.textContent = 'Enviar Blitz para ' + phone;
       container.appendChild(a);
+    });
+  });
+
+  // Accordion
+  Array.prototype.forEach.call(document.querySelectorAll('.acc-item .acc-head'), function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.parentElement;
+      if (!item) return;
+      item.classList.toggle('open');
+    });
+  });
+
+  // Modal
+  var modal = document.getElementById('modal');
+  var modalBody = document.getElementById('modal-body');
+  var modalTitle = document.getElementById('modal-title');
+  var btnClose = document.getElementById('modal-close');
+
+  function openModal(templateId, title){
+    var tpl = document.getElementById('tpl-' + templateId);
+    if (!tpl) return;
+
+    modalTitle.textContent = title || 'Roteiro';
+    modalBody.innerHTML = tpl.innerHTML;
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    modalBody.innerHTML = '';
+  }
+
+  btnClose.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('open')){
+      closeModal();
+    }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-modal]'), function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-modal');
+      var title = btn.getAttribute('data-title') || 'Roteiro';
+      openModal(id, title);
     });
   });
 </script>
