@@ -365,6 +365,19 @@
       border:1px solid #1e293b;
       color:var(--text);
     }
+
+    /* Painel de lotes (Gmail) */
+    .batch-panel{
+      display:none;
+      margin-top:10px;
+      padding:12px;
+      border:1px solid #1f2937;
+      border-radius:12px;
+      background:rgba(2,6,23,.55);
+    }
+    .batch-panel .hint{
+      margin:0 0 10px;
+    }
   </style>
 </head>
 <body>
@@ -425,6 +438,17 @@
           <label for="emails">Lista de e-mails (um por linha)</label>
           <textarea id="emails" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
 
+          <div class="hint" id="email-stats"></div>
+
+          <div class="flow-actions" style="margin-top:6px;">
+            <button class="btn secondary" type="button" id="btn-number-emails">
+              Numerar lista
+            </button>
+            <button class="btn secondary" type="button" id="btn-clean-duplicates">
+              Remover duplicados
+            </button>
+          </div>
+
           <label for="subject" style="margin-top:8px;">Assunto</label>
           <input id="subject" type="text"
                  value="Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
@@ -435,10 +459,35 @@
 
           <p class="hint">
             Será aberta uma nova aba do <strong>Gmail</strong> com o seu
-            endereço em <strong>Para</strong> e todos os clientes em
+            endereço em <strong>Para</strong> e até o limite permitido em
             <strong>CCO</strong>, assunto e corpo já preenchidos. Só revisar,
             anexar a arte <code>NPS_Blitz.jpg</code> e enviar.
           </p>
+
+          <!-- Painel: quando passar do limite, mostra o restante para copiar/aplicar -->
+          <div id="batch-panel" class="batch-panel">
+            <div id="batch-summary" class="hint"></div>
+
+            <label for="emails-next">Próximos e-mails (restantes)</label>
+            <textarea id="emails-next" style="min-height:120px;" readonly></textarea>
+
+            <div class="flow-actions" style="margin-top:10px;">
+              <button class="btn secondary" type="button" id="btn-copy-next">
+                Copiar próximos e-mails
+              </button>
+              <button class="btn secondary" type="button" id="btn-apply-next">
+                Aplicar próximos e-mails no campo
+              </button>
+              <button class="btn danger" type="button" id="btn-restore-original">
+                Restaurar lista original
+              </button>
+            </div>
+
+            <p class="hint" style="margin-top:10px;">
+              Observação: o ambiente bloqueia envios com <strong>mais de 50 destinatários</strong>.
+              Esta tela abre em lotes e separa automaticamente o restante.
+            </p>
+          </div>
         </section>
 
         <section class="card" style="margin-top:12px;">
@@ -810,6 +859,15 @@
   var GMAIL_COMPOSE_BASE =
     'https://mail.google.com/mail/u/' + GMAIL_USER_INDEX + '/?view=cm&fs=1';
 
+  // ===== LIMITE DE DESTINATÁRIOS =====
+  // A política exibida no seu erro é "Limite de 50 destinatários".
+  // Como você usa o seu e-mail em "Para", o mais seguro é limitar o CCO a 49.
+  // Se você tiver certeza que o seu "Para" não conta no limite, troque FORCE_SAFE_BCC para false.
+  var MAX_TOTAL_RECIPIENTS = 50;
+  var FIXED_TO = 'gustavo.germano@sankhya.com.br';
+  var FORCE_SAFE_BCC = true; // true = 49 no CCO (recomendado). false = 50 no CCO.
+  var MAX_BCC = FORCE_SAFE_BCC ? Math.max(1, MAX_TOTAL_RECIPIENTS - 1) : MAX_TOTAL_RECIPIENTS;
+
   // Texto padrão da Blitz (com impacto direto no CS / Gustavo)
   var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
@@ -833,7 +891,102 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     return txt || defaultMessage;
   }
 
-  // Copiar texto
+  // ===== Helpers de e-mail =====
+  var __originalEmailsRaw = null;
+
+  function extractEmailFromLine(line){
+    var s = (line || '').trim();
+    if (!s) return '';
+    // aceita linha numerada tipo: "12. email@dominio.com"
+    // aceita "Nome <email@dominio.com>" e variações
+    var m = s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);
+    return m ? m[1].trim() : '';
+  }
+
+  function parseEmailList(raw){
+    return (raw || '')
+      .split(/[\n;,]+/)
+      .map(function(x){ return extractEmailFromLine(x); })
+      .filter(Boolean);
+  }
+
+  function uniqueEmails(list){
+    var seen = Object.create(null);
+    var out = [];
+    list.forEach(function(e){
+      var k = String(e).trim().toLowerCase();
+      if (!k) return;
+      if (!seen[k]){
+        seen[k] = true;
+        out.push(String(e).trim());
+      }
+    });
+    return out;
+  }
+
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve){
+      var temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(temp);
+      resolve();
+    });
+  }
+
+  function showBatchPanel(sentCount, totalCount, remainingList){
+    var panel = document.getElementById('batch-panel');
+    var summary = document.getElementById('batch-summary');
+    var nextBox = document.getElementById('emails-next');
+
+    if (!panel || !summary || !nextBox) return;
+
+    if (!remainingList || !remainingList.length){
+      panel.style.display = 'none';
+      nextBox.value = '';
+      summary.textContent = '';
+      return;
+    }
+
+    panel.style.display = 'block';
+    summary.textContent =
+      'Lote aberto com ' + sentCount + ' e-mails (CCO). Total na lista: ' + totalCount +
+      '. Restam ' + remainingList.length + ' para o próximo disparo.';
+
+    nextBox.value = remainingList.join('\n');
+  }
+
+  function updateEmailStats(){
+    var raw = document.getElementById('emails').value || '';
+    var list = uniqueEmails(parseEmailList(raw));
+    var stats = document.getElementById('email-stats');
+
+    if (!stats) return;
+
+    if (!list.length){
+      stats.textContent = 'Cole os e-mails (um por linha). Limite por disparo no CCO: ' + MAX_BCC + '.';
+      return;
+    }
+
+    var msg = 'E-mails válidos (únicos): ' + list.length + '. Limite por disparo no CCO: ' + MAX_BCC + '.';
+    if (list.length > MAX_BCC){
+      msg += ' Acima do limite: o sistema vai abrir em lotes e mostrar o restante para copiar/aplicar.';
+    }
+    stats.textContent = msg;
+  }
+
+  // Atualiza contador ao digitar
+  document.getElementById('emails').addEventListener('input', function(){
+    updateEmailStats();
+    // se usuário editar manualmente, não força painel de lote (somente após clique)
+  });
+
+  // ===== Copiar texto da Blitz =====
   document.getElementById('btn-copy').addEventListener('click', function(){
     var msg = getMessage();
     if (navigator.clipboard && navigator.clipboard.writeText){
@@ -857,26 +1010,70 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
     alert('Texto da Blitz copiado para a área de transferência.');
   }
 
-  // Abrir Gmail já com o compose preenchido
+  // ===== Ações: numerar / deduplicar =====
+  document.getElementById('btn-number-emails').addEventListener('click', function(){
+    var emailsEl = document.getElementById('emails');
+    var raw = emailsEl.value || '';
+
+    if (__originalEmailsRaw === null) __originalEmailsRaw = raw;
+
+    var list = uniqueEmails(parseEmailList(raw));
+    if (!list.length){
+      alert('Informe pelo menos um e-mail para numerar.');
+      return;
+    }
+
+    emailsEl.value = list.map(function(e, i){
+      return (i + 1) + '. ' + e;
+    }).join('\n');
+
+    updateEmailStats();
+    alert('Lista numerada. Você pode apagar linhas facilmente; o envio continuará funcionando.');
+  });
+
+  document.getElementById('btn-clean-duplicates').addEventListener('click', function(){
+    var emailsEl = document.getElementById('emails');
+    var raw = emailsEl.value || '';
+
+    if (__originalEmailsRaw === null) __originalEmailsRaw = raw;
+
+    var list = uniqueEmails(parseEmailList(raw));
+    if (!list.length){
+      alert('Informe pelo menos um e-mail.');
+      return;
+    }
+
+    emailsEl.value = list.join('\n');
+    updateEmailStats();
+    alert('Duplicados removidos e lista normalizada.');
+  });
+
+  // ===== Abrir Gmail em lotes (CCO <= limite) =====
   document.getElementById('btn-gmail').addEventListener('click', function(){
-    var emailsRaw = document.getElementById('emails').value || '';
+    var emailsEl = document.getElementById('emails');
+    var emailsRaw = emailsEl.value || '';
+
+    if (__originalEmailsRaw === null) __originalEmailsRaw = emailsRaw;
+
     var subject = document.getElementById('subject').value ||
       'Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
 
-    var list = emailsRaw.split(/[\n;,]+/).map(function(x){
-      return x.trim();
-    }).filter(Boolean);
+    var list = uniqueEmails(parseEmailList(emailsRaw));
 
     if (!list.length){
       alert('Informe pelo menos um e-mail (um por linha).');
       return;
     }
 
+    // Lote (até MAX_BCC) + restante
+    var batch = list.slice(0, MAX_BCC);
+    var remaining = list.slice(MAX_BCC);
+
     var body = getMessage() +
       '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
 
-    var to  = 'gustavo.germano@sankhya.com.br';
-    var bcc = list.join(',');
+    var to  = FIXED_TO;
+    var bcc = batch.join(',');
 
     var url = GMAIL_COMPOSE_BASE +
       '&to='   + encodeURIComponent(to) +
@@ -885,9 +1082,59 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
       '&body=' + encodeURIComponent(body);
 
     window.open(url, '_blank');
+
+    // Mostra painel se houver restante
+    showBatchPanel(batch.length, list.length, remaining);
+
+    if (remaining.length){
+      alert(
+        'Atenção: sua lista tem ' + list.length + ' e-mails.\n' +
+        'Foi aberto apenas o 1º lote com ' + batch.length + ' (CCO).\n' +
+        'Restam ' + remaining.length + ' — veja o painel "Próximos e-mails" e envie o próximo lote.'
+      );
+    }
   });
 
-  // Gerar links de WhatsApp
+  // Copiar próximos e-mails
+  document.getElementById('btn-copy-next').addEventListener('click', function(){
+    var nextBox = document.getElementById('emails-next');
+    var text = (nextBox.value || '').trim();
+    if (!text){
+      alert('Não há próximos e-mails para copiar.');
+      return;
+    }
+    copyText(text).then(function(){
+      alert('Próximos e-mails copiados.');
+    });
+  });
+
+  // Aplicar próximos e-mails no campo principal
+  document.getElementById('btn-apply-next').addEventListener('click', function(){
+    var nextBox = document.getElementById('emails-next');
+    var text = (nextBox.value || '').trim();
+    if (!text){
+      alert('Não há próximos e-mails para aplicar.');
+      return;
+    }
+    document.getElementById('emails').value = text;
+    updateEmailStats();
+    showBatchPanel(0, 0, []);
+    alert('Próximos e-mails aplicados no campo. Clique em "Abrir Gmail com a Blitz" para enviar o próximo lote.');
+  });
+
+  // Restaurar lista original
+  document.getElementById('btn-restore-original').addEventListener('click', function(){
+    if (__originalEmailsRaw === null){
+      alert('Nenhuma lista original salva ainda.');
+      return;
+    }
+    document.getElementById('emails').value = __originalEmailsRaw;
+    updateEmailStats();
+    showBatchPanel(0, 0, []);
+    alert('Lista original restaurada.');
+  });
+
+  // ===== WhatsApp =====
   document.getElementById('btn-wa').addEventListener('click', function(){
     var raw = document.getElementById('whatsapps').value || '';
     var list = raw.split(/[\n;,]+/).map(function(x){
@@ -968,6 +1215,9 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
       openModal(id, title);
     });
   });
+
+  // Inicializa contador
+  updateEmailStats();
 </script>
 
 </body>
