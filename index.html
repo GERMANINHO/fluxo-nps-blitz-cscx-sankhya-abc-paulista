@@ -451,7 +451,7 @@
 
           <label for="subject" style="margin-top:8px;">Assunto</label>
           <input id="subject" type="text"
-                 value="Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
+                 value="Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador Sankhya ABC Paulista" />
 
           <button class="btn" id="btn-gmail">
             Abrir Gmail com a Blitz
@@ -854,10 +854,12 @@
 
 <script>
 (function(){
-  // >>> AJUSTE AQUI SE O ÍNDICE DO SEU GMAIL FOR OUTRO (u/0, u/1, etc.)
-  var GMAIL_USER_INDEX = '2'; // hoje o seu está em /mail/u/2/#inbox
+  // ===== GMAIL (ABRIR NO CORPORATIVO) =====
+  // OBS: não dá para "forçar remetente" via parâmetro; o Gmail envia pela conta que abrir o compose.
+  // Aqui, usamos authuser para abrir o compose já “ancorado” no usuário corporativo (se estiver logado).
+  var CORP_GMAIL = 'gustavo.germano@sankhya.com.br';
   var GMAIL_COMPOSE_BASE =
-    'https://mail.google.com/mail/u/' + GMAIL_USER_INDEX + '/?view=cm&fs=1';
+    'https://mail.google.com/mail/?view=cm&fs=1&authuser=' + encodeURIComponent(CORP_GMAIL);
 
   // ===== LIMITE DE DESTINATÁRIOS =====
   // Política: limite 50 destinatários. Como você usa "Para" com seu e-mail, por segurança:
@@ -865,6 +867,10 @@
   var FIXED_TO = 'gustavo.germano@sankhya.com.br';
   var FORCE_SAFE_BCC = true; // true = 49 no CCO (recomendado)
   var MAX_BCC = FORCE_SAFE_BCC ? Math.max(1, MAX_TOTAL_RECIPIENTS - 1) : MAX_TOTAL_RECIPIENTS;
+
+  // ===== ASSUNTO PADRÃO (CORRIGIDO) =====
+  var DEFAULT_SUBJECT =
+    'Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador Sankhya ABC Paulista';
 
   // Texto padrão da Blitz
   var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
@@ -1045,9 +1051,7 @@ Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa es
       if (__originalEmailsRaw === null) __originalEmailsRaw = emailsRaw;
 
       var subjectEl = $('subject');
-      var subject = (subjectEl && subjectEl.value) ?
-        subjectEl.value :
-        'Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
+      var subject = (subjectEl && subjectEl.value) ? subjectEl.value : DEFAULT_SUBJECT;
 
       var list = uniqueEmails(parseEmailList(emailsRaw));
       if (!list.length){
