@@ -1,137 +1,93 @@
-# Fluxo NPS Blitz — CS/CX Sankhya ABC Paulista
+# Fluxo NPS Blitz — CS/CX — Sankhya ABC Paulista (fluxo-nps-blitz-cscx-sankhya-abc-paulista)
 
-Launcher operacional da **Blitz NPS** do time de **CS/CX Sankhya ABC Paulista**.  
+**Versão:** 1.1  
+**Atualizado em:** 10/02/2026  
+**Objetivo:** servir como **launcher operacional** da **Blitz NPS mensal**, centralizando o **texto oficial** e preparando disparos por **Gmail** e **WhatsApp Web** com o mínimo de esforço — **sem enviar nada automaticamente** (você sempre revisa e confirma).
 
-Esta página em **HTML/CSS/JS puro** centraliza o texto oficial da Blitz e automatiza a preparação dos disparos por **e-mail (Gmail)** e **WhatsApp Web**, sem enviar nada sozinha: você sempre revisa e confirma antes de disparar.
+> Projeto **100% front-end** (HTML/CSS/JS puro). Ideal para **GitHub Pages**.
 
 ---
 
-## 🔎 Visão geral
+## 🌐 O que este projeto entrega
 
-- **Objetivo:**  
-  Facilitar a execução da **Blitz NPS mensal**, garantindo:
-  - Texto padrão alinhado com o time de CS/CX;
-  - Disparo consistente para todos os clientes selecionados;
-  - Menos tempo clicando/manual, mais tempo analisando resposta.
+- **Texto padrão da Blitz** já preenchido (editável).
+- Botão para **copiar** a mensagem.
+- **Disparo por Gmail (compose pronto)**:
+  - Abre o Gmail com **Para**, **CCO**, **Assunto** e **Corpo** preenchidos;
+  - Ferramentas para **numerar**, **remover duplicados** e exibir **estatística** da lista;
+  - **Abertura em lotes** quando ultrapassar o limite (painel com “próximos e-mails”).
+- **Disparo por WhatsApp (links wa.me)**:
+  - Gera um link por telefone com a mensagem pronta (abre em nova aba).
+- **Mini fluxos / gatilhos (SenseData)**:
+  - Acordeões com modais de roteiros e checklists (Monitoramento NPS e Detratores).
+- Card de **backup/conferência** da tela **CS - NPS** (caminho + ID).
 
-- **Como funciona:**  
-  A página oferece:
-  - Campo com o **texto padrão da Blitz**, que pode ser ajustado;
-  - Botão para **copiar** a mensagem para a área de transferência;
-  - Card para **disparo por e-mail (Gmail)**:
-    - Define assunto;
-    - Lista de destinatários;
-    - Abre o Gmail com **Para**, **CCO**, **assunto** e **corpo** preenchidos;
-  - Card para **disparo via WhatsApp**:
-    - Lista de telefones (com DDI/DDD);
-    - Gera links `wa.me` com a mensagem pronta.
+---
 
-- **Arquitetura:**  
-  - 100% **front-end** (HTML + CSS + JS);
-  - Nenhum backend ou armazenamento de dados;
-  - Ideal para **GitHub Pages**.
+## ✅ Regras e comportamentos importantes (como a página funciona)
+
+### Gmail (corporativo)
+- O compose é aberto “ancorado” no Gmail corporativo via `authuser`:
+  - Conta configurada no código: `gustavo.germano@sankhya.com.br`
+- **Para:** fixo no seu e-mail corporativo  
+- **CCO:** lista de clientes
+- **Limite por disparo:** a página considera política de **50 destinatários** e, por segurança, abre com **49 no CCO** (deixando seu e-mail em “Para”).
+- Se a lista tiver mais que o limite:
+  - abre o **1º lote**
+  - mostra o restante no painel **“Próximos e-mails”** (com botões para copiar/aplicar/restaurar)
+
+> Observação: a página **não envia** e-mail. Ela apenas abre o Gmail pronto para revisar, anexar `NPS_Blitz.jpg` e clicar em **Enviar**.
+
+### WhatsApp
+- Telefones devem conter **DDI + DDD + número** (um por linha).
+- A página remove caracteres não numéricos e gera links:
+  - `https://wa.me/<telefone>?text=<mensagem_codificada>`
+
+> Observação: a página **não envia** mensagens. Ela apenas abre as conversas no WhatsApp Web com o texto pronto.
 
 ---
 
 ## 🧭 Fluxo operacional (passo a passo)
 
-### 1. Preparar o texto da Blitz
+### 1) Ajustar a mensagem
+- Edite o campo **“Texto padrão da Blitz”** se precisar (pequenos ajustes de tom, contexto, etc.).
+- Use **“Copiar texto da Blitz”** quando quiser colar manualmente em outro canal.
 
-Na coluna esquerda:
+### 2) Disparo por e-mail (Gmail)
+1. Cole os e-mails dos clientes em **“Lista de e-mails (um por linha)”**
+2. (Opcional) Use:
+   - **Numerar lista**
+   - **Remover duplicados**
+3. Ajuste o **Assunto** se necessário
+4. Clique em **“Abrir Gmail com a Blitz”**
+5. No Gmail:
+   - revise o texto
+   - **anexe `NPS_Blitz.jpg`**
+   - clique em **Enviar**
+6. Se aparecer o painel de lotes:
+   - clique em **Aplicar próximos e-mails**
+   - repita o disparo do próximo lote
 
-- Campo **“Texto padrão da Blitz”**:
-  - É preenchido automaticamente com o texto oficial (NPS, Indecx, impacto no CS etc.);
-  - Você pode ajustar a mensagem (nome do CS, tom, detalhes do cliente).
-- Botão **“Copiar texto da Blitz”**:
-  - Copia o texto atual para a área de transferência;
-  - Útil se quiser colar manualmente em outro canal/sistema.
+### 3) Disparo via WhatsApp
+1. Cole os telefones em **“Telefones (com DDI/DDD, um por linha)”**
+2. Clique em **“Gerar links de envio”**
+3. Abra cada link e envie no WhatsApp Web (após revisar)
 
-> Dica (exibida na própria tela):  
-> Depois de abrir o Gmail ou o WhatsApp Web, revise o texto, **anexe a arte `NPS_Blitz.jpg`** e só então clique em **Enviar**.
-
-Abaixo, há um **preview da arte da Blitz**:
-
-- `NPS_Blitz.jpg` exibida no card;
-- Legenda: “Preview da arte da Blitz. Arquivo: `NPS_Blitz.jpg`”.
-
----
-
-### 2. Disparo por e-mail (Gmail)
-
-Na coluna direita, primeiro card:
-
-- **Remetente:**  
-  O Gmail corporativo logado, ex.:  
-  `gustavo.germano@sankhya.com.br` (vai em **Para**).
-
-- **Destinatários (clientes):**
-  - Campo **“Lista de e-mails (um por linha)”** (`id="emails"`).
-  - Você pode colar:
-    - Um e-mail por linha, ou  
-    - Separados por `,` ou `;` (o script limpa e organiza).
-
-- **Assunto:**
-  - Campo `id="subject"` com valor padrão:  
-    `Pesquisa NPS Sankhya — a sua opinião tem poder transformador`
-  - Pode ser alterado antes de clicar no botão.
-
-- **Botão “Abrir Gmail com a Blitz” (`id="btn-gmail")`:**
-  - Valida se há pelo menos um e-mail;
-  - Monta o corpo:
-    - **Texto da Blitz** (campo da esquerda ou padrão, se estiver vazio);
-    - Rodapé automático:
-
-      ```text
-      ---
-      Qualquer dúvida, estou à disposição.
-      Gustavo Germano
-      ```
-
-  - Monta o compose do Gmail com:
-    - **Para:** `gustavo.germano@sankhya.com.br` (padrão no código);
-    - **CCO:** lista de e-mails informados;
-    - **Assunto:** valor do campo `subject`;
-    - **Corpo:** mensagem + assinatura.
-
-  - Abre uma nova aba do Gmail usando a URL base:
-
-    ```js
-    https://mail.google.com/mail/u/<GMAIL_USER_INDEX>/?view=cm&fs=1
-    ```
-
-> Observação: a página **não envia** o e-mail.  
-> Ela apenas abre o Gmail com tudo pronto para você revisar, anexar `NPS_Blitz.jpg` e clicar em **Enviar**.
+### 4) Mini fluxos (SenseData)
+Use os botões para abrir roteiros e checklists (modais) de:
+- **Monitoramento NPS — Plano de Ação** (síntese/forecast)
+- **Fechamento de Loop NPS Detratores**
+  - Entendimento do cenário e contato inicial
+  - Montagem e execução do plano
+  - Plano com colaboração de outras áreas
+  - Follow-up pós plano de ação
 
 ---
 
-### 3. Disparo via WhatsApp
-
-No segundo card da coluna direita:
-
-- **Telefone base:**  
-  O texto orienta usar o WhatsApp Web conectado ao celular  
-  **`11 91441-9960`** (ajustável no HTML, se necessário).
-
-- **Telefones:**
-  - Campo `id="whatsapps"`:
-    - Um telefone por linha;
-    - Deve incluir **DDI + DDD + número** (ex.: `5599999999999`).
-  - A página remove caracteres não numéricos (`x.replace(/\D/g,'')`), então:
-    - Pode colar números com espaços, parênteses, traços etc.
-
-- **Botão “Gerar links de envio” (`id="btn-wa")`:**
-  - Valida se há pelo menos um telefone;
-  - Usa o texto da Blitz (campo da esquerda ou padrão);
-  - Para cada telefone, cria um link:
-
-    ```text
-    https://wa.me/<telefone>?text=<mensagem_codificada>
-    ```
-
-  - Lista os links em `#wa-links` como:
-    - “**Enviar Blitz para \<telefone\>**” (um link por cliente).
-
-> Basta clicar em cada link para abrir a conversa no **WhatsApp Web** com a mensagem pronta — você só revisa e envia.
+## 🧾 Backup / conferência (Sankhya)
+Caso precise confirmar dados:
+- **Caminho:** `Dashboards » Customer Success » CS - NPS`
+- **ID:** `br.com.sankhya.menu.adicional.nuDsb.1431.1`
 
 ---
 
@@ -139,5 +95,6 @@ No segundo card da coluna direita:
 
 ```text
 / (raiz do repositório)
-├── index.html      # página única com layout, lógica e estilos
-└── NPS_Blitz.jpg   # arte utilizada na Blitz (preview e anexos de e-mail)
+├── index.html      # página única com layout + lógica (Gmail/WhatsApp) + modais
+├── NPS_Blitz.jpg   # arte da Blitz (preview na tela + anexo no e-mail)
+└── README.md
