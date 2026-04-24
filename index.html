@@ -3,877 +3,298 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluxo NPS Blitz — CS/CX Sankhya ABC Paulista</title>
-
+  <title>Fluxo NPS — CS/CX Sankhya ABC Paulista</title>
   <style>
     :root{
-      --bg:#0f172a;
-      --card-bg:#0b1120;
-      --accent:#22c55e;
-      --accent-soft:rgba(34,197,94,.12);
-      --border:#1e293b;
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-
-      --danger:#fb7185;
-      --danger-soft:rgba(251,113,133,.12);
+      --bg:#0f172a; --card-bg:#0b1120; --accent:#22c55e; --accent-2:#38bdf8;
+      --accent-soft:rgba(34,197,94,.12); --info-soft:rgba(56,189,248,.12);
+      --border:#1e293b; --text:#e5e7eb; --muted:#94a3b8;
+      --danger:#fb7185; --warning:#fbbf24; --warning-soft:rgba(251,191,36,.12);
+      --shadow:0 18px 45px rgba(15,23,42,.9);
     }
-
-    *{box-sizing:border-box;}
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:radial-gradient(circle at top,#1e293b 0,#020617 52%,#000 100%);
-      color:var(--text);
-    }
-
-    .app{
-      min-height:100vh;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:24px 16px 40px;
-    }
-
-    .shell{
-      width:100%;
-      max-width:1100px;
-    }
-
-    .header-tag{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      padding:4px 10px;
-      border-radius:999px;
-      background:var(--accent-soft);
-      color:var(--accent);
-      font-size:.78rem;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:.75rem;
-    }
-
-    .logo-dot{
-      width:10px; height:10px;
-      border-radius:999px;
-      background:var(--accent);
-      box-shadow:0 0 0 4px rgba(34,197,94,.3);
-    }
-
-    h1{
-      margin:.1rem 0 .3rem;
-      font-size:1.9rem;
-    }
-
-    .subtitle{
-      margin:0 0 1.8rem;
-      color:var(--muted);
-      max-width:640px;
-      font-size:.94rem;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: minmax(0,1.25fr) minmax(0,1fr);
-      gap:18px;
-    }
-
-    @media (max-width:880px){
-      .grid{grid-template-columns:1fr;}
-    }
-
-    .card{
-      background:rgba(15,23,42,.92);
-      border-radius:16px;
-      border:1px solid var(--border);
-      padding:16px 18px 18px;
-      box-shadow:0 18px 45px rgba(15,23,42,.9);
-      backdrop-filter:blur(12px);
-    }
-
-    .card h2{
-      margin:0 0 .35rem;
-      font-size:1.05rem;
-    }
-
-    .card p{
-      margin:.2rem 0 .7rem;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-
-    label{
-      display:block;
-      font-size:.8rem;
-      font-weight:500;
-      margin-bottom:4px;
-      color:var(--muted);
-    }
-
-    textarea,
-    input[type="text"]{
-      width:100%;
-      border-radius:10px;
-      border:1px solid #1e293b;
-      background:#020617;
-      color:var(--text);
-      padding:8px 10px;
-      font-size:.86rem;
-      font-family:inherit;
-      resize:vertical;
-    }
-
-    textarea:focus,
-    input[type="text"]:focus{
-      outline:none;
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(34,197,94,.35);
-    }
-
-    textarea{ min-height:140px; }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.4rem;
-      border:none;
-      border-radius:999px;
-      padding:8px 14px;
-      font-size:.82rem;
-      font-weight:500;
-      cursor:pointer;
-      margin-top:8px;
-      background:var(--accent);
-      color:#022c22;
-      box-shadow:0 10px 30px rgba(16,185,129,.35);
-      text-decoration:none;
-    }
-    .btn.secondary{
-      background:#0b1120;
-      color:var(--text);
-      box-shadow:none;
-      border:1px solid #1f2937;
-    }
-    .btn.danger{
-      background:var(--danger);
-      color:#2b0a12;
-      box-shadow:0 10px 30px rgba(251,113,133,.25);
-    }
-    .btn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-      box-shadow:none;
-    }
-
-    .hint{
-      margin-top:6px;
-      font-size:.76rem;
-      color:var(--muted);
-    }
-
-    .links-list a{
-      display:block;
-      font-size:.82rem;
-      padding:3px 0;
-      color:#6ee7b7;
-      text-decoration:none;
-      word-break:break-all;
-    }
-    .links-list a:hover{text-decoration:underline;}
-
-    .footer-note{
-      margin-top:18px;
-      font-size:.78rem;
-      color:var(--muted);
-    }
-
-    code{
-      font-size:.78rem;
-      background:#020617;
-      padding:1px 4px;
-      border-radius:4px;
-    }
-
-    .img-preview{
-      margin-top:10px;
-      border-radius:12px;
-      overflow:hidden;
-      border:1px solid #1f2937;
-    }
-    .img-preview img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-    .img-caption{
-      font-size:.76rem;
-      color:var(--muted);
-      margin-top:4px;
-    }
-
-    /* Mini-fluxos (SenseData) */
-    .accordion{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .acc-item{
-      border:1px solid var(--border);
-      border-radius:14px;
-      overflow:hidden;
-      background:rgba(2,6,23,.55);
-    }
-    .acc-head{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px 14px;
-      background:rgba(2,6,23,.7);
-      border:none;
-      color:var(--text);
-      cursor:pointer;
-      font:inherit;
-    }
-    .acc-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-align:left;
-      font-weight:600;
-      font-size:.92rem;
-    }
-    .acc-arrow{
-      opacity:.75;
-      transition:transform .2s ease;
-      font-size:1.05rem;
-    }
-    .acc-item.open .acc-arrow{ transform:rotate(90deg); }
-    .acc-body{
-      display:none;
-      padding:12px 14px 14px;
-      border-top:1px solid var(--border);
-    }
-    .acc-item.open .acc-body{ display:block; }
-
-    .flow-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:8px;
-    }
-
-    /* Modal */
-    .modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      background:rgba(0,0,0,.55);
-      z-index:9999;
-    }
-    .modal.open{ display:flex; }
-    .modal-card{
-      width:100%;
-      max-width:920px;
-      background:rgba(15,23,42,.98);
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:0 22px 70px rgba(0,0,0,.65);
-      overflow:hidden;
-    }
-    .modal-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px 14px;
-      background:rgba(2,6,23,.65);
-      border-bottom:1px solid var(--border);
-    }
-    .modal-title{
-      margin:0;
-      font-size:1rem;
-      font-weight:700;
-    }
-    .modal-body{
-      padding:14px;
-      max-height:72vh;
-      overflow:auto;
-    }
-    .modal-body h3{
-      margin:.2rem 0 .6rem;
-      font-size:.95rem;
-    }
-    .modal-body p{
-      margin:.4rem 0;
-      color:var(--text);
-      font-size:.9rem;
-      line-height:1.45;
-    }
-    .modal-body .muted{
-      color:var(--muted);
-    }
-    .modal-body ul{
-      margin:.35rem 0 .2rem 1.1rem;
-      padding:0;
-    }
-    .modal-body li{
-      margin:.25rem 0;
-      color:var(--text);
-      font-size:.9rem;
-      line-height:1.45;
-    }
-    .note{
-      padding:10px 12px;
-      border-radius:12px;
-      background:rgba(34,197,94,.10);
-      border:1px solid rgba(34,197,94,.22);
-      margin:.7rem 0;
-    }
-    .note strong{ color:#86efac; }
-
-    .table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-      font-size:.86rem;
-    }
-    .table th, .table td{
-      border:1px solid #1e293b;
-      padding:8px 10px;
-      vertical-align:top;
-    }
-    .table th{
-      background:#0b1120;
-      color:var(--text);
-      font-weight:600;
-      text-align:left;
-    }
-    .kbd{
-      font-size:.78rem;
-      background:#020617;
-      padding:1px 6px;
-      border-radius:6px;
-      border:1px solid #1e293b;
-      color:var(--text);
-    }
-
-    /* Painel de lotes (Gmail) */
-    .batch-panel{
-      display:none;
-      margin-top:10px;
-      padding:12px;
-      border:1px solid #1f2937;
-      border-radius:12px;
-      background:rgba(2,6,23,.55);
-    }
-    .batch-panel .hint{
-      margin:0 0 10px;
-    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(circle at top,#1e293b 0,#020617 52%,#000 100%);color:var(--text)}
+    a{color:#6ee7b7} code{font-size:.78rem;background:#020617;padding:1px 5px;border-radius:5px;border:1px solid rgba(148,163,184,.18)}
+    .app{min-height:100vh;padding:24px 16px 40px}.shell{width:100%;max-width:1180px;margin:0 auto}
+    .hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:18px;align-items:stretch;margin-bottom:18px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+    .hero-main,.hero-side,.card{background:rgba(15,23,42,.92);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+    .hero-main{padding:22px 24px}.hero-side{padding:16px;display:grid;gap:12px}
+    .header-tag{display:inline-flex;align-items:center;gap:.5rem;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+    .logo-dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.3)}
+    h1{margin:.1rem 0 .35rem;font-size:2.25rem;line-height:1.05}.subtitle{margin:0;color:var(--muted);max-width:760px;font-size:.98rem;line-height:1.5}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#020617;color:#cbd5e1;border:1px solid var(--border);font-size:.78rem;font-weight:650;text-transform:uppercase;letter-spacing:.05em}
+    .side-box{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px 14px}.side-box h2{margin:0 0 5px;font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}.side-box p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}
+    .quick-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:0 0 18px}@media(max-width:1020px){.quick-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.quick-nav{grid-template-columns:1fr}}
+    .quick-nav a{display:block;text-decoration:none;color:var(--text);background:rgba(15,23,42,.92);border:1px solid var(--border);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.55)}.quick-nav strong{display:block;font-size:.9rem;margin-bottom:3px}.quick-nav span{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
+    .card{padding:16px 18px 18px;margin-top:14px}.card h2{margin:0 0 .45rem;font-size:1.08rem}.card h3{margin:1rem 0 .45rem;font-size:.98rem}.card p{margin:.25rem 0 .7rem;color:var(--muted);font-size:.9rem;line-height:1.48}.card ul,.card ol{margin:.45rem 0 .4rem 1.1rem;padding:0}.card li{margin:.25rem 0;font-size:.9rem;line-height:1.45}
+    .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}@media(max-width:880px){.grid{grid-template-columns:1fr}}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}@media(max-width:880px){.mini-grid{grid-template-columns:1fr}}
+    .info-card{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px}.info-card h3{margin:0 0 5px;font-size:.92rem}.info-card p{font-size:.84rem;margin:0;color:var(--muted)}
+    .note{padding:10px 12px;border-radius:12px;background:var(--accent-soft);border:1px solid rgba(34,197,94,.22);margin:.7rem 0;color:var(--text)}.note.warning{background:var(--warning-soft);border-color:rgba(251,191,36,.28)}.note.info{background:var(--info-soft);border-color:rgba(56,189,248,.28)}.note strong{color:#86efac}.note.warning strong{color:#fde68a}.note.info strong{color:#7dd3fc}
+    label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--muted)}textarea,input[type=text]{width:100%;border-radius:10px;border:1px solid #1e293b;background:#020617;color:var(--text);padding:9px 10px;font-size:.86rem;font-family:inherit;resize:vertical}textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,197,94,.35)}textarea{min-height:140px}.small-textarea{min-height:100px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:none;border-radius:999px;padding:8px 14px;font-size:.82rem;font-weight:650;cursor:pointer;margin-top:8px;background:var(--accent);color:#022c22;box-shadow:0 10px 30px rgba(16,185,129,.35);text-decoration:none}.btn.secondary{background:#0b1120;color:var(--text);box-shadow:none;border:1px solid #1f2937}.btn.info{background:var(--accent-2);color:#082f49;box-shadow:0 10px 30px rgba(56,189,248,.25)}.btn.danger{background:var(--danger);color:#2b0a12}.flow-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .hint{margin-top:6px;font-size:.76rem;color:var(--muted)}.footer-note{margin-top:18px;font-size:.78rem;color:var(--muted)}.links-list a{display:block;font-size:.82rem;padding:3px 0;color:#6ee7b7;text-decoration:none;word-break:break-all}.links-list a:hover{text-decoration:underline}
+    .img-preview{margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid #1f2937;background:#020617}.img-preview img{display:block;width:100%;height:auto}.img-caption{font-size:.76rem;color:var(--muted);margin-top:4px}
+    .table-wrap{overflow:auto;border-radius:12px;border:1px solid #1e293b;margin-top:10px}.table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:620px}.table th,.table td{border-bottom:1px solid #1e293b;padding:9px 10px;vertical-align:top}.table th{background:#0b1120;color:var(--text);font-weight:650;text-align:left}.table tr:last-child td{border-bottom:0}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px;margin-top:10px}@media(max-width:720px){.checklist{grid-template-columns:1fr}}.check-item{display:flex;gap:8px;align-items:flex-start;color:var(--text);font-size:.88rem;line-height:1.35}.check-item input{margin-top:2px;accent-color:var(--accent)}
+    .accordion{margin-top:10px;display:flex;flex-direction:column;gap:10px}.acc-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(2,6,23,.55)}.acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.7);border:none;color:var(--text);cursor:pointer;font:inherit}.acc-title{display:flex;align-items:center;gap:10px;text-align:left;font-weight:650;font-size:.92rem}.acc-arrow{opacity:.75;transition:transform .2s ease;font-size:1.05rem}.acc-item.open .acc-arrow{transform:rotate(90deg)}.acc-body{display:none;padding:12px 14px 14px;border-top:1px solid var(--border)}.acc-item.open .acc-body{display:block}
+    .batch-panel{display:none;margin-top:10px;padding:12px;border:1px solid #1f2937;border-radius:12px;background:rgba(2,6,23,.55)}.batch-panel .hint{margin:0 0 10px}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.55);z-index:9999}.modal.open{display:flex}.modal-card{width:100%;max-width:920px;background:rgba(15,23,42,.98);border:1px solid var(--border);border-radius:16px;box-shadow:0 22px 70px rgba(0,0,0,.65);overflow:hidden}.modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.65);border-bottom:1px solid var(--border)}.modal-title{margin:0;font-size:1rem;font-weight:700}.modal-body{padding:14px;max-height:72vh;overflow:auto}.modal-body p{margin:.4rem 0;color:var(--text);font-size:.9rem;line-height:1.45}.modal-body ul{margin:.35rem 0 .2rem 1.1rem;padding:0}.modal-body li{margin:.25rem 0;color:var(--text);font-size:.9rem;line-height:1.45}
   </style>
 </head>
 <body>
-
 <div class="app">
   <div class="shell">
-    <div class="header-tag">
-      <span class="logo-dot"></span>
-      NPS Blitz • CS/CX Sankhya ABC Paulista
-    </div>
-    <h1>Launcher da Blitz NPS</h1>
-    <p class="subtitle">
-      Use esta tela todo início de mês para aquecer os clientes
-      selecionados para a pesquisa NPS. O texto abaixo é o padrão
-      oficial da Blitz; você pode fazer pequenos ajustes se precisar.
-    </p>
+    <section class="hero" id="topo">
+      <div class="hero-main">
+        <div class="header-tag"><span class="logo-dot"></span> Fluxo NPS • CS/CX Sankhya ABC Paulista</div>
+        <h1>Fluxo NPS</h1>
+        <p class="subtitle">Central operacional para a rotina mensal de NPS: consulta da base, extração do maille, envio da Blitz por Gmail e WhatsApp, acompanhamento no INDECX, tratativa de playbooks e apoio ao preenchimento da Apuração do Resultado/GPD quando solicitado.</p>
+        <div class="chips"><span class="chip">Última semana do mês</span><span class="chip">INDECX</span><span class="chip">CS - NPS</span><span class="chip">Maille</span><span class="chip">Playbooks</span><span class="chip">GPD</span></div>
+      </div>
+      <aside class="hero-side">
+        <div class="side-box"><h2>Scheduler Blitz</h2><p>Última segunda-feira do mês, 09h: conferir maille e preparar envio da Blitz.</p></div>
+        <div class="side-box"><h2>Scheduler Playbooks</h2><p>Última quarta-feira do mês, 09h: revisar playbooks de neutros/detratores.</p></div>
+        <div class="side-box"><h2>Prazo de tratativa</h2><p>Playbooks de NPS devem ser concluídos até o final do mês seguinte.</p></div>
+      </aside>
+    </section>
 
-    <div class="grid">
-      <!-- Coluna esquerda: texto da Blitz + imagem -->
-      <section class="card">
-        <h2>Texto padrão da Blitz</h2>
-        <p>
-          Este é o texto que será enviado por <strong>e-mail</strong> e
-          <strong>WhatsApp</strong>.
-        </p>
+    <nav class="quick-nav" aria-label="Atalhos do Fluxo NPS">
+      <a href="#rotina"><strong>Rotina Mensal</strong><span>Passo a passo da última semana.</span></a>
+      <a href="#indecx"><strong>INDECX</strong><span>Acesso à plataforma de pesquisa.</span></a>
+      <a href="#cs-nps"><strong>CS - NPS</strong><span>Dashboard, quadrante e sub-relatórios.</span></a>
+      <a href="#blitz"><strong>Blitz</strong><span>Texto, Gmail e WhatsApp.</span></a>
+      <a href="#playbooks"><strong>Playbooks / GPD</strong><span>Tratativa e apuração.</span></a>
+    </nav>
 
-        <label for="blitz-text">Mensagem</label>
-        <textarea id="blitz-text"></textarea>
+    <section class="card" id="rotina">
+      <h2>1. Rotina Mensal NPS</h2>
+      <p>Execute esta rotina na última semana de todo mês para preparar o cliente antes da pesquisa e evitar pendências em playbooks.</p>
+      <div class="mini-grid">
+        <div class="info-card"><h3>1) Conferir base</h3><p>Acessar CS - NPS e abrir o quadrante CS - Pesquisas NPS.</p></div>
+        <div class="info-card"><h3>2) Extrair maille</h3><p>Usar o sub-relatório Clientes Pesquisados com mais de 6 Meses.</p></div>
+        <div class="info-card"><h3>3) Enviar Blitz</h3><p>Preparar envio por Gmail e WhatsApp, sempre revisando antes de enviar.</p></div>
+      </div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Ordem</th><th>Ação</th><th>Resultado esperado</th></tr></thead><tbody>
+        <tr><td>1</td><td>Acessar CS - NPS.</td><td>Base de pesquisa aberta para conferência.</td></tr>
+        <tr><td>2</td><td>Abrir CS - Pesquisas NPS.</td><td>Sub-relatórios disponíveis para análise.</td></tr>
+        <tr><td>3</td><td>Abrir Clientes Pesquisados com mais de 6 Meses.</td><td>Lista de clientes aptos localizada.</td></tr>
+        <tr><td>4</td><td>Exportar e organizar e-mails/telefones.</td><td>Maille pronto para Blitz.</td></tr>
+        <tr><td>5</td><td>Enviar Blitz por Gmail e WhatsApp.</td><td>Clientes aquecidos para a pesquisa.</td></tr>
+        <tr><td>6</td><td>Acompanhar INDECX e playbooks.</td><td>Notas neutras/detratoras tratadas no prazo.</td></tr>
+      </tbody></table></div>
+    </section>
 
-        <button class="btn secondary" id="btn-copy">
-          Copiar texto da Blitz
-        </button>
+    <section class="grid">
+      <div>
+        <section class="card" id="indecx">
+          <h2>2. INDECX</h2>
+          <p>Acesse o INDECX para acompanhar clientes pesquisados, notas, comentários, promotores, neutros, detratores e histórico das pesquisas.</p>
+          <div class="note info"><strong>SubAba:</strong> INDECX</div>
+          <a class="btn info" href="https://v3.app-indecx.com/" target="_blank" rel="noopener noreferrer">Abrir INDECX</a>
+        </section>
 
-        <p class="hint">
-          Dica: depois de abrir o Gmail ou o WhatsApp Web, revise o texto,
-          anexe a arte <code>NPS_Blitz.jpg</code> e só então clique em
-          <strong>Enviar</strong>.
-        </p>
+        <section class="card" id="cs-nps">
+          <h2>3. CS - NPS no Sankhya</h2>
+          <p><strong>Tela:</strong> CS - NPS</p>
+          <p><strong>Caminho:</strong> Dashboards » Customer Success » CS - NPS</p>
+          <p><strong>ID:</strong> <code>br.com.sankhya.menu.adicional.nuDsb.1431.1</code></p>
+          <p><strong>Quadrante:</strong> CS - Pesquisas NPS</p>
+          <div class="table-wrap"><table class="table"><thead><tr><th>Sub-relatório</th><th>Uso no fluxo</th></tr></thead><tbody>
+            <tr><td>Público-Alvo</td><td>Base total considerada para pesquisa NPS.</td></tr>
+            <tr><td>Clientes Pesquisados nos Últimos 6 Meses</td><td>Clientes pesquisados recentemente; normalmente não entram em nova pesquisa.</td></tr>
+            <tr><td>Clientes Pesquisados com mais de 6 Meses</td><td><strong>Lista principal para extração do maille.</strong></td></tr>
+            <tr><td>Cliente Alvo - Nunca Pesquisados</td><td>Consulta opcional. Não é etapa obrigatória deste fluxo.</td></tr>
+            <tr><td>Clientes Alvo - Sem Contato</td><td>Consulta opcional. Contatos atuais já estão tratados.</td></tr>
+          </tbody></table></div>
+        </section>
+      </div>
 
-        <div class="img-preview">
-          <img src="NPS_Blitz.jpg" alt="Arte da Blitz NPS">
+      <aside>
+        <section class="card" id="maille">
+          <h2>4. Extração do Maille</h2>
+          <ol>
+            <li>Acessar <strong>CS - NPS</strong>.</li>
+            <li>Localizar o quadrante <strong>CS - Pesquisas NPS</strong>.</li>
+            <li>Clicar em <strong>Clientes Pesquisados com mais de 6 Meses</strong>.</li>
+            <li>Exportar a lista.</li>
+            <li>Separar e-mails e telefones.</li>
+            <li>Colar os dados nos campos de envio da Blitz.</li>
+          </ol>
+          <div class="note"><strong>Regra principal:</strong> o maille mensal sai de Clientes Pesquisados com mais de 6 Meses.</div>
+        </section>
+
+        <section class="card" id="schedulers">
+          <h2>5. Schedulers / Lembretes</h2>
+          <p><strong>Preparar Fluxo NPS:</strong> última segunda-feira do mês, 09h.</p>
+          <p><strong>Tratar Playbooks NPS:</strong> última quarta-feira do mês, 09h.</p>
+          <div class="note warning"><strong>Importante:</strong> o site não dispara lembretes sozinho. Os avisos ficam em agenda/automação externa.</div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="card" id="blitz">
+      <h2>6. Blitz NPS</h2>
+      <p>Use esta área para revisar e enviar a mensagem mensal de aquecimento da pesquisa NPS. Nada é enviado automaticamente.</p>
+      <div class="grid">
+        <section>
+          <h3>Texto padrão da Blitz</h3>
+          <label for="blitz-text">Mensagem</label>
+          <textarea id="blitz-text"></textarea>
+          <button class="btn secondary" id="btn-copy">Copiar texto da Blitz</button>
+          <p class="hint">Depois de abrir o Gmail ou WhatsApp Web, revise o texto, anexe a arte <code>NPS_Blitz.jpg</code> no e-mail e só então envie.</p>
+          <div class="img-preview"><img src="NPS_Blitz.jpg" alt="Arte da Blitz NPS" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;padding:18px;color:#94a3b8;font-size:.85rem;&quot;>Preview indisponível. Arquivo esperado: NPS_Blitz.jpg</div>');"></div>
+          <div class="img-caption">Preview da arte da Blitz. Arquivo: <code>NPS_Blitz.jpg</code></div>
+        </section>
+
+        <section>
+          <h3>Checklist antes do envio</h3>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox"> Maille extraído.</label>
+            <label class="check-item"><input type="checkbox"> E-mails separados.</label>
+            <label class="check-item"><input type="checkbox"> Telefones separados.</label>
+            <label class="check-item"><input type="checkbox"> Duplicados removidos.</label>
+            <label class="check-item"><input type="checkbox"> Texto revisado.</label>
+            <label class="check-item"><input type="checkbox"> Arte preparada para anexo.</label>
+            <label class="check-item"><input type="checkbox"> Gmail revisado antes do envio.</label>
+            <label class="check-item"><input type="checkbox"> WhatsApp revisado antes do envio.</label>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="card" id="gmail">
+        <h2>7. Disparo por E-mail (Gmail)</h2>
+        <p>O Gmail será aberto com seu e-mail corporativo em <strong>Para</strong> e os clientes em <strong>CCO</strong>. O limite seguro é de 49 clientes por lote.</p>
+        <label for="emails">Lista de e-mails (um por linha)</label>
+        <textarea id="emails" class="small-textarea" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
+        <div class="hint" id="email-stats"></div>
+        <div class="flow-actions">
+          <button class="btn secondary" type="button" id="btn-number-emails">Numerar lista</button>
+          <button class="btn secondary" type="button" id="btn-clean-duplicates">Remover duplicados</button>
         </div>
-        <div class="img-caption">
-          Preview da arte da Blitz. Arquivo: <code>NPS_Blitz.jpg</code>
+        <label for="subject" style="margin-top:8px;">Assunto</label>
+        <input id="subject" type="text" value="Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
+        <button class="btn" id="btn-gmail">Abrir Gmail com a Blitz</button>
+        <p class="hint">Revise o Gmail, anexe <code>NPS_Blitz.jpg</code> e clique em Enviar manualmente.</p>
+        <div id="batch-panel" class="batch-panel">
+          <div id="batch-summary" class="hint"></div>
+          <label for="emails-next">Próximos e-mails (restantes)</label>
+          <textarea id="emails-next" class="small-textarea" readonly></textarea>
+          <div class="flow-actions">
+            <button class="btn secondary" type="button" id="btn-copy-next">Copiar próximos e-mails</button>
+            <button class="btn secondary" type="button" id="btn-apply-next">Aplicar próximos e-mails no campo</button>
+            <button class="btn danger" type="button" id="btn-restore-original">Restaurar lista original</button>
+          </div>
         </div>
       </section>
 
-      <!-- Coluna direita: disparos -->
-      <div class="stack">
-        <section class="card">
-          <h2>Disparo por e-mail (Gmail)</h2>
-          <p>
-            O remetente será o <strong>Gmail corporativo</strong> em que você estiver
-            logado (<strong>gustavo.germano@sankhya.com.br</strong>) em
-            <strong>Para</strong>. Os clientes serão adicionados em <strong>CCO</strong>.
-          </p>
+      <section class="card" id="whatsapp">
+        <h2>8. Disparo via WhatsApp</h2>
+        <p>Gera links individuais do WhatsApp Web com a mensagem pronta. O envio continua manual.</p>
+        <label for="whatsapps">Telefones (com DDI/DDD, um por linha)</label>
+        <textarea id="whatsapps" class="small-textarea" placeholder="5511999999999&#10;5511988888888"></textarea>
+        <button class="btn" id="btn-wa">Gerar links de envio</button>
+        <p class="hint">Abra cada link, revise a mensagem e envie pelo WhatsApp Web.</p>
+        <div id="wa-links" class="links-list"></div>
+      </section>
+    </section>
 
-          <label for="emails">Lista de e-mails (um por linha)</label>
-          <textarea id="emails" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
-
-          <div class="hint" id="email-stats"></div>
-
-          <div class="flow-actions" style="margin-top:6px;">
-            <button class="btn secondary" type="button" id="btn-number-emails">
-              Numerar lista
-            </button>
-            <button class="btn secondary" type="button" id="btn-clean-duplicates">
-              Remover duplicados
-            </button>
-          </div>
-
-          <label for="subject" style="margin-top:8px;">Assunto</label>
-          <input id="subject" type="text"
-                 value="Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador Sankhya ABC Paulista" />
-
-          <button class="btn" id="btn-gmail">
-            Abrir Gmail com a Blitz
-          </button>
-
-          <p class="hint">
-            Será aberta uma nova aba do <strong>Gmail</strong> com o seu
-            endereço em <strong>Para</strong> e até o limite permitido em
-            <strong>CCO</strong>, assunto e corpo já preenchidos. Só revisar,
-            anexar a arte <code>NPS_Blitz.jpg</code> e enviar.
-          </p>
-
-          <!-- Painel: quando passar do limite, mostra o restante para copiar/aplicar -->
-          <div id="batch-panel" class="batch-panel">
-            <div id="batch-summary" class="hint"></div>
-
-            <label for="emails-next">Próximos e-mails (restantes)</label>
-            <textarea id="emails-next" style="min-height:120px;" readonly></textarea>
-
-            <div class="flow-actions" style="margin-top:10px;">
-              <button class="btn secondary" type="button" id="btn-copy-next">
-                Copiar próximos e-mails
-              </button>
-              <button class="btn secondary" type="button" id="btn-apply-next">
-                Aplicar próximos e-mails no campo
-              </button>
-              <button class="btn danger" type="button" id="btn-restore-original">
-                Restaurar lista original
-              </button>
-            </div>
-
-            <p class="hint" style="margin-top:10px;">
-              Observação: o ambiente bloqueia envios com <strong>mais de 50 destinatários</strong>.
-              Esta tela abre em lotes e separa automaticamente o restante.
-            </p>
-          </div>
-        </section>
-
-        <section class="card" style="margin-top:12px;">
-          <h2>Disparo via WhatsApp</h2>
-          <p>
-            Use o WhatsApp Web conectado ao seu celular
-            <strong>11 91441-9960</strong>.
-          </p>
-
-          <label for="whatsapps">Telefones (com DDI/DDD, um por linha)</label>
-          <textarea id="whatsapps"
-            placeholder="5599999999999&#10;5511999999999"></textarea>
-
-          <button class="btn" id="btn-wa">
-            Gerar links de envio
-          </button>
-
-          <p class="hint">
-            Serão criados links <code>wa.me</code> com a mensagem pronta.
-            Clique em cada link para abrir a conversa e enviar.
-          </p>
-
-          <div id="wa-links" class="links-list"></div>
-        </section>
-      </div>
-    </div>
-
-    <!-- Mini fluxos / gatilhos do SenseData -->
-    <section class="card" style="margin-top:18px;">
-      <h2>Mini fluxos / gatilhos (SenseData)</h2>
-      <p>
-        Use os botões abaixo para abrir os roteiros e checklists de preenchimento.
-      </p>
-
+    <section class="card" id="playbooks">
+      <h2>9. Playbooks NPS — Neutros e Detratores</h2>
+      <p>Todo cliente neutro ou detrator precisa ter tratativa registrada por playbook. Se o playbook automático não aparecer, crie manualmente.</p>
+      <div class="note"><strong>Prazo:</strong> concluir até o final do mês seguinte.</div>
       <div class="accordion">
-
-        <!-- Monitoramento NPS — Plano de Ação -->
-        <div class="acc-item" id="acc-monitoramento">
-          <button class="acc-head" type="button">
-            <span class="acc-title">Monitoramento NPS — Plano de Ação</span>
-            <span class="acc-arrow">›</span>
-          </button>
+        <div class="acc-item open">
+          <button class="acc-head" type="button"><span class="acc-title">Fechamento de Loop NPS — Neutros e Detratores</span><span class="acc-arrow">›</span></button>
           <div class="acc-body">
             <div class="flow-actions">
-              <button class="btn secondary" type="button"
-                data-modal="monitoramento-sintese"
-                data-title="Síntese do Plano de Ação NPS">
-                Síntese do Plano de Ação NPS
-              </button>
-            </div>
-            <p class="hint">
-              Dica: este roteiro é o “forecast” (o que você acha que o cliente vai dar de nota).
-            </p>
-          </div>
-        </div>
-
-        <!-- Fechamento de Loop NPS Detratores -->
-        <div class="acc-item" id="acc-detratores">
-          <button class="acc-head" type="button">
-            <span class="acc-title">Fechamento de Loop NPS Detratores</span>
-            <span class="acc-arrow">›</span>
-          </button>
-          <div class="acc-body">
-            <div class="flow-actions">
-              <button class="btn secondary" type="button"
-                data-modal="detratores-entendimento"
-                data-title="Entendimento do cenário e Contato Inicial">
-                Entendimento do cenário e Contato Inicial
-              </button>
-
-              <button class="btn secondary" type="button"
-                data-modal="detratores-montagem"
-                data-title="Montagem e Execução do Plano">
-                Montagem e Execução do Plano
-              </button>
-
-              <button class="btn secondary" type="button"
-                data-modal="detratores-colaboracao"
-                data-title="Plano de Execução com Colaboração de Outras Áreas">
-                Plano de Execução com Colaboração de Outras Áreas
-              </button>
-
-              <button class="btn secondary" type="button"
-                data-modal="detratores-followup"
-                data-title="Plano de Follow-up pós Plano de Ação">
-                Plano de Follow-up pós Plano de Ação
-              </button>
+              <button class="btn secondary" type="button" data-modal="detratores-entendimento" data-title="Entendimento do cenário e contato inicial">Entendimento do cenário</button>
+              <button class="btn secondary" type="button" data-modal="detratores-montagem" data-title="Montagem e execução do plano">Montagem e execução</button>
+              <button class="btn secondary" type="button" data-modal="detratores-colaboracao" data-title="Plano com colaboração de outras áreas">Colaboração de outras áreas</button>
+              <button class="btn secondary" type="button" data-modal="detratores-followup" data-title="Follow-up pós plano de ação">Follow-up pós plano</button>
             </div>
           </div>
         </div>
+      </div>
+      <ol>
+        <li>Acessar a tela de <strong>Atividades</strong>.</li>
+        <li>Procurar atividades/playbooks de NPS.</li>
+        <li>Verificar clientes neutros ou detratores.</li>
+        <li>Abrir o playbook e registrar cenário, contato, plano e follow-up.</li>
+        <li>Se não existir playbook automático, criar manualmente.</li>
+      </ol>
+    </section>
 
+    <section class="card" id="gpd">
+      <h2>10. Apuração do Resultado / GPD</h2>
+      <p><strong>Tela:</strong> Apuração do Resultado</p>
+      <p><strong>Caminho:</strong> Gestão Estratégica » Apuração do Resultado</p>
+      <p><strong>ID:</strong> <code>br.com.sankhya.apuracao.resultado</code></p>
+      <div class="note info"><strong>Regra:</strong> preencher quando a Ana CSM solicitar ou quando houver necessidade de formalizar plano de ação para o indicador NPS.</div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Campo de apoio</th><th>Como preencher</th></tr></thead><tbody>
+        <tr><td>O que aconteceu?</td><td>Descrever o cenário do indicador ou cliente.</td></tr>
+        <tr><td>Onde aconteceu?</td><td>Cliente, carteira, unidade ou indicador afetado.</td></tr>
+        <tr><td>Como será tratado?</td><td>Plano de ação, responsáveis e próximos passos.</td></tr>
+        <tr><td>Por que será feito?</td><td>Impacto no NPS, relacionamento ou risco de churn.</td></tr>
+        <tr><td>Prazo e resultado esperado</td><td>Prazo combinado e resultado que se espera atingir.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="card" id="checklist-final">
+      <h2>11. Checklist Final</h2>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox"> Acessei CS - NPS.</label>
+        <label class="check-item"><input type="checkbox"> Entrei no quadrante CS - Pesquisas NPS.</label>
+        <label class="check-item"><input type="checkbox"> Extraí Clientes Pesquisados com mais de 6 Meses.</label>
+        <label class="check-item"><input type="checkbox"> Enviei todos os lotes por Gmail.</label>
+        <label class="check-item"><input type="checkbox"> Enviei WhatsApps necessários.</label>
+        <label class="check-item"><input type="checkbox"> Acompanhei retornos no INDECX.</label>
+        <label class="check-item"><input type="checkbox"> Revisei playbooks de neutros/detratores.</label>
+        <label class="check-item"><input type="checkbox"> Preenchi GPD se solicitado.</label>
       </div>
     </section>
 
-    <!-- Card: CS - NPS (Backup / conferência) -->
-    <section class="card" style="margin-top:12px;">
-      <h2>CS - NPS (Backup / conferência)</h2>
-      <p>
-        Caso percamos algum dado (por e-mail ou outro), dá para verificar nesta tela:
-      </p>
-      <p style="margin:.3rem 0;">
-        <strong>Caminho:</strong> Dashboards » Customer Success » CS - NPS
-      </p>
-      <p style="margin:.3rem 0;">
-        <strong>ID:</strong> <code>br.com.sankhya.menu.adicional.nuDsb.1431.1</code>
-      </p>
-    </section>
-
-    <div class="footer-note">
-      Observação: esta página não envia nada automaticamente. Ela apenas
-      prepara os disparos no e-mail e no WhatsApp Web para você revisar e confirmar.
-    </div>
+    <div class="footer-note">Observação: esta página não envia e-mails ou WhatsApps automaticamente. Ela apenas prepara os disparos para revisão e envio manual.</div>
   </div>
 </div>
 
-<!-- Modal (genérico) -->
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-header">
-      <h3 class="modal-title" id="modal-title">Roteiro</h3>
-      <button class="btn secondary" type="button" id="modal-close">Fechar</button>
-    </div>
+    <div class="modal-header"><h3 class="modal-title" id="modal-title">Roteiro</h3><button class="btn secondary" type="button" id="modal-close">Fechar</button></div>
     <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
 
-<!-- Templates dos modais -->
-<template id="tpl-monitoramento-sintese">
-  <h3>ROTERIO DO MONITORAMENTO NPS:</h3>
-
-  <div class="note">
-    <strong>FAVOR PREENCHER O CAMPO "CATEGORIA" COM A EXPECTATIVA DA FAIXA.</strong>
-  </div>
-
-  <p class="muted">Explicação sobre os tópicos acima e preenchimento:</p>
-
-  <table class="table" aria-label="Perguntas e preenchimento correto">
-    <thead>
-      <tr>
-        <th>Perguntas</th>
-        <th>Tema Central e preenchimento correto</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Possível Faixa do NPS (Promotor, Neutro ou Detrator) - Forecast do NPS.</td>
-        <td>Preenchimento do campo "categoria"</td>
-      </tr>
-      <tr>
-        <td>Alguma situação de insatisfação no cliente? Qual é?</td>
-        <td>Preenchimento do campo "Cliente Insatisfeito"</td>
-      </tr>
-      <tr>
-        <td>Qual será o plano de Ação para essa situação identificada?</td>
-        <td>Plano de ação dado ao cliente</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top:10px;"><strong>Checklist (preenchimento no SenseData):</strong></p>
-  <ul>
-    <li>1 - Contato no Cliente &gt; Colocar o nosso contato, aquele que mais falamos.</li>
-    <li>2 - Data de Inicio e Data Final, Horário diferente do primeiro, se for o segundo.</li>
-    <li>3 - 1 hora utilizada.</li>
-    <li>4 - Categoria é o que eu acho que ele vai dar de nota.</li>
-    <li>5 - Cliente insatisfeito na minha opinião ou não.</li>
-  </ul>
-</template>
-
 <template id="tpl-detratores-entendimento">
-  <p>
-    Se o cliente for anônimo, siga as mesmas orientações descritas na aba de instruções,
-    mas direcionando a comunicação ao Patrocinador da empresa.
-  </p>
-
-  <p>
-    Leia atentamente as instruções e siga o roteiro, aplicando as boas práticas recomendadas.
-    Antes de iniciar o contato com o cliente, revise cuidadosamente o feedback do NPS.
-    Prepare perguntas que ajudem a compreender melhor as dores e necessidades do cliente.
-    Consulte os registros de contatos anteriores e certifique-se de ler a aba de instruções para alinhar sua abordagem.
-  </p>
-
-  <p><strong>Pontos importantes:</strong></p>
-  <ul>
-    <li>Revisar histórico e identificar falhas críticas.</li>
-    <li>Ouvir sem interromper e sem justificar.</li>
-    <li>Apresentar plano após a montagem.</li>
-  </ul>
-
-  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
-  <table class="table" aria-label="Tema central e perguntas">
-    <thead>
-      <tr>
-        <th>Tema Central</th>
-        <th>Perguntas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Pontos trazidos no contato</td>
-        <td>Quais foram os pontos levantados pelo cliente durante o contato inicial?</td>
-      </tr>
-      <tr>
-        <td>Impactos na operação</td>
-        <td>Quais impactos o cliente mencionou em relação à sua operação ou experiência?</td>
-      </tr>
-      <tr>
-        <td>Essencial para a resolução</td>
-        <td>O que o cliente considera essencial para solucionar a questão?</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top:10px;"><strong>Checklist (preenchimento no SenseData):</strong></p>
-  <ul>
-    <li>1 - Contato no Cliente &gt; Colocar o nosso contato, aquele que mais falamos.</li>
-    <li>2 - Data de Inicio e Data Final, Horário diferente do primeiro, se for o segundo.</li>
-    <li>3 - 1 hora utilizada.</li>
-    <li>4 - Categoria: Aquela que for a mais perto da situação.</li>
-    <li>5 - Pontos Trazidos no Contato: Maiores reclamações do cliente.</li>
-    <li>6 - Impactos na Operação: De forma direta o que está ocorrendo no cliente.</li>
-    <li>7 - Essencial para a Resolução: O como podemos resolver os problemas.</li>
-    <li>8 - Produto Citado: O mais perto possível ou exato.</li>
-    <li>9 - Empresa do Grupo Citada: Se não houver deixar em branco.</li>
-  </ul>
+  <p>Antes de iniciar contato, revise o feedback do NPS, histórico do cliente e registros anteriores. O foco é entender a causa da nota sem justificar ou interromper.</p>
+  <p><strong>Registrar no playbook:</strong></p>
+  <ul><li>Comentário do cliente e motivo da nota.</li><li>Impacto na operação.</li><li>O que o cliente considera essencial para resolver.</li><li>Produto, módulo ou área citada.</li><li>Contato principal utilizado.</li></ul>
 </template>
-
 <template id="tpl-detratores-montagem">
-  <p>
-    Após contato com o cliente e entendimento das dores, elabore um plano de ação.
-    Entenda quais são as causas raízes e trabalhe nos ofensores dela.
-  </p>
-
-  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
-  <table class="table" aria-label="Plano e prazo">
-    <thead>
-      <tr>
-        <th>Tema Central</th>
-        <th>Perguntas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Plano de ação dado ao cliente</td>
-        <td>Qual foi o plano de ação apresentado ao cliente?</td>
-      </tr>
-      <tr>
-        <td>Cliente aprovou a solução</td>
-        <td>O cliente concordou que a solução atende às suas expectativas?</td>
-      </tr>
-      <tr>
-        <td>Prazo combinado para a solução</td>
-        <td>Qual prazo foi acordado para a resolução do problema?</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top:12px;"><strong>CRONOGRAMA DO PLANO DE AÇÃO:</strong></p>
-  <table class="table" aria-label="Cronograma do plano de ação">
-    <thead>
-      <tr>
-        <th>Etapa</th>
-        <th>Descrição</th>
-        <th>Responsável</th>
-        <th>Data de Inicio</th>
-        <th>Data de fim</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
+  <p>Após o contato inicial, monte um plano de ação objetivo, com responsáveis e prazos claros.</p>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Etapa</th><th>Descrição</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Entendimento da causa</td><td>CS</td><td></td><td>Aberto</td></tr><tr><td>2</td><td>Plano de correção</td><td>CS / Área envolvida</td><td></td><td>Aberto</td></tr><tr><td>3</td><td>Follow-up com cliente</td><td>CS</td><td></td><td>Aberto</td></tr></tbody></table></div>
 </template>
-
 <template id="tpl-detratores-colaboracao">
-  <p><strong>Plano de Execução com Colaboração de Outras Áreas</strong></p>
-
-  <p class="muted">
-    Use este gatilho quando o plano depender de colaboração com outras áreas.
-    Preencha os campos com o máximo de clareza e registre tudo em Anotações.
-  </p>
-
-  <table class="table" aria-label="Campos do gatilho colaborativo">
-    <thead>
-      <tr>
-        <th>Campo</th>
-        <th>Orientação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Contato no cliente</td>
-        <td>Colocar o contato principal (aquele que mais falamos).</td>
-      </tr>
-      <tr>
-        <td>Descrição</td>
-        <td>Plano de Execução com Colaboração de Outras Áreas.</td>
-      </tr>
-      <tr>
-        <td>Data de Início / Hora</td>
-        <td>Registrar a data/hora da ação (ex.: reunião, alinhamento, execução).</td>
-      </tr>
-      <tr>
-        <td>Prev Conclusão / Hora</td>
-        <td>Definir previsão realista de conclusão.</td>
-      </tr>
-      <tr>
-        <td>Valor</td>
-        <td>1 hora utilizada (padrão).</td>
-      </tr>
-      <tr>
-        <td>Prioridade</td>
-        <td>Normal (padrão).</td>
-      </tr>
-      <tr>
-        <td>Categoria</td>
-        <td>Plano Concluído - Somente pelo CS.</td>
-      </tr>
-      <tr>
-        <td>Prazo combinado para a solução</td>
-        <td>Prazo acordado com o cliente.</td>
-      </tr>
-      <tr>
-        <td>Anotações</td>
-        <td>Detalhar conversas, decisões e próximos passos. Anexar evidências se houver.</td>
-      </tr>
-    </tbody>
-  </table>
+  <p>Use quando a solução depender de outra área: Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops ou Produto.</p>
+  <ul><li>Registrar área responsável.</li><li>Registrar o que foi solicitado.</li><li>Registrar prazo combinado.</li><li>Atualizar o playbook a cada retorno.</li><li>Anexar evidências quando houver.</li></ul>
 </template>
-
 <template id="tpl-detratores-followup">
-  <p>
-    Faça com o cliente uma reunião e tangibilize os resultados alcançados com base no plano de ação executado.
-    Lembre-se que quem não mede não gerencia. Compartilhe com o cliente! Detalhe no campo Anotações.
-  </p>
-
-  <p class="muted" style="margin-top:10px;">Explicação sobre os tópicos acima:</p>
-  <table class="table" aria-label="Follow-up pós plano de ação">
-    <thead>
-      <tr>
-        <th>Tema Central</th>
-        <th>Perguntas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Objetivos do plano atingidos</td>
-        <td>Os objetivos definidos no plano foram atingidos? Se não, quais indicadores ainda precisam de atenção?</td>
-      </tr>
-      <tr>
-        <td>Feedbacks do cliente</td>
-        <td>Quais foram os principais feedbacks do cliente sobre as ações realizadas? Houve percepção de valor ou pontos de insatisfação?</td>
-      </tr>
-      <tr>
-        <td>Lições aprendidas</td>
-        <td>Quais lições aprendidas deste plano podem ser aplicadas para melhorar abordagens futuras?</td>
-      </tr>
-    </tbody>
-  </table>
+  <p>Após executar o plano, faça follow-up para tangibilizar o que foi resolvido e validar se o cliente percebeu evolução.</p>
+  <ul><li>Os objetivos do plano foram atingidos?</li><li>O cliente percebeu melhora?</li><li>Ainda existe pendência?</li><li>Qual próximo marco?</li><li>O playbook pode ser concluído?</li></ul>
 </template>
 
 <script>
 (function(){
-  // ===== GMAIL (ABRIR NO CORPORATIVO) =====
-  // OBS: não dá para "forçar remetente" via parâmetro; o Gmail envia pela conta que abrir o compose.
-  // Aqui, usamos authuser para abrir o compose já “ancorado” no usuário corporativo (se estiver logado).
-  var CORP_GMAIL = 'gustavo.germano@sankhya.com.br';
-  var GMAIL_COMPOSE_BASE =
-    'https://mail.google.com/mail/?view=cm&fs=1&authuser=' + encodeURIComponent(CORP_GMAIL);
-
-  // ===== LIMITE DE DESTINATÁRIOS =====
-  // Política: limite 50 destinatários. Como você usa "Para" com seu e-mail, por segurança:
-  var MAX_TOTAL_RECIPIENTS = 50;
-  var FIXED_TO = 'gustavo.germano@sankhya.com.br';
-  var FORCE_SAFE_BCC = true; // true = 49 no CCO (recomendado)
-  var MAX_BCC = FORCE_SAFE_BCC ? Math.max(1, MAX_TOTAL_RECIPIENTS - 1) : MAX_TOTAL_RECIPIENTS;
-
-  // ===== ASSUNTO PADRÃO (CORRIGIDO) =====
-  var DEFAULT_SUBJECT =
-    'Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador Sankhya ABC Paulista';
-
-  // Texto padrão da Blitz
-  var defaultMessage = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
+  var CORP_GMAIL='gustavo.germano@sankhya.com.br';
+  var GMAIL_COMPOSE_BASE='https://mail.google.com/mail/?view=cm&fs=1&authuser='+encodeURIComponent(CORP_GMAIL);
+  var MAX_BCC=49;
+  var FIXED_TO='gustavo.germano@sankhya.com.br';
+  var DEFAULT_SUBJECT='Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
+  var defaultMessage=`A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
 O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
 
@@ -885,340 +306,39 @@ Nessa escala, as notas de 0 a 6 são consideradas como detratores. De 7 a 8 uma 
 
 Além da nota, é de extrema importância que você explique o motivo dela, para que possamos ser mais assertivos e continuar evoluindo por você. O seu feedback ajuda a Sankhya e também orienta diretamente o meu trabalho como CS responsável pelo seu atendimento.
 
-Essa é uma pesquisa realizada por ligação telefônica pela Indecx (empresa especializada em pesquisa) e agora também por WhatsApp, por isso fique atento e não deixe de dar a sua opinião!`;
+Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa especializada em pesquisa) e agora também por WhatsApp, por isso fique atento e não deixe de dar a sua opinião!`;
 
-  // ===== Helpers seguros (não quebram se faltar ID) =====
-  function $(id){ return document.getElementById(id); }
-  function on(id, evt, fn){
-    var el = $(id);
-    if (el) el.addEventListener(evt, fn);
-  }
-
-  function getMessage(){
-    var el = $('blitz-text');
-    var txt = el ? (el.value || '').trim() : '';
-    return txt || defaultMessage;
-  }
-
-  function extractEmailFromLine(line){
-    var s = (line || '').trim();
-    if (!s) return '';
-    var m = s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);
-    return m ? m[1].trim() : '';
-  }
-
-  function parseEmailList(raw){
-    return (raw || '')
-      .split(/[\n;,]+/)
-      .map(extractEmailFromLine)
-      .filter(Boolean);
-  }
-
-  function uniqueEmails(list){
-    var seen = Object.create(null);
-    var out = [];
-    list.forEach(function(e){
-      var k = String(e).trim().toLowerCase();
-      if (!k) return;
-      if (!seen[k]){
-        seen[k] = true;
-        out.push(String(e).trim());
-      }
-    });
-    return out;
-  }
-
-  function copyText(text){
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise(function(resolve){
-      var temp = document.createElement('textarea');
-      temp.value = text;
-      document.body.appendChild(temp);
-      temp.select();
-      try{ document.execCommand('copy'); }catch(e){}
-      document.body.removeChild(temp);
-      resolve();
-    });
-  }
-
-  function showBatchPanel(sentCount, totalCount, remainingList){
-    var panel = $('batch-panel');
-    var summary = $('batch-summary');
-    var nextBox = $('emails-next');
-    if (!panel || !summary || !nextBox) return;
-
-    if (!remainingList || !remainingList.length){
-      panel.style.display = 'none';
-      nextBox.value = '';
-      summary.textContent = '';
-      return;
-    }
-
-    panel.style.display = 'block';
-    summary.textContent =
-      'Lote aberto com ' + sentCount + ' e-mails (CCO). Total na lista: ' + totalCount +
-      '. Restam ' + remainingList.length + ' para o próximo disparo.';
-
-    nextBox.value = remainingList.join('\n');
-  }
-
-  function updateEmailStats(){
-    var emailsEl = $('emails');
-    var stats = $('email-stats');
-    if (!emailsEl || !stats) return;
-
-    var list = uniqueEmails(parseEmailList(emailsEl.value || ''));
-    if (!list.length){
-      stats.textContent = 'Cole os e-mails (um por linha). Limite por disparo no CCO: ' + MAX_BCC + '.';
-      return;
-    }
-
-    var msg = 'E-mails válidos (únicos): ' + list.length + '. Limite por disparo no CCO: ' + MAX_BCC + '.';
-    if (list.length > MAX_BCC){
-      msg += ' Acima do limite: o sistema abrirá em lotes e mostrará o restante para copiar/aplicar.';
-    }
-    stats.textContent = msg;
-  }
-
-  var __originalEmailsRaw = null;
-
+  function $(id){return document.getElementById(id)}
+  function on(id,evt,fn){var el=$(id);if(el)el.addEventListener(evt,fn)}
+  function getMessage(){var el=$('blitz-text');var txt=el?(el.value||'').trim():'';return txt||defaultMessage}
+  function extractEmailFromLine(line){var s=(line||'').trim();if(!s)return'';var m=s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);return m?m[1].trim():''}
+  function parseEmailList(raw){return(raw||'').split(/[\n;,]+/).map(extractEmailFromLine).filter(Boolean)}
+  function uniqueEmails(list){var seen=Object.create(null),out=[];list.forEach(function(e){var k=String(e).trim().toLowerCase();if(k&&!seen[k]){seen[k]=true;out.push(String(e).trim())}});return out}
+  function copyText(text){if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text)}return new Promise(function(resolve){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(t);resolve()})}
+  function showBatchPanel(sentCount,totalCount,remainingList){var panel=$('batch-panel'),summary=$('batch-summary'),nextBox=$('emails-next');if(!panel||!summary||!nextBox)return;if(!remainingList||!remainingList.length){panel.style.display='none';nextBox.value='';summary.textContent='';return}panel.style.display='block';summary.textContent='Lote aberto com '+sentCount+' e-mails (CCO). Total na lista: '+totalCount+'. Restam '+remainingList.length+' para o próximo disparo.';nextBox.value=remainingList.join('\n')}
+  function updateEmailStats(){var emailsEl=$('emails'),stats=$('email-stats');if(!emailsEl||!stats)return;var list=uniqueEmails(parseEmailList(emailsEl.value||''));if(!list.length){stats.textContent='Cole os e-mails (um por linha). Limite por disparo no CCO: '+MAX_BCC+'.';return}var msg='E-mails válidos (únicos): '+list.length+'. Limite por disparo no CCO: '+MAX_BCC+'.';if(list.length>MAX_BCC){msg+=' Acima do limite: o sistema abrirá em lotes e mostrará o restante.'}stats.textContent=msg}
+  var __originalEmailsRaw=null;
   function init(){
-    // Inicializa textarea da Blitz
-    var blitz = $('blitz-text');
-    if (blitz && !blitz.value) blitz.value = defaultMessage;
-
-    // Contador ao digitar
-    on('emails', 'input', function(){
-      updateEmailStats();
-    });
-
-    // Copiar texto da Blitz
-    on('btn-copy', 'click', function(){
-      copyText(getMessage()).then(function(){
-        alert('Texto da Blitz copiado para a área de transferência.');
-      });
-    });
-
-    // Numerar lista
-    on('btn-number-emails', 'click', function(){
-      var emailsEl = $('emails');
-      if (!emailsEl) return;
-
-      var raw = emailsEl.value || '';
-      if (__originalEmailsRaw === null) __originalEmailsRaw = raw;
-
-      var list = uniqueEmails(parseEmailList(raw));
-      if (!list.length){
-        alert('Informe pelo menos um e-mail para numerar.');
-        return;
-      }
-
-      emailsEl.value = list.map(function(e, i){
-        return (i + 1) + '. ' + e;
-      }).join('\n');
-
-      updateEmailStats();
-      alert('Lista numerada. Você pode apagar linhas; o envio continuará funcionando.');
-    });
-
-    // Remover duplicados
-    on('btn-clean-duplicates', 'click', function(){
-      var emailsEl = $('emails');
-      if (!emailsEl) return;
-
-      var raw = emailsEl.value || '';
-      if (__originalEmailsRaw === null) __originalEmailsRaw = raw;
-
-      var list = uniqueEmails(parseEmailList(raw));
-      if (!list.length){
-        alert('Informe pelo menos um e-mail.');
-        return;
-      }
-
-      emailsEl.value = list.join('\n');
-      updateEmailStats();
-      alert('Duplicados removidos e lista normalizada.');
-    });
-
-    // Abrir Gmail em lotes
-    on('btn-gmail', 'click', function(){
-      var emailsEl = $('emails');
-      if (!emailsEl) return;
-
-      var emailsRaw = emailsEl.value || '';
-      if (__originalEmailsRaw === null) __originalEmailsRaw = emailsRaw;
-
-      var subjectEl = $('subject');
-      var subject = (subjectEl && subjectEl.value) ? subjectEl.value : DEFAULT_SUBJECT;
-
-      var list = uniqueEmails(parseEmailList(emailsRaw));
-      if (!list.length){
-        alert('Informe pelo menos um e-mail (um por linha).');
-        return;
-      }
-
-      var batch = list.slice(0, MAX_BCC);
-      var remaining = list.slice(MAX_BCC);
-
-      var body = getMessage() +
-        '\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';
-
-      var url = GMAIL_COMPOSE_BASE +
-        '&to='   + encodeURIComponent(FIXED_TO) +
-        '&bcc='  + encodeURIComponent(batch.join(',')) +
-        '&su='   + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-
-      window.open(url, '_blank');
-
-      showBatchPanel(batch.length, list.length, remaining);
-
-      if (remaining.length){
-        alert(
-          'Atenção: sua lista tem ' + list.length + ' e-mails.\n' +
-          'Foi aberto apenas o 1º lote com ' + batch.length + ' (CCO).\n' +
-          'Restam ' + remaining.length + ' — veja o painel "Próximos e-mails".'
-        );
-      }
-    });
-
-    // Copiar próximos
-    on('btn-copy-next', 'click', function(){
-      var nextBox = $('emails-next');
-      var text = nextBox ? (nextBox.value || '').trim() : '';
-      if (!text){
-        alert('Não há próximos e-mails para copiar.');
-        return;
-      }
-      copyText(text).then(function(){ alert('Próximos e-mails copiados.'); });
-    });
-
-    // Aplicar próximos
-    on('btn-apply-next', 'click', function(){
-      var nextBox = $('emails-next');
-      var text = nextBox ? (nextBox.value || '').trim() : '';
-      if (!text){
-        alert('Não há próximos e-mails para aplicar.');
-        return;
-      }
-      var emailsEl = $('emails');
-      if (emailsEl) emailsEl.value = text;
-
-      updateEmailStats();
-      showBatchPanel(0, 0, []);
-      alert('Próximos e-mails aplicados. Clique em "Abrir Gmail com a Blitz" para enviar o próximo lote.');
-    });
-
-    // Restaurar original
-    on('btn-restore-original', 'click', function(){
-      if (__originalEmailsRaw === null){
-        alert('Nenhuma lista original salva ainda.');
-        return;
-      }
-      var emailsEl = $('emails');
-      if (emailsEl) emailsEl.value = __originalEmailsRaw;
-
-      updateEmailStats();
-      showBatchPanel(0, 0, []);
-      alert('Lista original restaurada.');
-    });
-
-    // WhatsApp
-    on('btn-wa', 'click', function(){
-      var rawEl = $('whatsapps');
-      var raw = rawEl ? (rawEl.value || '') : '';
-
-      var list = raw.split(/[\n;,]+/).map(function(x){
-        return x.replace(/\D/g,'').trim();
-      }).filter(Boolean);
-
-      var container = $('wa-links');
-      if (container) container.innerHTML = '';
-
-      if (!list.length){
-        alert('Informe pelo menos um telefone (um por linha).');
-        return;
-      }
-
-      var msg = getMessage();
-
-      list.forEach(function(phone){
-        var url = 'https://wa.me/' + encodeURIComponent(phone) +
-          '?text=' + encodeURIComponent(msg);
-
-        if (!container) return;
-        var a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.textContent = 'Enviar Blitz para ' + phone;
-        container.appendChild(a);
-      });
-    });
-
-    // Accordion
-    Array.prototype.forEach.call(document.querySelectorAll('.acc-item .acc-head'), function(btn){
-      btn.addEventListener('click', function(){
-        var item = btn.parentElement;
-        if (item) item.classList.toggle('open');
-      });
-    });
-
-    // Modal
-    var modal = $('modal');
-    var modalBody = $('modal-body');
-    var modalTitle = $('modal-title');
-
-    function openModal(templateId, title){
-      var tpl = $('tpl-' + templateId);
-      if (!tpl || !modal || !modalBody || !modalTitle) return;
-
-      modalTitle.textContent = title || 'Roteiro';
-      modalBody.innerHTML = tpl.innerHTML;
-
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeModal(){
-      if (!modal || !modalBody) return;
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      modalBody.innerHTML = '';
-    }
-
-    on('modal-close', 'click', closeModal);
-
-    if (modal){
-      modal.addEventListener('click', function(e){
-        if (e.target === modal) closeModal();
-      });
-    }
-
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && modal && modal.classList.contains('open')){
-        closeModal();
-      }
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll('[data-modal]'), function(btn){
-      btn.addEventListener('click', function(){
-        openModal(btn.getAttribute('data-modal'), btn.getAttribute('data-title') || 'Roteiro');
-      });
-    });
-
-    updateEmailStats();
+    var blitz=$('blitz-text');if(blitz&&!blitz.value)blitz.value=defaultMessage;updateEmailStats();
+    on('emails','input',updateEmailStats);
+    on('btn-copy','click',function(){copyText(getMessage()).then(function(){alert('Texto da Blitz copiado.')})});
+    on('btn-number-emails','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail para numerar.');return}emailsEl.value=list.map(function(e,i){return(i+1)+'. '+e}).join('\n');updateEmailStats();alert('Lista numerada.')});
+    on('btn-clean-duplicates','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail.');return}emailsEl.value=list.join('\n');updateEmailStats();alert('Duplicados removidos.')});
+    on('btn-gmail','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var emailsRaw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=emailsRaw;var subjectEl=$('subject');var subject=(subjectEl&&subjectEl.value)?subjectEl.value:DEFAULT_SUBJECT;var list=uniqueEmails(parseEmailList(emailsRaw));if(!list.length){alert('Informe pelo menos um e-mail.');return}var batch=list.slice(0,MAX_BCC),remaining=list.slice(MAX_BCC);var body=getMessage()+'\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';var url=GMAIL_COMPOSE_BASE+'&to='+encodeURIComponent(FIXED_TO)+'&bcc='+encodeURIComponent(batch.join(','))+'&su='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);window.open(url,'_blank');showBatchPanel(batch.length,list.length,remaining);if(remaining.length){alert('Foi aberto o 1º lote com '+batch.length+' e-mails. Restam '+remaining.length+' no painel Próximos e-mails.')}});
+    on('btn-copy-next','click',function(){var nextBox=$('emails-next');var text=nextBox?(nextBox.value||'').trim():'';if(!text){alert('Não há próximos e-mails para copiar.');return}copyText(text).then(function(){alert('Próximos e-mails copiados.')})});
+    on('btn-apply-next','click',function(){var nextBox=$('emails-next');var text=nextBox?(nextBox.value||'').trim():'';if(!text){alert('Não há próximos e-mails para aplicar.');return}var emailsEl=$('emails');if(emailsEl)emailsEl.value=text;updateEmailStats();showBatchPanel(0,0,[]);alert('Próximos e-mails aplicados.')});
+    on('btn-restore-original','click',function(){if(__originalEmailsRaw===null){alert('Nenhuma lista original salva ainda.');return}var emailsEl=$('emails');if(emailsEl)emailsEl.value=__originalEmailsRaw;updateEmailStats();showBatchPanel(0,0,[]);alert('Lista original restaurada.')});
+    on('btn-wa','click',function(){var rawEl=$('whatsapps');var raw=rawEl?(rawEl.value||''):'';var list=raw.split(/[\n;,]+/).map(function(x){return x.replace(/\D/g,'').trim()}).filter(Boolean);var container=$('wa-links');if(container)container.innerHTML='';if(!list.length){alert('Informe pelo menos um telefone.');return}var msg=getMessage();list.forEach(function(phone){var url='https://wa.me/'+encodeURIComponent(phone)+'?text='+encodeURIComponent(msg);if(!container)return;var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='Enviar Blitz para '+phone;container.appendChild(a)})});
+    Array.prototype.forEach.call(document.querySelectorAll('.acc-item .acc-head'),function(btn){btn.addEventListener('click',function(){var item=btn.parentElement;if(item)item.classList.toggle('open')})});
+    var modal=$('modal'),modalBody=$('modal-body'),modalTitle=$('modal-title');
+    function openModal(templateId,title){var tpl=$('tpl-'+templateId);if(!tpl||!modal||!modalBody||!modalTitle)return;modalTitle.textContent=title||'Roteiro';modalBody.innerHTML=tpl.innerHTML;modal.classList.add('open');modal.setAttribute('aria-hidden','false')}
+    function closeModal(){if(!modal||!modalBody)return;modal.classList.remove('open');modal.setAttribute('aria-hidden','true');modalBody.innerHTML=''}
+    on('modal-close','click',closeModal);if(modal){modal.addEventListener('click',function(e){if(e.target===modal)closeModal()})}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal&&modal.classList.contains('open'))closeModal()});
+    Array.prototype.forEach.call(document.querySelectorAll('[data-modal]'),function(btn){btn.addEventListener('click',function(){openModal(btn.getAttribute('data-modal'),btn.getAttribute('data-title')||'Roteiro')})})
   }
-
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
 })();
 </script>
-
 </body>
 </html>
