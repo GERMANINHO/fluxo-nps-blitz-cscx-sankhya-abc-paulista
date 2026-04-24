@@ -26,7 +26,7 @@
     h1{margin:.1rem 0 .35rem;font-size:2.25rem;line-height:1.05}.subtitle{margin:0;color:var(--muted);max-width:760px;font-size:.98rem;line-height:1.5}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#020617;color:#cbd5e1;border:1px solid var(--border);font-size:.78rem;font-weight:650;text-transform:uppercase;letter-spacing:.05em}
     .side-box{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px 14px}.side-box h2{margin:0 0 5px;font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}.side-box p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}
-    .quick-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:0 0 18px}@media(max-width:1020px){.quick-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.quick-nav{grid-template-columns:1fr}}
+    .quick-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:0 0 18px}@media(max-width:1020px){.quick-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.quick-nav{grid-template-columns:1fr}}
     .quick-nav a{display:block;text-decoration:none;color:var(--text);background:rgba(15,23,42,.92);border:1px solid var(--border);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.55)}.quick-nav strong{display:block;font-size:.9rem;margin-bottom:3px}.quick-nav span{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
     .card{padding:16px 18px 18px;margin-top:14px}.card h2{margin:0 0 .45rem;font-size:1.08rem}.card h3{margin:1rem 0 .45rem;font-size:.98rem}.card p{margin:.25rem 0 .7rem;color:var(--muted);font-size:.9rem;line-height:1.48}.card ul,.card ol{margin:.45rem 0 .4rem 1.1rem;padding:0}.card li{margin:.25rem 0;font-size:.9rem;line-height:1.45}
     .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}@media(max-width:880px){.grid{grid-template-columns:1fr}}
@@ -65,6 +65,7 @@
       <a href="#rotina"><strong>Rotina Mensal</strong><span>Passo a passo da última semana.</span></a>
       <a href="#indecx"><strong>INDECX</strong><span>Acesso à plataforma de pesquisa.</span></a>
       <a href="#cs-nps"><strong>CS - NPS</strong><span>Dashboard, quadrante e sub-relatórios.</span></a>
+      <a href="#base-contatos"><strong>Base Contatos</strong><span>Planilha, filtro SIM e listas.</span></a>
       <a href="#blitz"><strong>Blitz</strong><span>Texto, Gmail e WhatsApp.</span></a>
       <a href="#playbooks"><strong>Playbooks / GPD</strong><span>Tratativa e apuração.</span></a>
     </nav>
@@ -126,8 +127,56 @@
           <div class="note"><strong>Regra principal:</strong> o maille mensal sai de Clientes Pesquisados com mais de 6 Meses.</div>
         </section>
 
+        
+        <section class="card" id="base-contatos">
+          <h2>5. Base de Contatos NPS</h2>
+          <p>Use a planilha de contatos para gerar automaticamente a lista de e-mails e telefones da Blitz, considerando apenas contatos com <strong>RESPONDE NPS? = SIM</strong>.</p>
+          <p><strong>Planilha:</strong> Contatos / Segmentação Parceiros NPS</p>
+          <a class="btn info" href="https://docs.google.com/spreadsheets/d/1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2/edit?gid=168915867#gid=168915867" target="_blank" rel="noopener noreferrer">Abrir planilha de contatos</a>
+
+          <div class="note info">
+            <strong>Colunas esperadas:</strong> CLIENTE, NOME CONTATO, EMAIL, TELEFONE, CARGO e RESPONDE NPS?
+          </div>
+
+          <h3>Importar dados copiados da planilha</h3>
+          <p>Copie as linhas da planilha, incluindo o cabeçalho, e cole abaixo. O fluxo filtra apenas contatos marcados como <strong>SIM</strong> no campo <strong>RESPONDE NPS?</strong>.</p>
+          <label for="sheet-paste">Cole aqui os dados copiados do Google Sheets / Excel</label>
+          <textarea id="sheet-paste" class="small-textarea" placeholder="CLIENTE&#9;NOME CONTATO&#9;EMAIL&#9;TELEFONE&#9;CARGO&#9;RESPONDE NPS?&#10;Empresa ABC&#9;João Silva&#9;joao@empresa.com&#9;5511999999999&#9;Diretor&#9;SIM"></textarea>
+          <div class="flow-actions">
+            <button class="btn" type="button" id="btn-process-sheet">Processar contatos NPS</button>
+            <button class="btn secondary" type="button" id="btn-fill-emails">Preencher e-mails da Blitz</button>
+            <button class="btn secondary" type="button" id="btn-fill-phones">Preencher telefones do WhatsApp</button>
+          </div>
+          <div class="hint" id="sheet-stats">Nenhum contato processado ainda.</div>
+
+          <div class="table-wrap" id="sheet-preview-wrap" style="display:none;">
+            <table class="table" aria-label="Prévia dos contatos NPS">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Contato</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Cargo</th>
+                </tr>
+              </thead>
+              <tbody id="sheet-preview"></tbody>
+            </table>
+          </div>
+
+          <div class="note warning">
+            <strong>Scheduler real:</strong> por ser um site estático no GitHub Pages, esta tela não consegue acessar uma planilha privada nem enviar e-mails/WhatsApps sozinha em segundo plano. Para envio automático por agenda, o caminho correto é Google Apps Script na própria planilha.
+          </div>
+
+          <div class="flow-actions">
+            <button class="btn secondary" type="button" id="btn-copy-apps-script">Copiar modelo de Apps Script</button>
+          </div>
+          <p class="hint">O modelo copiado serve como ponto de partida para um disparo agendado por e-mail. WhatsApp deve continuar manual, salvo integração oficial/API aprovada.</p>
+        </section>
+
+
         <section class="card" id="schedulers">
-          <h2>5. Schedulers / Lembretes</h2>
+          <h2>6. Schedulers / Lembretes</h2>
           <p><strong>Preparar Fluxo NPS:</strong> última segunda-feira do mês, 09h.</p>
           <p><strong>Tratar Playbooks NPS:</strong> última quarta-feira do mês, 09h.</p>
           <div class="note warning"><strong>Importante:</strong> o site não dispara lembretes sozinho. Os avisos ficam em agenda/automação externa.</div>
@@ -136,7 +185,7 @@
     </section>
 
     <section class="card" id="blitz">
-      <h2>6. Blitz NPS</h2>
+      <h2>7. Blitz NPS</h2>
       <p>Use esta área para revisar e enviar a mensagem mensal de aquecimento da pesquisa NPS. Nada é enviado automaticamente.</p>
       <div class="grid">
         <section>
@@ -167,8 +216,9 @@
 
     <section class="grid">
       <section class="card" id="gmail">
-        <h2>7. Disparo por E-mail (Gmail)</h2>
+        <h2>8. Disparo por E-mail (Gmail)</h2>
         <p>O Gmail será aberto com seu e-mail corporativo em <strong>Para</strong> e os clientes em <strong>CCO</strong>. O limite seguro é de 49 clientes por lote.</p>
+        <div class="note info"><strong>Entrada recomendada:</strong> processe primeiro a Base de Contatos NPS. Depois clique em <strong>Preencher e-mails da Blitz</strong> para trazer automaticamente somente contatos com RESPONDE NPS? = SIM.</div>
         <label for="emails">Lista de e-mails (um por linha)</label>
         <textarea id="emails" class="small-textarea" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
         <div class="hint" id="email-stats"></div>
@@ -193,8 +243,9 @@
       </section>
 
       <section class="card" id="whatsapp">
-        <h2>8. Disparo via WhatsApp</h2>
+        <h2>9. Disparo via WhatsApp</h2>
         <p>Gera links individuais do WhatsApp Web com a mensagem pronta. O envio continua manual.</p>
+        <div class="note info"><strong>Entrada recomendada:</strong> processe primeiro a Base de Contatos NPS. Depois clique em <strong>Preencher telefones do WhatsApp</strong> para trazer automaticamente somente contatos com RESPONDE NPS? = SIM.</div>
         <label for="whatsapps">Telefones (com DDI/DDD, um por linha)</label>
         <textarea id="whatsapps" class="small-textarea" placeholder="5511999999999&#10;5511988888888"></textarea>
         <button class="btn" id="btn-wa">Gerar links de envio</button>
@@ -204,48 +255,161 @@
     </section>
 
     <section class="card" id="playbooks">
-      <h2>9. Playbooks NPS — Neutros e Detratores</h2>
+      <h2>10. Playbooks NPS — Neutros e Detratores</h2>
       <p>Todo cliente neutro ou detrator precisa ter tratativa registrada por playbook. Se o playbook automático não aparecer, crie manualmente.</p>
       <div class="note"><strong>Prazo:</strong> concluir até o final do mês seguinte.</div>
+
+      <h3>Tela correta no Sankhya</h3>
+      <p><strong>Tela:</strong> CS - Gestão de Sucesso do Cliente</p>
+      <p><strong>Caminho:</strong> Analytics AI » Sucesso do Cliente » CS - Resultados » CS - Gestão de Sucesso do Cliente</p>
+      <p><strong>ID:</strong> <code>br.com.sankhya.analytics2.new.sc.t_20293.10.130</code></p>
+      <p><strong>Aba:</strong> ATIVIDADES</p>
+      <p><strong>Seção:</strong> Apontamento de Atividades — “Gerencie sua fila de atividades, acompanhe prazos e atualize status.”</p>
+
+      <div class="note info">
+        <strong>Ação principal:</strong> dentro da aba ATIVIDADES, localizar o Playbook e clicar em <strong>Editar Atividades</strong> para agir em cada etapa lançada manualmente ou automaticamente.
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" aria-label="Tipos de atividade do loop de NPS">
+          <thead>
+            <tr>
+              <th>Ordem</th>
+              <th>Tipo da Atividade</th>
+              <th>O que preencher</th>
+              <th>Anexos aceitos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Loop de NPS - Entendimento do Cenário</td>
+              <td>Anotações obrigatórias com causa da nota, pontos trazidos pelo cliente, impacto na operação e primeiro contato.</td>
+              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Loop de NPS - Plano de Ação</td>
+              <td>Anotações obrigatórias com plano, responsáveis, prazos, status e aceite do cliente.</td>
+              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Loop de NPS - Plano de Ação Colaborativo</td>
+              <td>Anotações obrigatórias quando depender de Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops, Produto ou outra área.</td>
+              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Loop de NPS - Follow-up</td>
+              <td>Anotações obrigatórias com retorno ao cliente, resultado obtido, pendências restantes e conclusão do playbook.</td>
+              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="accordion">
         <div class="acc-item open">
           <button class="acc-head" type="button"><span class="acc-title">Fechamento de Loop NPS — Neutros e Detratores</span><span class="acc-arrow">›</span></button>
           <div class="acc-body">
             <div class="flow-actions">
-              <button class="btn secondary" type="button" data-modal="detratores-entendimento" data-title="Entendimento do cenário e contato inicial">Entendimento do cenário</button>
-              <button class="btn secondary" type="button" data-modal="detratores-montagem" data-title="Montagem e execução do plano">Montagem e execução</button>
-              <button class="btn secondary" type="button" data-modal="detratores-colaboracao" data-title="Plano com colaboração de outras áreas">Colaboração de outras áreas</button>
-              <button class="btn secondary" type="button" data-modal="detratores-followup" data-title="Follow-up pós plano de ação">Follow-up pós plano</button>
+              <button class="btn secondary" type="button" data-modal="detratores-entendimento" data-title="Loop de NPS - Entendimento do Cenário">Entendimento do cenário</button>
+              <button class="btn secondary" type="button" data-modal="detratores-montagem" data-title="Loop de NPS - Plano de Ação">Plano de ação</button>
+              <button class="btn secondary" type="button" data-modal="detratores-colaboracao" data-title="Loop de NPS - Plano de Ação Colaborativo">Plano colaborativo</button>
+              <button class="btn secondary" type="button" data-modal="detratores-followup" data-title="Loop de NPS - Follow-up">Follow-up</button>
             </div>
           </div>
         </div>
       </div>
+
       <ol>
-        <li>Acessar a tela de <strong>Atividades</strong>.</li>
-        <li>Procurar atividades/playbooks de NPS.</li>
-        <li>Verificar clientes neutros ou detratores.</li>
-        <li>Abrir o playbook e registrar cenário, contato, plano e follow-up.</li>
-        <li>Se não existir playbook automático, criar manualmente.</li>
+        <li>Acessar <strong>CS - Gestão de Sucesso do Cliente</strong>.</li>
+        <li>Abrir a aba <strong>ATIVIDADES</strong>.</li>
+        <li>Ir na seção <strong>Apontamento de Atividades</strong>.</li>
+        <li>Localizar o playbook de NPS gerado automaticamente ou criado manualmente.</li>
+        <li>Clicar em <strong>Editar Atividades</strong>.</li>
+        <li>Preencher a etapa correspondente do Loop de NPS.</li>
+        <li>Anexar evidências quando houver.</li>
+        <li>Registrar <strong>Anotações</strong> de forma clara e objetiva.</li>
+        <li>Atualizar status e acompanhar o prazo.</li>
+        <li>Concluir o playbook até o final do mês seguinte.</li>
       </ol>
     </section>
 
     <section class="card" id="gpd">
-      <h2>10. Apuração do Resultado / GPD</h2>
+      <h2>11. Apuração do Resultado / GPD</h2>
       <p><strong>Tela:</strong> Apuração do Resultado</p>
       <p><strong>Caminho:</strong> Gestão Estratégica » Apuração do Resultado</p>
       <p><strong>ID:</strong> <code>br.com.sankhya.apuracao.resultado</code></p>
       <div class="note info"><strong>Regra:</strong> preencher quando a Ana CSM solicitar ou quando houver necessidade de formalizar plano de ação para o indicador NPS.</div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>Campo de apoio</th><th>Como preencher</th></tr></thead><tbody>
-        <tr><td>O que aconteceu?</td><td>Descrever o cenário do indicador ou cliente.</td></tr>
-        <tr><td>Onde aconteceu?</td><td>Cliente, carteira, unidade ou indicador afetado.</td></tr>
-        <tr><td>Como será tratado?</td><td>Plano de ação, responsáveis e próximos passos.</td></tr>
-        <tr><td>Por que será feito?</td><td>Impacto no NPS, relacionamento ou risco de churn.</td></tr>
-        <tr><td>Prazo e resultado esperado</td><td>Prazo combinado e resultado que se espera atingir.</td></tr>
-      </tbody></table></div>
+
+      <div class="table-wrap">
+        <table class="table" aria-label="Campos da Apuração do Resultado GPD">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Como preencher no contexto NPS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quem</td>
+              <td>Informar o responsável pela ação. Ex.: CS da carteira, liderança da unidade, área de apoio envolvida ou responsável direto pelo plano.</td>
+            </tr>
+            <tr>
+              <td>O que</td>
+              <td>Descrever objetivamente o problema, indicador ou situação que gerou a necessidade do plano. Ex.: nota detratora, baixo volume de respostas, risco de queda no NPS.</td>
+            </tr>
+            <tr>
+              <td>Onde</td>
+              <td>Informar onde o problema ocorreu: cliente, carteira, unidade, indicador NPS, INDECX, CS - NPS ou playbook específico.</td>
+            </tr>
+            <tr>
+              <td>Porque</td>
+              <td>Explicar a causa provável ou motivo da ação. Ex.: insatisfação com atendimento, pendência operacional, falha de comunicação, baixa aderência ou ausência de contato.</td>
+            </tr>
+            <tr>
+              <td>Como</td>
+              <td>Detalhar o plano de ação: contato com cliente, entendimento do cenário, montagem do plano, acionamento de áreas, follow-up e conclusão do playbook.</td>
+            </tr>
+            <tr>
+              <td>Quanto custa</td>
+              <td>Informar se não há custo direto ou indicar horas/esforço interno, serviço, consultoria ou qualquer custo envolvido, quando existir.</td>
+            </tr>
+            <tr>
+              <td>Retorno esperado</td>
+              <td>Informar o resultado esperado. Ex.: recuperar percepção do cliente, tratar insatisfação, aumentar taxa de resposta, reduzir risco de detrator ou melhorar indicador NPS.</td>
+            </tr>
+            <tr>
+              <td>Observação</td>
+              <td>Registrar contexto adicional, evidências, links, prints, playbook relacionado, retorno da Ana CSM ou observações relevantes para diretoria.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Modelo rápido para copiar</h3>
+      <textarea id="gpd-template" class="small-textarea" readonly>Quem:
+
+O que:
+
+Onde:
+
+Porque:
+
+Como:
+
+Quanto custa:
+
+Retorno esperado:
+
+Observação:</textarea>
+      <button class="btn secondary" type="button" id="btn-copy-gpd">Copiar modelo GPD</button>
     </section>
 
     <section class="card" id="checklist-final">
-      <h2>11. Checklist Final</h2>
+      <h2>12. Checklist Final</h2>
       <div class="checklist">
         <label class="check-item"><input type="checkbox"> Acessei CS - NPS.</label>
         <label class="check-item"><input type="checkbox"> Entrei no quadrante CS - Pesquisas NPS.</label>
@@ -269,22 +433,62 @@
   </div>
 </div>
 
+
 <template id="tpl-detratores-entendimento">
-  <p>Antes de iniciar contato, revise o feedback do NPS, histórico do cliente e registros anteriores. O foco é entender a causa da nota sem justificar ou interromper.</p>
-  <p><strong>Registrar no playbook:</strong></p>
-  <ul><li>Comentário do cliente e motivo da nota.</li><li>Impacto na operação.</li><li>O que o cliente considera essencial para resolver.</li><li>Produto, módulo ou área citada.</li><li>Contato principal utilizado.</li></ul>
+  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Entendimento do Cenário</p>
+  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
+  <p><strong>Anotações obrigatórias:</strong></p>
+  <ul>
+    <li>Qual foi a nota e o comentário do cliente.</li>
+    <li>Quais pontos foram trazidos no contato inicial.</li>
+    <li>Qual impacto isso gera na operação do cliente.</li>
+    <li>O que o cliente considera essencial para resolver.</li>
+    <li>Produto, módulo, área ou empresa do grupo citada, quando houver.</li>
+    <li>Contato utilizado e data do contato.</li>
+  </ul>
 </template>
+
 <template id="tpl-detratores-montagem">
-  <p>Após o contato inicial, monte um plano de ação objetivo, com responsáveis e prazos claros.</p>
-  <div class="table-wrap"><table class="table"><thead><tr><th>Etapa</th><th>Descrição</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Entendimento da causa</td><td>CS</td><td></td><td>Aberto</td></tr><tr><td>2</td><td>Plano de correção</td><td>CS / Área envolvida</td><td></td><td>Aberto</td></tr><tr><td>3</td><td>Follow-up com cliente</td><td>CS</td><td></td><td>Aberto</td></tr></tbody></table></div>
+  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Plano de Ação</p>
+  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
+  <p><strong>Anotações obrigatórias:</strong></p>
+  <ul>
+    <li>Plano apresentado ao cliente.</li>
+    <li>Responsável por cada ação.</li>
+    <li>Prazo combinado para solução.</li>
+    <li>Se o cliente aprovou ou não a proposta.</li>
+    <li>Status de cada etapa.</li>
+  </ul>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Etapa</th><th>Descrição</th><th>Responsável</th><th>Data início</th><th>Data fim</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Entendimento da causa raiz</td><td>CS</td><td></td><td></td><td>Aberto</td></tr><tr><td>2</td><td>Execução do plano</td><td>CS / Área envolvida</td><td></td><td></td><td>Aberto</td></tr><tr><td>3</td><td>Validação com cliente</td><td>CS</td><td></td><td></td><td>Aberto</td></tr></tbody></table></div>
 </template>
+
 <template id="tpl-detratores-colaboracao">
-  <p>Use quando a solução depender de outra área: Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops ou Produto.</p>
-  <ul><li>Registrar área responsável.</li><li>Registrar o que foi solicitado.</li><li>Registrar prazo combinado.</li><li>Atualizar o playbook a cada retorno.</li><li>Anexar evidências quando houver.</li></ul>
+  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Plano de Ação Colaborativo</p>
+  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
+  <p>Use quando a solução depender de outra área: Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops, Produto ou liderança.</p>
+  <p><strong>Anotações obrigatórias:</strong></p>
+  <ul>
+    <li>Área acionada.</li>
+    <li>Responsável acionado.</li>
+    <li>O que foi solicitado.</li>
+    <li>Prazo combinado.</li>
+    <li>Retornos recebidos.</li>
+    <li>Próximo passo com o cliente.</li>
+  </ul>
 </template>
+
 <template id="tpl-detratores-followup">
-  <p>Após executar o plano, faça follow-up para tangibilizar o que foi resolvido e validar se o cliente percebeu evolução.</p>
-  <ul><li>Os objetivos do plano foram atingidos?</li><li>O cliente percebeu melhora?</li><li>Ainda existe pendência?</li><li>Qual próximo marco?</li><li>O playbook pode ser concluído?</li></ul>
+  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Follow-up</p>
+  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
+  <p><strong>Anotações obrigatórias:</strong></p>
+  <ul>
+    <li>Data do follow-up.</li>
+    <li>O que foi apresentado ao cliente.</li>
+    <li>Se o cliente percebeu evolução.</li>
+    <li>Se ainda existe pendência.</li>
+    <li>Resultado obtido.</li>
+    <li>Se o playbook pode ser concluído.</li>
+  </ul>
 </template>
 
 <script>
@@ -308,18 +512,213 @@ Além da nota, é de extrema importância que você explique o motivo dela, para
 
 Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa especializada em pesquisa) e agora também por WhatsApp, por isso fique atento e não deixe de dar a sua opinião!`;
 
+  var processedContacts = [];
+
+  var APPS_SCRIPT_TEMPLATE = `/**
+ * Fluxo NPS — Scheduler de Blitz por e-mail
+ * Como usar:
+ * 1. Abra a planilha de contatos NPS.
+ * 2. Extensões > Apps Script.
+ * 3. Cole este código.
+ * 4. Ajuste SHEET_NAME, se necessário.
+ * 5. Execute criarAgendamentoMensalNPS() uma vez para criar o gatilho.
+ *
+ * Observação:
+ * - Envia e-mail apenas para linhas com RESPONDE NPS? = SIM.
+ * - WhatsApp não é enviado por este script.
+ */
+
+const SHEET_NAME = 'Página1';
+const ASSUNTO_NPS = 'Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
+
+function enviarBlitzNPS() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
+  const values = sheet.getDataRange().getValues();
+  const headers = values.shift().map(h => normalizar_(h));
+
+  const idxCliente = headers.indexOf('CLIENTE');
+  const idxNome = headers.indexOf('NOME CONTATO');
+  const idxEmail = headers.indexOf('EMAIL');
+  const idxResponde = headers.indexOf('RESPONDE NPS');
+
+  if (idxEmail < 0 || idxResponde < 0) {
+    throw new Error('Colunas obrigatórias não encontradas: EMAIL e RESPONDE NPS?');
+  }
+
+  const mensagemBase = montarMensagem_();
+
+  values.forEach(row => {
+    const responde = String(row[idxResponde] || '').trim().toUpperCase();
+    const email = String(row[idxEmail] || '').trim();
+    if (responde !== 'SIM' || !email) return;
+
+    const nome = idxNome >= 0 ? String(row[idxNome] || '').trim() : '';
+    const cliente = idxCliente >= 0 ? String(row[idxCliente] || '').trim() : '';
+    const saudacao = nome ? 'Olá, ' + nome + '!\\n\\n' : 'Olá!\\n\\n';
+
+    GmailApp.sendEmail(email, ASSUNTO_NPS, saudacao + mensagemBase, {
+      name: 'Gustavo Germano | Sankhya ABC Paulista'
+    });
+  });
+}
+
+function criarAgendamentoMensalNPS() {
+  ScriptApp.newTrigger('enviarBlitzNPS')
+    .timeBased()
+    .onMonthDay(25)
+    .atHour(9)
+    .create();
+}
+
+function montarMensagem_() {
+  return 'A sua opinião tem poder transformador!\\n\\n' +
+    'Em breve você poderá receber a pesquisa NPS da Sankhya, realizada pela INDECX. ' +
+    'A sua resposta ajuda a Sankhya e também direciona o meu trabalho como CS responsável pelo seu atendimento.\\n\\n' +
+    'Além da nota, é muito importante explicar o motivo da sua avaliação para que possamos evoluir de forma assertiva.\\n\\n' +
+    'Qualquer dúvida, estou à disposição.\\n\\n' +
+    'Gustavo Germano';
+}
+
+function normalizar_(valor) {
+  return String(valor || '')
+    .normalize('NFD')
+    .replace(/[\\u0300-\\u036f]/g, '')
+    .replace(/[?]/g, '')
+    .trim()
+    .toUpperCase();
+}`;
+
   function $(id){return document.getElementById(id)}
   function on(id,evt,fn){var el=$(id);if(el)el.addEventListener(evt,fn)}
   function getMessage(){var el=$('blitz-text');var txt=el?(el.value||'').trim():'';return txt||defaultMessage}
   function extractEmailFromLine(line){var s=(line||'').trim();if(!s)return'';var m=s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);return m?m[1].trim():''}
   function parseEmailList(raw){return(raw||'').split(/[\n;,]+/).map(extractEmailFromLine).filter(Boolean)}
   function uniqueEmails(list){var seen=Object.create(null),out=[];list.forEach(function(e){var k=String(e).trim().toLowerCase();if(k&&!seen[k]){seen[k]=true;out.push(String(e).trim())}});return out}
+
+  function escapeHtml(value){
+    return String(value || '').replace(/[&<>"']/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function normalizeHeader(value){
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g,'')
+      .replace(/[?]/g,'')
+      .trim()
+      .toUpperCase();
+  }
+  function splitSheetLine(line){
+    if (line.indexOf('\t') >= 0) return line.split('\t');
+    if (line.indexOf(';') >= 0) return line.split(';');
+    return line.split(',');
+  }
+  function uniquePhones(list){
+    var seen=Object.create(null),out=[];
+    list.forEach(function(phone){
+      var p=String(phone||'').replace(/\D/g,'').trim();
+      if(p && !seen[p]){seen[p]=true;out.push(p)}
+    });
+    return out;
+  }
+  function processSheetContacts(){
+    var paste=$('sheet-paste');
+    var stats=$('sheet-stats');
+    var preview=$('sheet-preview');
+    var wrap=$('sheet-preview-wrap');
+    if(!paste||!stats||!preview)return;
+
+    var lines=(paste.value||'').split(/\r?\n/).filter(function(line){return line.trim()});
+    if(lines.length<2){
+      processedContacts=[];
+      stats.textContent='Cole o cabeçalho e pelo menos uma linha da planilha.';
+      if(wrap)wrap.style.display='none';
+      return;
+    }
+
+    var headers=splitSheetLine(lines[0]).map(normalizeHeader);
+    function idx(name){return headers.indexOf(name)}
+    var iCliente=idx('CLIENTE');
+    var iNome=idx('NOME CONTATO');
+    var iEmail=idx('EMAIL');
+    var iTelefone=idx('TELEFONE');
+    var iCargo=idx('CARGO');
+    var iResponde=idx('RESPONDE NPS');
+
+    if(iEmail<0 || iTelefone<0 || iResponde<0){
+      processedContacts=[];
+      stats.textContent='Não encontrei as colunas obrigatórias: EMAIL, TELEFONE e RESPONDE NPS?. Confira o cabeçalho colado.';
+      if(wrap)wrap.style.display='none';
+      return;
+    }
+
+    var all=[];
+    var yes=[];
+    lines.slice(1).forEach(function(line){
+      var cols=splitSheetLine(line);
+      var contato={
+        cliente:iCliente>=0?(cols[iCliente]||'').trim():'',
+        nome:iNome>=0?(cols[iNome]||'').trim():'',
+        email:iEmail>=0?extractEmailFromLine(cols[iEmail]||''):'',
+        telefone:iTelefone>=0?String(cols[iTelefone]||'').replace(/\D/g,'').trim():'',
+        cargo:iCargo>=0?(cols[iCargo]||'').trim():'',
+        responde:iResponde>=0?String(cols[iResponde]||'').trim().toUpperCase():''
+      };
+      if(contato.email || contato.telefone) all.push(contato);
+      if(contato.responde==='SIM' && (contato.email || contato.telefone)) yes.push(contato);
+    });
+
+    processedContacts=yes;
+    var emails=uniqueEmails(yes.map(function(c){return c.email}).filter(Boolean));
+    var phones=uniquePhones(yes.map(function(c){return c.telefone}).filter(Boolean));
+
+    stats.textContent='Linhas lidas: '+all.length+'. Contatos com RESPONDE NPS? = SIM: '+yes.length+'. E-mails únicos: '+emails.length+'. Telefones únicos: '+phones.length+'.';
+
+    preview.innerHTML=yes.slice(0,30).map(function(c){
+      return '<tr>'+
+        '<td>'+escapeHtml(c.cliente)+'</td>'+
+        '<td>'+escapeHtml(c.nome)+'</td>'+
+        '<td>'+escapeHtml(c.email)+'</td>'+
+        '<td>'+escapeHtml(c.telefone)+'</td>'+
+        '<td>'+escapeHtml(c.cargo)+'</td>'+
+      '</tr>';
+    }).join('');
+
+    if(wrap)wrap.style.display=yes.length?'block':'none';
+  }
   function copyText(text){if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text)}return new Promise(function(resolve){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(t);resolve()})}
   function showBatchPanel(sentCount,totalCount,remainingList){var panel=$('batch-panel'),summary=$('batch-summary'),nextBox=$('emails-next');if(!panel||!summary||!nextBox)return;if(!remainingList||!remainingList.length){panel.style.display='none';nextBox.value='';summary.textContent='';return}panel.style.display='block';summary.textContent='Lote aberto com '+sentCount+' e-mails (CCO). Total na lista: '+totalCount+'. Restam '+remainingList.length+' para o próximo disparo.';nextBox.value=remainingList.join('\n')}
   function updateEmailStats(){var emailsEl=$('emails'),stats=$('email-stats');if(!emailsEl||!stats)return;var list=uniqueEmails(parseEmailList(emailsEl.value||''));if(!list.length){stats.textContent='Cole os e-mails (um por linha). Limite por disparo no CCO: '+MAX_BCC+'.';return}var msg='E-mails válidos (únicos): '+list.length+'. Limite por disparo no CCO: '+MAX_BCC+'.';if(list.length>MAX_BCC){msg+=' Acima do limite: o sistema abrirá em lotes e mostrará o restante.'}stats.textContent=msg}
   var __originalEmailsRaw=null;
   function init(){
     var blitz=$('blitz-text');if(blitz&&!blitz.value)blitz.value=defaultMessage;updateEmailStats();
+
+    on('btn-process-sheet','click',processSheetContacts);
+    on('btn-fill-emails','click',function(){
+      if(!processedContacts.length){processSheetContacts()}
+      var emails=uniqueEmails(processedContacts.map(function(c){return c.email}).filter(Boolean));
+      if(!emails.length){alert('Nenhum e-mail encontrado com RESPONDE NPS? = SIM.');return}
+      var emailsEl=$('emails');
+      if(emailsEl)emailsEl.value=emails.join('\n');
+      updateEmailStats();
+      alert('E-mails da Blitz preenchidos com contatos RESPONDE NPS? = SIM.');
+    });
+    on('btn-fill-phones','click',function(){
+      if(!processedContacts.length){processSheetContacts()}
+      var phones=uniquePhones(processedContacts.map(function(c){return c.telefone}).filter(Boolean));
+      if(!phones.length){alert('Nenhum telefone encontrado com RESPONDE NPS? = SIM.');return}
+      var phonesEl=$('whatsapps');
+      if(phonesEl)phonesEl.value=phones.join('\n');
+      alert('Telefones do WhatsApp preenchidos com contatos RESPONDE NPS? = SIM.');
+    });
+    on('btn-copy-apps-script','click',function(){
+      copyText(APPS_SCRIPT_TEMPLATE).then(function(){alert('Modelo de Apps Script copiado.')});
+    });
+    on('btn-copy-gpd','click',function(){
+      var tpl=$('gpd-template');
+      copyText(tpl ? tpl.value : 'Quem:\n\nO que:\n\nOnde:\n\nPorque:\n\nComo:\n\nQuanto custa:\n\nRetorno esperado:\n\nObservação:').then(function(){alert('Modelo GPD copiado.')});
+    });
     on('emails','input',updateEmailStats);
     on('btn-copy','click',function(){copyText(getMessage()).then(function(){alert('Texto da Blitz copiado.')})});
     on('btn-number-emails','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail para numerar.');return}emailsEl.value=list.map(function(e,i){return(i+1)+'. '+e}).join('\n');updateEmailStats();alert('Lista numerada.')});
