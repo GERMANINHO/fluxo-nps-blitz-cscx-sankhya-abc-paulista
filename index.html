@@ -6,42 +6,219 @@
   <title>Fluxo NPS — CS/CX Sankhya ABC Paulista</title>
   <style>
     :root{
-      --bg:#0f172a; --card-bg:#0b1120; --accent:#22c55e; --accent-2:#38bdf8;
-      --accent-soft:rgba(34,197,94,.12); --info-soft:rgba(56,189,248,.12);
-      --border:#1e293b; --text:#e5e7eb; --muted:#94a3b8;
-      --danger:#fb7185; --warning:#fbbf24; --warning-soft:rgba(251,191,36,.12);
+      --bg:#0f172a;
+      --panel:rgba(15,23,42,.92);
+      --soft:#020617;
+      --accent:#22c55e;
+      --accent-2:#38bdf8;
+      --accent-soft:rgba(34,197,94,.12);
+      --info-soft:rgba(56,189,248,.12);
+      --warning:#fbbf24;
+      --warning-soft:rgba(251,191,36,.12);
+      --danger:#fb7185;
+      --border:#1e293b;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
       --shadow:0 18px 45px rgba(15,23,42,.9);
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(circle at top,#1e293b 0,#020617 52%,#000 100%);color:var(--text)}
-    a{color:#6ee7b7} code{font-size:.78rem;background:#020617;padding:1px 5px;border-radius:5px;border:1px solid rgba(148,163,184,.18)}
-    .app{min-height:100vh;padding:24px 16px 40px}.shell{width:100%;max-width:1180px;margin:0 auto}
-    .hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:18px;align-items:stretch;margin-bottom:18px}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(circle at top,#1e293b 0,#020617 52%,#000 100%);
+      color:var(--text);
+    }
+    a{color:#6ee7b7}
+    code{
+      font-size:.78rem;
+      background:#020617;
+      padding:1px 5px;
+      border-radius:5px;
+      border:1px solid rgba(148,163,184,.18);
+    }
+    .app{min-height:100vh;padding:24px 16px 40px}
+    .shell{width:100%;max-width:1180px;margin:0 auto}
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);
+      gap:18px;
+      align-items:stretch;
+      margin-bottom:18px;
+    }
     @media(max-width:900px){.hero{grid-template-columns:1fr}}
-    .hero-main,.hero-side,.card{background:rgba(15,23,42,.92);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
-    .hero-main{padding:22px 24px}.hero-side{padding:16px;display:grid;gap:12px}
-    .header-tag{display:inline-flex;align-items:center;gap:.5rem;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
-    .logo-dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.3)}
-    h1{margin:.1rem 0 .35rem;font-size:2.25rem;line-height:1.05}.subtitle{margin:0;color:var(--muted);max-width:760px;font-size:.98rem;line-height:1.5}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#020617;color:#cbd5e1;border:1px solid var(--border);font-size:.78rem;font-weight:650;text-transform:uppercase;letter-spacing:.05em}
-    .side-box{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px 14px}.side-box h2{margin:0 0 5px;font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}.side-box p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}
-    .quick-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:0 0 18px}@media(max-width:1020px){.quick-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.quick-nav{grid-template-columns:1fr}}
-    .quick-nav a{display:block;text-decoration:none;color:var(--text);background:rgba(15,23,42,.92);border:1px solid var(--border);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.55)}.quick-nav strong{display:block;font-size:.9rem;margin-bottom:3px}.quick-nav span{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
-    .card{padding:16px 18px 18px;margin-top:14px}.card h2{margin:0 0 .45rem;font-size:1.08rem}.card h3{margin:1rem 0 .45rem;font-size:.98rem}.card p{margin:.25rem 0 .7rem;color:var(--muted);font-size:.9rem;line-height:1.48}.card ul,.card ol{margin:.45rem 0 .4rem 1.1rem;padding:0}.card li{margin:.25rem 0;font-size:.9rem;line-height:1.45}
-    .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}@media(max-width:880px){.grid{grid-template-columns:1fr}}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}@media(max-width:880px){.mini-grid{grid-template-columns:1fr}}
-    .info-card{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px}.info-card h3{margin:0 0 5px;font-size:.92rem}.info-card p{font-size:.84rem;margin:0;color:var(--muted)}
-    .note{padding:10px 12px;border-radius:12px;background:var(--accent-soft);border:1px solid rgba(34,197,94,.22);margin:.7rem 0;color:var(--text)}.note.warning{background:var(--warning-soft);border-color:rgba(251,191,36,.28)}.note.info{background:var(--info-soft);border-color:rgba(56,189,248,.28)}.note strong{color:#86efac}.note.warning strong{color:#fde68a}.note.info strong{color:#7dd3fc}
-    label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--muted)}textarea,input[type=text]{width:100%;border-radius:10px;border:1px solid #1e293b;background:#020617;color:var(--text);padding:9px 10px;font-size:.86rem;font-family:inherit;resize:vertical}textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,197,94,.35)}textarea{min-height:140px}.small-textarea{min-height:100px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:none;border-radius:999px;padding:8px 14px;font-size:.82rem;font-weight:650;cursor:pointer;margin-top:8px;background:var(--accent);color:#022c22;box-shadow:0 10px 30px rgba(16,185,129,.35);text-decoration:none}.btn.secondary{background:#0b1120;color:var(--text);box-shadow:none;border:1px solid #1f2937}.btn.info{background:var(--accent-2);color:#082f49;box-shadow:0 10px 30px rgba(56,189,248,.25)}.btn.danger{background:var(--danger);color:#2b0a12}.flow-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .hint{margin-top:6px;font-size:.76rem;color:var(--muted)}.footer-note{margin-top:18px;font-size:.78rem;color:var(--muted)}.links-list a{display:block;font-size:.82rem;padding:3px 0;color:#6ee7b7;text-decoration:none;word-break:break-all}.links-list a:hover{text-decoration:underline}
-    .img-preview{margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid #1f2937;background:#020617}.img-preview img{display:block;width:100%;height:auto}.img-caption{font-size:.76rem;color:var(--muted);margin-top:4px}
-    .table-wrap{overflow:auto;border-radius:12px;border:1px solid #1e293b;margin-top:10px}.table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:620px}.table th,.table td{border-bottom:1px solid #1e293b;padding:9px 10px;vertical-align:top}.table th{background:#0b1120;color:var(--text);font-weight:650;text-align:left}.table tr:last-child td{border-bottom:0}
-    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px;margin-top:10px}@media(max-width:720px){.checklist{grid-template-columns:1fr}}.check-item{display:flex;gap:8px;align-items:flex-start;color:var(--text);font-size:.88rem;line-height:1.35}.check-item input{margin-top:2px;accent-color:var(--accent)}
-    .accordion{margin-top:10px;display:flex;flex-direction:column;gap:10px}.acc-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(2,6,23,.55)}.acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.7);border:none;color:var(--text);cursor:pointer;font:inherit}.acc-title{display:flex;align-items:center;gap:10px;text-align:left;font-weight:650;font-size:.92rem}.acc-arrow{opacity:.75;transition:transform .2s ease;font-size:1.05rem}.acc-item.open .acc-arrow{transform:rotate(90deg)}.acc-body{display:none;padding:12px 14px 14px;border-top:1px solid var(--border)}.acc-item.open .acc-body{display:block}
-    .batch-panel{display:none;margin-top:10px;padding:12px;border:1px solid #1f2937;border-radius:12px;background:rgba(2,6,23,.55)}.batch-panel .hint{margin:0 0 10px}
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.55);z-index:9999}.modal.open{display:flex}.modal-card{width:100%;max-width:920px;background:rgba(15,23,42,.98);border:1px solid var(--border);border-radius:16px;box-shadow:0 22px 70px rgba(0,0,0,.65);overflow:hidden}.modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.65);border-bottom:1px solid var(--border)}.modal-title{margin:0;font-size:1rem;font-weight:700}.modal-body{padding:14px;max-height:72vh;overflow:auto}.modal-body p{margin:.4rem 0;color:var(--text);font-size:.9rem;line-height:1.45}.modal-body ul{margin:.35rem 0 .2rem 1.1rem;padding:0}.modal-body li{margin:.25rem 0;color:var(--text);font-size:.9rem;line-height:1.45}
+    .hero-main,.hero-side,.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+    }
+    .hero-main{padding:22px 24px}
+    .hero-side{padding:16px;display:grid;gap:12px}
+    .header-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:.75rem;
+    }
+    .logo-dot{
+      width:10px;height:10px;border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(34,197,94,.3);
+    }
+    h1{margin:.1rem 0 .35rem;font-size:2.25rem;line-height:1.05}
+    .subtitle{margin:0;color:var(--muted);max-width:780px;font-size:.98rem;line-height:1.5}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#020617;
+      color:#cbd5e1;
+      border:1px solid var(--border);
+      font-size:.78rem;
+      font-weight:650;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .side-box{
+      background:rgba(2,6,23,.45);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 14px;
+    }
+    .side-box h2{margin:0 0 5px;font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}
+    .side-box p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}
+    .quick-nav{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:10px;
+      margin:0 0 18px;
+    }
+    @media(max-width:1020px){.quick-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.quick-nav{grid-template-columns:1fr}}
+    .quick-nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 14px;
+      box-shadow:0 10px 30px rgba(15,23,42,.55);
+    }
+    .quick-nav strong{display:block;font-size:.9rem;margin-bottom:3px}
+    .quick-nav span{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
+    .card{padding:16px 18px 18px;margin-top:14px}
+    .card h2{margin:0 0 .45rem;font-size:1.08rem}
+    .card h3{margin:1rem 0 .45rem;font-size:.98rem}
+    .card p{margin:.25rem 0 .7rem;color:var(--muted);font-size:.9rem;line-height:1.48}
+    .card ul,.card ol{margin:.45rem 0 .4rem 1.1rem;padding:0}
+    .card li{margin:.25rem 0;font-size:.9rem;line-height:1.45}
+    .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}
+    @media(max-width:880px){.grid{grid-template-columns:1fr}}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+    @media(max-width:880px){.mini-grid{grid-template-columns:1fr}}
+    .info-card{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px}
+    .info-card h3{margin:0 0 5px;font-size:.92rem}
+    .info-card p{font-size:.84rem;margin:0;color:var(--muted)}
+    .note{
+      padding:10px 12px;
+      border-radius:12px;
+      background:var(--accent-soft);
+      border:1px solid rgba(34,197,94,.22);
+      margin:.7rem 0;
+      color:var(--text);
+    }
+    .note.warning{background:var(--warning-soft);border-color:rgba(251,191,36,.28)}
+    .note.info{background:var(--info-soft);border-color:rgba(56,189,248,.28)}
+    .note strong{color:#86efac}
+    .note.warning strong{color:#fde68a}
+    .note.info strong{color:#7dd3fc}
+    label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--muted)}
+    textarea,input[type=text]{
+      width:100%;
+      border-radius:10px;
+      border:1px solid #1e293b;
+      background:#020617;
+      color:var(--text);
+      padding:9px 10px;
+      font-size:.86rem;
+      font-family:inherit;
+      resize:vertical;
+    }
+    textarea:focus,input[type=text]:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(34,197,94,.35);
+    }
+    textarea{min-height:140px}
+    .small-textarea{min-height:100px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.4rem;
+      border:none;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:.82rem;
+      font-weight:650;
+      cursor:pointer;
+      margin-top:8px;
+      background:var(--accent);
+      color:#022c22;
+      box-shadow:0 10px 30px rgba(16,185,129,.35);
+      text-decoration:none;
+    }
+    .btn.secondary{background:#0b1120;color:var(--text);box-shadow:none;border:1px solid #1f2937}
+    .btn.info{background:var(--accent-2);color:#082f49;box-shadow:0 10px 30px rgba(56,189,248,.25)}
+    .btn.danger{background:var(--danger);color:#2b0a12}
+    .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+    .flow-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .hint{margin-top:6px;font-size:.76rem;color:var(--muted)}
+    .footer-note{margin-top:18px;font-size:.78rem;color:var(--muted)}
+    .links-list a{display:block;font-size:.82rem;padding:3px 0;color:#6ee7b7;text-decoration:none;word-break:break-all}
+    .links-list a:hover{text-decoration:underline}
+    .img-preview{margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid #1f2937;background:#020617}
+    .img-preview img{display:block;width:100%;height:auto}
+    .img-caption{font-size:.76rem;color:var(--muted);margin-top:4px}
+    .table-wrap{overflow:auto;border-radius:12px;border:1px solid #1e293b;margin-top:10px}
+    .table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:620px}
+    .table th,.table td{border-bottom:1px solid #1e293b;padding:9px 10px;vertical-align:top}
+    .table th{background:#0b1120;color:var(--text);font-weight:650;text-align:left}
+    .table tr:last-child td{border-bottom:0}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px;margin-top:10px}
+    @media(max-width:720px){.checklist{grid-template-columns:1fr}}
+    .check-item{display:flex;gap:8px;align-items:flex-start;color:var(--text);font-size:.88rem;line-height:1.35}
+    .check-item input{margin-top:2px;accent-color:var(--accent)}
+    .accordion{margin-top:10px;display:flex;flex-direction:column;gap:10px}
+    .acc-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(2,6,23,.55)}
+    .acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.7);border:none;color:var(--text);cursor:pointer;font:inherit}
+    .acc-title{display:flex;align-items:center;gap:10px;text-align:left;font-weight:650;font-size:.92rem}
+    .acc-arrow{opacity:.75;transition:transform .2s ease;font-size:1.05rem}
+    .acc-item.open .acc-arrow{transform:rotate(90deg)}
+    .acc-body{display:none;padding:12px 14px 14px;border-top:1px solid var(--border)}
+    .acc-item.open .acc-body{display:block}
+    .batch-panel{display:none;margin-top:10px;padding:12px;border:1px solid #1f2937;border-radius:12px;background:rgba(2,6,23,.55)}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.55);z-index:9999}
+    .modal.open{display:flex}
+    .modal-card{width:100%;max-width:920px;background:rgba(15,23,42,.98);border:1px solid var(--border);border-radius:16px;box-shadow:0 22px 70px rgba(0,0,0,.65);overflow:hidden}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:rgba(2,6,23,.65);border-bottom:1px solid var(--border)}
+    .modal-title{margin:0;font-size:1rem;font-weight:700}
+    .modal-body{padding:14px;max-height:72vh;overflow:auto}
+    .modal-body p{margin:.4rem 0;color:var(--text);font-size:.9rem;line-height:1.45}
+    .modal-body ul{margin:.35rem 0 .2rem 1.1rem;padding:0}
+    .modal-body li{margin:.25rem 0;color:var(--text);font-size:.9rem;line-height:1.45}
   </style>
 </head>
 <body>
@@ -52,11 +229,11 @@
         <div class="header-tag"><span class="logo-dot"></span> Fluxo NPS • CS/CX Sankhya ABC Paulista</div>
         <h1>Fluxo NPS</h1>
         <p class="subtitle">Central operacional para a rotina mensal de NPS: consulta da base, extração do maille, envio da Blitz por Gmail e WhatsApp, acompanhamento no INDECX, tratativa de playbooks e apoio ao preenchimento da Apuração do Resultado/GPD quando solicitado.</p>
-        <div class="chips"><span class="chip">Última semana do mês</span><span class="chip">INDECX</span><span class="chip">CS - NPS</span><span class="chip">Maille</span><span class="chip">Playbooks</span><span class="chip">GPD</span></div>
+        <div class="chips"><span class="chip">Última semana do mês</span><span class="chip">INDECX</span><span class="chip">CS - NPS</span><span class="chip">Base de Contatos</span><span class="chip">Playbooks</span><span class="chip">GPD</span></div>
       </div>
       <aside class="hero-side">
+        <div class="side-box"><h2>Busca automática</h2><p>Lê o .xlsx do GitHub Pages ou a exportação online e filtra RESPONDE NPS = SIM.</p></div>
         <div class="side-box"><h2>Scheduler Blitz</h2><p>Última segunda-feira do mês, 09h: conferir maille e preparar envio da Blitz.</p></div>
-        <div class="side-box"><h2>Scheduler Playbooks</h2><p>Última quarta-feira do mês, 09h: revisar playbooks de neutros/detratores.</p></div>
         <div class="side-box"><h2>Prazo de tratativa</h2><p>Playbooks de NPS devem ser concluídos até o final do mês seguinte.</p></div>
       </aside>
     </section>
@@ -65,7 +242,7 @@
       <a href="#rotina"><strong>Rotina Mensal</strong><span>Passo a passo da última semana.</span></a>
       <a href="#indecx"><strong>INDECX</strong><span>Acesso à plataforma de pesquisa.</span></a>
       <a href="#cs-nps"><strong>CS - NPS</strong><span>Dashboard, quadrante e sub-relatórios.</span></a>
-      <a href="#base-contatos"><strong>Base Contatos</strong><span>Planilha, filtro SIM e listas.</span></a>
+      <a href="#base-contatos"><strong>Base Contatos</strong><span>Planilha, filtro SIM e listas automáticas.</span></a>
       <a href="#blitz"><strong>Blitz</strong><span>Texto, Gmail e WhatsApp.</span></a>
       <a href="#playbooks"><strong>Playbooks / GPD</strong><span>Tratativa e apuração.</span></a>
     </nav>
@@ -75,17 +252,9 @@
       <p>Execute esta rotina na última semana de todo mês para preparar o cliente antes da pesquisa e evitar pendências em playbooks.</p>
       <div class="mini-grid">
         <div class="info-card"><h3>1) Conferir base</h3><p>Acessar CS - NPS e abrir o quadrante CS - Pesquisas NPS.</p></div>
-        <div class="info-card"><h3>2) Extrair maille</h3><p>Usar o sub-relatório Clientes Pesquisados com mais de 6 Meses.</p></div>
+        <div class="info-card"><h3>2) Buscar contatos</h3><p>Usar a Base de Contatos NPS e filtrar automaticamente RESPONDE NPS = SIM.</p></div>
         <div class="info-card"><h3>3) Enviar Blitz</h3><p>Preparar envio por Gmail e WhatsApp, sempre revisando antes de enviar.</p></div>
       </div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>Ordem</th><th>Ação</th><th>Resultado esperado</th></tr></thead><tbody>
-        <tr><td>1</td><td>Acessar CS - NPS.</td><td>Base de pesquisa aberta para conferência.</td></tr>
-        <tr><td>2</td><td>Abrir CS - Pesquisas NPS.</td><td>Sub-relatórios disponíveis para análise.</td></tr>
-        <tr><td>3</td><td>Abrir Clientes Pesquisados com mais de 6 Meses.</td><td>Lista de clientes aptos localizada.</td></tr>
-        <tr><td>4</td><td>Exportar e organizar e-mails/telefones.</td><td>Maille pronto para Blitz.</td></tr>
-        <tr><td>5</td><td>Enviar Blitz por Gmail e WhatsApp.</td><td>Clientes aquecidos para a pesquisa.</td></tr>
-        <tr><td>6</td><td>Acompanhar INDECX e playbooks.</td><td>Notas neutras/detratoras tratadas no prazo.</td></tr>
-      </tbody></table></div>
     </section>
 
     <section class="grid">
@@ -93,7 +262,6 @@
         <section class="card" id="indecx">
           <h2>2. INDECX</h2>
           <p>Acesse o INDECX para acompanhar clientes pesquisados, notas, comentários, promotores, neutros, detratores e histórico das pesquisas.</p>
-          <div class="note info"><strong>SubAba:</strong> INDECX</div>
           <a class="btn info" href="https://v3.app-indecx.com/live-dash/687b07ebc9bc6a00278be59e" target="_blank" rel="noopener noreferrer">Abrir INDECX</a>
         </section>
 
@@ -120,68 +288,72 @@
             <li>Acessar <strong>CS - NPS</strong>.</li>
             <li>Localizar o quadrante <strong>CS - Pesquisas NPS</strong>.</li>
             <li>Clicar em <strong>Clientes Pesquisados com mais de 6 Meses</strong>.</li>
-            <li>Exportar a lista.</li>
-            <li>Separar e-mails e telefones.</li>
-            <li>Colar os dados nos campos de envio da Blitz.</li>
+            <li>Conferir a base do mês.</li>
+            <li>Usar a <strong>Base de Contatos NPS</strong> para preencher e-mails e telefones automaticamente.</li>
           </ol>
-          <div class="note"><strong>Regra principal:</strong> o maille mensal sai de Clientes Pesquisados com mais de 6 Meses.</div>
         </section>
-
-        
-        <section class="card" id="base-contatos">
-          <h2>5. Base de Contatos NPS</h2>
-          <p>Use a planilha de contatos para gerar automaticamente a lista de e-mails e telefones da Blitz, considerando apenas contatos com <strong>RESPONDE NPS? = SIM</strong>.</p>
-          <p><strong>Planilha:</strong> Contatos / Segmentação Parceiros NPS</p>
-          <a class="btn info" href="https://docs.google.com/spreadsheets/d/1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2/edit?gid=168915867#gid=168915867" target="_blank" rel="noopener noreferrer">Abrir planilha de contatos</a>
-
-          <div class="note info">
-            <strong>Colunas esperadas:</strong> CLIENTE, NOME CONTATO, EMAIL, TELEFONE, CARGO e RESPONDE NPS?
-          </div>
-
-          <h3>Importar dados copiados da planilha</h3>
-          <p>Copie as linhas da planilha, incluindo o cabeçalho, e cole abaixo. O fluxo filtra apenas contatos marcados como <strong>SIM</strong> no campo <strong>RESPONDE NPS?</strong>.</p>
-          <label for="sheet-paste">Cole aqui os dados copiados do Google Sheets / Excel</label>
-          <textarea id="sheet-paste" class="small-textarea" placeholder="CLIENTE&#9;NOME CONTATO&#9;EMAIL&#9;TELEFONE&#9;CARGO&#9;RESPONDE NPS?&#10;Empresa ABC&#9;João Silva&#9;joao@empresa.com&#9;5511999999999&#9;Diretor&#9;SIM"></textarea>
-          <div class="flow-actions">
-            <button class="btn" type="button" id="btn-process-sheet">Processar contatos NPS</button>
-            <button class="btn secondary" type="button" id="btn-fill-emails">Preencher e-mails da Blitz</button>
-            <button class="btn secondary" type="button" id="btn-fill-phones">Preencher telefones do WhatsApp</button>
-          </div>
-          <div class="hint" id="sheet-stats">Nenhum contato processado ainda.</div>
-
-          <div class="table-wrap" id="sheet-preview-wrap" style="display:none;">
-            <table class="table" aria-label="Prévia dos contatos NPS">
-              <thead>
-                <tr>
-                  <th>Cliente</th>
-                  <th>Contato</th>
-                  <th>E-mail</th>
-                  <th>Telefone</th>
-                  <th>Cargo</th>
-                </tr>
-              </thead>
-              <tbody id="sheet-preview"></tbody>
-            </table>
-          </div>
-
-          <div class="note warning">
-            <strong>Scheduler real:</strong> por ser um site estático no GitHub Pages, esta tela não consegue acessar uma planilha privada nem enviar e-mails/WhatsApps sozinha em segundo plano. Para envio automático por agenda, o caminho correto é Google Apps Script na própria planilha.
-          </div>
-
-          <div class="flow-actions">
-            <button class="btn secondary" type="button" id="btn-copy-apps-script">Copiar modelo de Apps Script</button>
-          </div>
-          <p class="hint">O modelo copiado serve como ponto de partida para um disparo agendado por e-mail. WhatsApp deve continuar manual, salvo integração oficial/API aprovada.</p>
-        </section>
-
 
         <section class="card" id="schedulers">
-          <h2>6. Schedulers / Lembretes</h2>
+          <h2>5. Schedulers / Lembretes</h2>
           <p><strong>Preparar Fluxo NPS:</strong> última segunda-feira do mês, 09h.</p>
           <p><strong>Tratar Playbooks NPS:</strong> última quarta-feira do mês, 09h.</p>
           <div class="note warning"><strong>Importante:</strong> o site não dispara lembretes sozinho. Os avisos ficam em agenda/automação externa.</div>
         </section>
       </aside>
+    </section>
+
+    <section class="card" id="base-contatos">
+      <h2>6. Base de Contatos NPS</h2>
+      <p>Ao clicar em preencher, o fluxo busca automaticamente a planilha publicada no GitHub Pages ou tenta a exportação online do Google Sheets. Depois filtra somente linhas com <strong>RESPONDE NPS = SIM</strong>.</p>
+      <p><strong>Arquivo esperado no GitHub:</strong> <code>Tabela para envio de email aos clientes.xlsx</code></p>
+      <a class="btn info" href="https://docs.google.com/spreadsheets/d/1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2/edit?gid=168915867#gid=168915867" target="_blank" rel="noopener noreferrer">Abrir planilha online</a>
+
+      <div class="note info">
+        <strong>Colunas esperadas:</strong> CLIENTE, NOME CONTATO, EMAIL, TELEFONE e RESPONDE NPS. A coluna CARGO é opcional.
+      </div>
+
+      <h3>Busca automática</h3>
+      <label for="sheet-source-url">Fonte automática opcional</label>
+      <input id="sheet-source-url" type="text" value="Tabela%20para%20envio%20de%20email%20aos%20clientes.xlsx" />
+      <p class="hint">Deixe o padrão se o .xlsx estiver na mesma pasta do index.html no GitHub Pages. Também é possível informar uma URL direta para um .xlsx público.</p>
+
+      <div class="flow-actions">
+        <button class="btn" type="button" id="btn-fetch-fill-both">Buscar planilha e preencher e-mails + telefones</button>
+        <button class="btn secondary" type="button" id="btn-fetch-fill-emails">Buscar e preencher somente e-mails</button>
+        <button class="btn secondary" type="button" id="btn-fetch-fill-phones">Buscar e preencher somente telefones</button>
+      </div>
+
+      <h3>Importação manual reserva</h3>
+      <p>Se a busca automática falhar, copie as linhas da planilha com cabeçalho, cole abaixo e processe manualmente.</p>
+      <label for="sheet-paste">Cole aqui os dados copiados do Google Sheets / Excel</label>
+      <textarea id="sheet-paste" class="small-textarea" placeholder="CLIENTE&#9;NOME CONTATO&#9;EMAIL&#9;TELEFONE&#9;RESPONDE NPS&#10;Empresa ABC&#9;João Silva&#9;joao@empresa.com&#9;11999999999&#9;SIM"></textarea>
+      <div class="flow-actions">
+        <button class="btn secondary" type="button" id="btn-process-sheet">Processar contatos NPS</button>
+        <button class="btn secondary" type="button" id="btn-fill-emails">Preencher e-mails da Blitz</button>
+        <button class="btn secondary" type="button" id="btn-fill-phones">Preencher telefones do WhatsApp</button>
+      </div>
+
+      <div class="hint" id="sheet-stats">Nenhum contato processado ainda.</div>
+      <div class="hint" id="sheet-source-status">Fonte automática ainda não consultada.</div>
+
+      <div class="table-wrap" id="sheet-preview-wrap" style="display:none;">
+        <table class="table" aria-label="Prévia dos contatos NPS">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Contato</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th>Cargo</th>
+            </tr>
+          </thead>
+          <tbody id="sheet-preview"></tbody>
+        </table>
+      </div>
+
+      <div class="note warning">
+        <strong>Regra técnica:</strong> a busca automática no GitHub funciona quando o .xlsx está publicado junto ao index.html. A busca online do Google Sheets depende de permissão pública/exportável pelo navegador.
+      </div>
     </section>
 
     <section class="card" id="blitz">
@@ -201,9 +373,9 @@
         <section>
           <h3>Checklist antes do envio</h3>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox"> Maille extraído.</label>
-            <label class="check-item"><input type="checkbox"> E-mails separados.</label>
-            <label class="check-item"><input type="checkbox"> Telefones separados.</label>
+            <label class="check-item"><input type="checkbox"> Base de contatos processada.</label>
+            <label class="check-item"><input type="checkbox"> E-mails preenchidos automaticamente.</label>
+            <label class="check-item"><input type="checkbox"> Telefones preenchidos automaticamente.</label>
             <label class="check-item"><input type="checkbox"> Duplicados removidos.</label>
             <label class="check-item"><input type="checkbox"> Texto revisado.</label>
             <label class="check-item"><input type="checkbox"> Arte preparada para anexo.</label>
@@ -218,7 +390,10 @@
       <section class="card" id="gmail">
         <h2>8. Disparo por E-mail (Gmail)</h2>
         <p>O Gmail será aberto com seu e-mail corporativo em <strong>Para</strong> e os clientes em <strong>CCO</strong>. O limite seguro é de 49 clientes por lote.</p>
-        <div class="note info"><strong>Entrada recomendada:</strong> processe primeiro a Base de Contatos NPS. Depois clique em <strong>Preencher e-mails da Blitz</strong> para trazer automaticamente somente contatos com RESPONDE NPS? = SIM.</div>
+        <div class="note info"><strong>Entrada automática:</strong> clique abaixo para buscar a planilha e preencher somente e-mails com RESPONDE NPS = SIM.</div>
+        <div class="flow-actions">
+          <button class="btn secondary" type="button" id="btn-gmail-auto-fill">Buscar planilha e preencher e-mails</button>
+        </div>
         <label for="emails">Lista de e-mails (um por linha)</label>
         <textarea id="emails" class="small-textarea" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
         <div class="hint" id="email-stats"></div>
@@ -245,7 +420,10 @@
       <section class="card" id="whatsapp">
         <h2>9. Disparo via WhatsApp</h2>
         <p>Gera links individuais do WhatsApp Web com a mensagem pronta. O envio continua manual.</p>
-        <div class="note info"><strong>Entrada recomendada:</strong> processe primeiro a Base de Contatos NPS. Depois clique em <strong>Preencher telefones do WhatsApp</strong> para trazer automaticamente somente contatos com RESPONDE NPS? = SIM.</div>
+        <div class="note info"><strong>Entrada automática:</strong> clique abaixo para buscar a planilha e preencher somente telefones com RESPONDE NPS = SIM.</div>
+        <div class="flow-actions">
+          <button class="btn secondary" type="button" id="btn-whatsapp-auto-fill">Buscar planilha e preencher telefones</button>
+        </div>
         <label for="whatsapps">Telefones (com DDI/DDD, um por linha)</label>
         <textarea id="whatsapps" class="small-textarea" placeholder="5511999999999&#10;5511988888888"></textarea>
         <button class="btn" id="btn-wa">Gerar links de envio</button>
@@ -258,83 +436,24 @@
       <h2>10. Playbooks NPS — Neutros e Detratores</h2>
       <p>Todo cliente neutro ou detrator precisa ter tratativa registrada por playbook. Se o playbook automático não aparecer, crie manualmente.</p>
       <div class="note"><strong>Prazo:</strong> concluir até o final do mês seguinte.</div>
-
       <h3>Tela correta no Sankhya</h3>
       <p><strong>Tela:</strong> CS - Gestão de Sucesso do Cliente</p>
       <p><strong>Caminho:</strong> Analytics AI » Sucesso do Cliente » CS - Resultados » CS - Gestão de Sucesso do Cliente</p>
       <p><strong>ID:</strong> <code>br.com.sankhya.analytics2.new.sc.t_20293.10.130</code></p>
       <p><strong>Aba:</strong> ATIVIDADES</p>
       <p><strong>Seção:</strong> Apontamento de Atividades — “Gerencie sua fila de atividades, acompanhe prazos e atualize status.”</p>
-
-      <div class="note info">
-        <strong>Ação principal:</strong> dentro da aba ATIVIDADES, localizar o Playbook e clicar em <strong>Editar Atividades</strong> para agir em cada etapa lançada manualmente ou automaticamente.
-      </div>
-
+      <div class="note info"><strong>Ação principal:</strong> localizar o Playbook e clicar em <strong>Editar Atividades</strong>.</div>
       <div class="table-wrap">
         <table class="table" aria-label="Tipos de atividade do loop de NPS">
-          <thead>
-            <tr>
-              <th>Ordem</th>
-              <th>Tipo da Atividade</th>
-              <th>O que preencher</th>
-              <th>Anexos aceitos</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Ordem</th><th>Tipo da Atividade</th><th>O que preencher</th><th>Anexos aceitos</th></tr></thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Loop de NPS - Entendimento do Cenário</td>
-              <td>Anotações obrigatórias com causa da nota, pontos trazidos pelo cliente, impacto na operação e primeiro contato.</td>
-              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Loop de NPS - Plano de Ação</td>
-              <td>Anotações obrigatórias com plano, responsáveis, prazos, status e aceite do cliente.</td>
-              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Loop de NPS - Plano de Ação Colaborativo</td>
-              <td>Anotações obrigatórias quando depender de Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops, Produto ou outra área.</td>
-              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Loop de NPS - Follow-up</td>
-              <td>Anotações obrigatórias com retorno ao cliente, resultado obtido, pendências restantes e conclusão do playbook.</td>
-              <td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td>
-            </tr>
+            <tr><td>1</td><td>Loop de NPS - Entendimento do Cenário</td><td>Anotações com causa da nota, pontos trazidos, impacto na operação e primeiro contato.</td><td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td></tr>
+            <tr><td>2</td><td>Loop de NPS - Plano de Ação</td><td>Anotações com plano, responsável, prazo, aceite do cliente e status.</td><td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td></tr>
+            <tr><td>3</td><td>Loop de NPS - Plano de Ação Colaborativo</td><td>Anotações com área acionada, responsável, retorno e próximos passos.</td><td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td></tr>
+            <tr><td>4</td><td>Loop de NPS - Follow-up</td><td>Anotações com retorno ao cliente, resultado obtido, pendências e conclusão.</td><td>PNG, JPEG, PDF, DOCX, XLSX, PPTX</td></tr>
           </tbody>
         </table>
       </div>
-
-      <div class="accordion">
-        <div class="acc-item open">
-          <button class="acc-head" type="button"><span class="acc-title">Fechamento de Loop NPS — Neutros e Detratores</span><span class="acc-arrow">›</span></button>
-          <div class="acc-body">
-            <div class="flow-actions">
-              <button class="btn secondary" type="button" data-modal="detratores-entendimento" data-title="Loop de NPS - Entendimento do Cenário">Entendimento do cenário</button>
-              <button class="btn secondary" type="button" data-modal="detratores-montagem" data-title="Loop de NPS - Plano de Ação">Plano de ação</button>
-              <button class="btn secondary" type="button" data-modal="detratores-colaboracao" data-title="Loop de NPS - Plano de Ação Colaborativo">Plano colaborativo</button>
-              <button class="btn secondary" type="button" data-modal="detratores-followup" data-title="Loop de NPS - Follow-up">Follow-up</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ol>
-        <li>Acessar <strong>CS - Gestão de Sucesso do Cliente</strong>.</li>
-        <li>Abrir a aba <strong>ATIVIDADES</strong>.</li>
-        <li>Ir na seção <strong>Apontamento de Atividades</strong>.</li>
-        <li>Localizar o playbook de NPS gerado automaticamente ou criado manualmente.</li>
-        <li>Clicar em <strong>Editar Atividades</strong>.</li>
-        <li>Preencher a etapa correspondente do Loop de NPS.</li>
-        <li>Anexar evidências quando houver.</li>
-        <li>Registrar <strong>Anotações</strong> de forma clara e objetiva.</li>
-        <li>Atualizar status e acompanhar o prazo.</li>
-        <li>Concluir o playbook até o final do mês seguinte.</li>
-      </ol>
     </section>
 
     <section class="card" id="gpd">
@@ -343,52 +462,6 @@
       <p><strong>Caminho:</strong> Gestão Estratégica » Apuração do Resultado</p>
       <p><strong>ID:</strong> <code>br.com.sankhya.apuracao.resultado</code></p>
       <div class="note info"><strong>Regra:</strong> preencher quando a Ana CSM solicitar ou quando houver necessidade de formalizar plano de ação para o indicador NPS.</div>
-
-      <div class="table-wrap">
-        <table class="table" aria-label="Campos da Apuração do Resultado GPD">
-          <thead>
-            <tr>
-              <th>Campo</th>
-              <th>Como preencher no contexto NPS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Quem</td>
-              <td>Informar o responsável pela ação. Ex.: CS da carteira, liderança da unidade, área de apoio envolvida ou responsável direto pelo plano.</td>
-            </tr>
-            <tr>
-              <td>O que</td>
-              <td>Descrever objetivamente o problema, indicador ou situação que gerou a necessidade do plano. Ex.: nota detratora, baixo volume de respostas, risco de queda no NPS.</td>
-            </tr>
-            <tr>
-              <td>Onde</td>
-              <td>Informar onde o problema ocorreu: cliente, carteira, unidade, indicador NPS, INDECX, CS - NPS ou playbook específico.</td>
-            </tr>
-            <tr>
-              <td>Porque</td>
-              <td>Explicar a causa provável ou motivo da ação. Ex.: insatisfação com atendimento, pendência operacional, falha de comunicação, baixa aderência ou ausência de contato.</td>
-            </tr>
-            <tr>
-              <td>Como</td>
-              <td>Detalhar o plano de ação: contato com cliente, entendimento do cenário, montagem do plano, acionamento de áreas, follow-up e conclusão do playbook.</td>
-            </tr>
-            <tr>
-              <td>Quanto custa</td>
-              <td>Informar se não há custo direto ou indicar horas/esforço interno, serviço, consultoria ou qualquer custo envolvido, quando existir.</td>
-            </tr>
-            <tr>
-              <td>Retorno esperado</td>
-              <td>Informar o resultado esperado. Ex.: recuperar percepção do cliente, tratar insatisfação, aumentar taxa de resposta, reduzir risco de detrator ou melhorar indicador NPS.</td>
-            </tr>
-            <tr>
-              <td>Observação</td>
-              <td>Registrar contexto adicional, evidências, links, prints, playbook relacionado, retorno da Ana CSM ou observações relevantes para diretoria.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
       <h3>Modelo rápido para copiar</h3>
       <textarea id="gpd-template" class="small-textarea" readonly>Quem:
 
@@ -413,7 +486,7 @@ Observação:</textarea>
       <div class="checklist">
         <label class="check-item"><input type="checkbox"> Acessei CS - NPS.</label>
         <label class="check-item"><input type="checkbox"> Entrei no quadrante CS - Pesquisas NPS.</label>
-        <label class="check-item"><input type="checkbox"> Extraí Clientes Pesquisados com mais de 6 Meses.</label>
+        <label class="check-item"><input type="checkbox"> Validei a base de contatos com RESPONDE NPS = SIM.</label>
         <label class="check-item"><input type="checkbox"> Enviei todos os lotes por Gmail.</label>
         <label class="check-item"><input type="checkbox"> Enviei WhatsApps necessários.</label>
         <label class="check-item"><input type="checkbox"> Acompanhei retornos no INDECX.</label>
@@ -422,75 +495,11 @@ Observação:</textarea>
       </div>
     </section>
 
-    <div class="footer-note">Observação: esta página não envia e-mails ou WhatsApps automaticamente. Ela apenas prepara os disparos para revisão e envio manual.</div>
+    <div class="footer-note">Observação: esta página não envia e-mails ou WhatsApps automaticamente. Ela prepara as listas e os disparos para revisão e envio manual.</div>
   </div>
 </div>
 
-<div class="modal" id="modal" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-header"><h3 class="modal-title" id="modal-title">Roteiro</h3><button class="btn secondary" type="button" id="modal-close">Fechar</button></div>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
-</div>
-
-
-<template id="tpl-detratores-entendimento">
-  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Entendimento do Cenário</p>
-  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
-  <p><strong>Anotações obrigatórias:</strong></p>
-  <ul>
-    <li>Qual foi a nota e o comentário do cliente.</li>
-    <li>Quais pontos foram trazidos no contato inicial.</li>
-    <li>Qual impacto isso gera na operação do cliente.</li>
-    <li>O que o cliente considera essencial para resolver.</li>
-    <li>Produto, módulo, área ou empresa do grupo citada, quando houver.</li>
-    <li>Contato utilizado e data do contato.</li>
-  </ul>
-</template>
-
-<template id="tpl-detratores-montagem">
-  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Plano de Ação</p>
-  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
-  <p><strong>Anotações obrigatórias:</strong></p>
-  <ul>
-    <li>Plano apresentado ao cliente.</li>
-    <li>Responsável por cada ação.</li>
-    <li>Prazo combinado para solução.</li>
-    <li>Se o cliente aprovou ou não a proposta.</li>
-    <li>Status de cada etapa.</li>
-  </ul>
-  <div class="table-wrap"><table class="table"><thead><tr><th>Etapa</th><th>Descrição</th><th>Responsável</th><th>Data início</th><th>Data fim</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Entendimento da causa raiz</td><td>CS</td><td></td><td></td><td>Aberto</td></tr><tr><td>2</td><td>Execução do plano</td><td>CS / Área envolvida</td><td></td><td></td><td>Aberto</td></tr><tr><td>3</td><td>Validação com cliente</td><td>CS</td><td></td><td></td><td>Aberto</td></tr></tbody></table></div>
-</template>
-
-<template id="tpl-detratores-colaboracao">
-  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Plano de Ação Colaborativo</p>
-  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
-  <p>Use quando a solução depender de outra área: Suporte, Serviços, Comercial, Financeiro, RevOps, CS Ops, Produto ou liderança.</p>
-  <p><strong>Anotações obrigatórias:</strong></p>
-  <ul>
-    <li>Área acionada.</li>
-    <li>Responsável acionado.</li>
-    <li>O que foi solicitado.</li>
-    <li>Prazo combinado.</li>
-    <li>Retornos recebidos.</li>
-    <li>Próximo passo com o cliente.</li>
-  </ul>
-</template>
-
-<template id="tpl-detratores-followup">
-  <p><strong>Tipo da Atividade:</strong> Loop de NPS - Follow-up</p>
-  <p><strong>Anexo:</strong> nenhum arquivo escolhido inicialmente. Formatos aceitos quando houver evidência: PNG, JPEG, PDF, DOCX, XLSX, PPTX.</p>
-  <p><strong>Anotações obrigatórias:</strong></p>
-  <ul>
-    <li>Data do follow-up.</li>
-    <li>O que foi apresentado ao cliente.</li>
-    <li>Se o cliente percebeu evolução.</li>
-    <li>Se ainda existe pendência.</li>
-    <li>Resultado obtido.</li>
-    <li>Se o playbook pode ser concluído.</li>
-  </ul>
-</template>
-
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 (function(){
   var CORP_GMAIL='gustavo.germano@sankhya.com.br';
@@ -498,6 +507,11 @@ Observação:</textarea>
   var MAX_BCC=49;
   var FIXED_TO='gustavo.germano@sankhya.com.br';
   var DEFAULT_SUBJECT='Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
+  var GOOGLE_SHEET_ID='1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2';
+  var GOOGLE_GID='168915867';
+  var processedContacts=[];
+  var __originalEmailsRaw=null;
+
   var defaultMessage=`A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
 O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
@@ -512,231 +526,260 @@ Além da nota, é de extrema importância que você explique o motivo dela, para
 
 Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa especializada em pesquisa) e agora também por WhatsApp, por isso fique atento e não deixe de dar a sua opinião!`;
 
-  var processedContacts = [];
-
-  var APPS_SCRIPT_TEMPLATE = `/**
- * Fluxo NPS — Scheduler de Blitz por e-mail
- * Como usar:
- * 1. Abra a planilha de contatos NPS.
- * 2. Extensões > Apps Script.
- * 3. Cole este código.
- * 4. Ajuste SHEET_NAME, se necessário.
- * 5. Execute criarAgendamentoMensalNPS() uma vez para criar o gatilho.
- *
- * Observação:
- * - Envia e-mail apenas para linhas com RESPONDE NPS? = SIM.
- * - WhatsApp não é enviado por este script.
- */
-
-const SHEET_NAME = 'Página1';
-const ASSUNTO_NPS = 'Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador';
-
-function enviarBlitzNPS() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
-  const values = sheet.getDataRange().getValues();
-  const headers = values.shift().map(h => normalizar_(h));
-
-  const idxCliente = headers.indexOf('CLIENTE');
-  const idxNome = headers.indexOf('NOME CONTATO');
-  const idxEmail = headers.indexOf('EMAIL');
-  const idxResponde = headers.indexOf('RESPONDE NPS');
-
-  if (idxEmail < 0 || idxResponde < 0) {
-    throw new Error('Colunas obrigatórias não encontradas: EMAIL e RESPONDE NPS?');
-  }
-
-  const mensagemBase = montarMensagem_();
-
-  values.forEach(row => {
-    const responde = String(row[idxResponde] || '').trim().toUpperCase();
-    const email = String(row[idxEmail] || '').trim();
-    if (responde !== 'SIM' || !email) return;
-
-    const nome = idxNome >= 0 ? String(row[idxNome] || '').trim() : '';
-    const cliente = idxCliente >= 0 ? String(row[idxCliente] || '').trim() : '';
-    const saudacao = nome ? 'Olá, ' + nome + '!\\n\\n' : 'Olá!\\n\\n';
-
-    GmailApp.sendEmail(email, ASSUNTO_NPS, saudacao + mensagemBase, {
-      name: 'Gustavo Germano | Sankhya ABC Paulista'
-    });
-  });
-}
-
-function criarAgendamentoMensalNPS() {
-  ScriptApp.newTrigger('enviarBlitzNPS')
-    .timeBased()
-    .onMonthDay(25)
-    .atHour(9)
-    .create();
-}
-
-function montarMensagem_() {
-  return 'A sua opinião tem poder transformador!\\n\\n' +
-    'Em breve você poderá receber a pesquisa NPS da Sankhya, realizada pela INDECX. ' +
-    'A sua resposta ajuda a Sankhya e também direciona o meu trabalho como CS responsável pelo seu atendimento.\\n\\n' +
-    'Além da nota, é muito importante explicar o motivo da sua avaliação para que possamos evoluir de forma assertiva.\\n\\n' +
-    'Qualquer dúvida, estou à disposição.\\n\\n' +
-    'Gustavo Germano';
-}
-
-function normalizar_(valor) {
-  return String(valor || '')
-    .normalize('NFD')
-    .replace(/[\\u0300-\\u036f]/g, '')
-    .replace(/[?]/g, '')
-    .trim()
-    .toUpperCase();
-}`;
-
   function $(id){return document.getElementById(id)}
   function on(id,evt,fn){var el=$(id);if(el)el.addEventListener(evt,fn)}
   function getMessage(){var el=$('blitz-text');var txt=el?(el.value||'').trim():'';return txt||defaultMessage}
-  function extractEmailFromLine(line){var s=(line||'').trim();if(!s)return'';var m=s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);return m?m[1].trim():''}
+  function extractEmailFromLine(line){var s=String(line||'').trim();if(!s)return'';var m=s.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);return m?m[1].trim():''}
   function parseEmailList(raw){return(raw||'').split(/[\n;,]+/).map(extractEmailFromLine).filter(Boolean)}
-  function uniqueEmails(list){var seen=Object.create(null),out=[];list.forEach(function(e){var k=String(e).trim().toLowerCase();if(k&&!seen[k]){seen[k]=true;out.push(String(e).trim())}});return out}
-
-  function escapeHtml(value){
-    return String(value || '').replace(/[&<>"']/g,function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
-    });
-  }
+  function uniqueEmails(list){var seen=Object.create(null),out=[];list.forEach(function(e){var k=String(e||'').trim().toLowerCase();if(k&&!seen[k]){seen[k]=true;out.push(String(e).trim())}});return out}
+  function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]})}
   function normalizeHeader(value){
-    return String(value || '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g,'')
-      .replace(/[?]/g,'')
-      .trim()
-      .toUpperCase();
+    return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[?]/g,'').replace(/\s+/g,' ').trim().toUpperCase();
   }
-  function splitSheetLine(line){
-    if (line.indexOf('\t') >= 0) return line.split('\t');
-    if (line.indexOf(';') >= 0) return line.split(';');
-    return line.split(',');
+  function isYes(value){var v=normalizeHeader(value);return v==='SIM'||v==='S'||v==='YES'||v==='TRUE'}
+  function normalizePhone(value){
+    var raw=String(value==null?'':value).trim();
+    if(!raw || raw==='-')return '';
+    var digits='';
+    if(/^[+-]?\d+(?:\.\d+)?e[+-]?\d+$/i.test(raw)){try{digits=Number(raw).toFixed(0)}catch(e){digits=''}}
+    if(!digits)digits=raw.replace(/\D/g,'');
+    digits=digits.replace(/^0+/,'');
+    if(digits.length===10 || digits.length===11)digits='55'+digits;
+    return digits;
   }
-  function uniquePhones(list){
-    var seen=Object.create(null),out=[];
-    list.forEach(function(phone){
-      var p=String(phone||'').replace(/\D/g,'').trim();
-      if(p && !seen[p]){seen[p]=true;out.push(p)}
-    });
-    return out;
-  }
-  function processSheetContacts(){
-    var paste=$('sheet-paste');
-    var stats=$('sheet-stats');
-    var preview=$('sheet-preview');
-    var wrap=$('sheet-preview-wrap');
-    if(!paste||!stats||!preview)return;
-
-    var lines=(paste.value||'').split(/\r?\n/).filter(function(line){return line.trim()});
-    if(lines.length<2){
-      processedContacts=[];
-      stats.textContent='Cole o cabeçalho e pelo menos uma linha da planilha.';
-      if(wrap)wrap.style.display='none';
-      return;
+  function uniquePhones(list){var seen=Object.create(null),out=[];list.forEach(function(phone){var p=normalizePhone(phone);if(p&&!seen[p]){seen[p]=true;out.push(p)}});return out}
+  function setSheetStatus(message){var el=$('sheet-source-status');if(el)el.textContent=message}
+  function getHeaderIndex(headers, options){
+    for(var i=0;i<options.length;i++){
+      var key=normalizeHeader(options[i]);
+      var pos=headers.indexOf(key);
+      if(pos>=0)return pos;
     }
-
-    var headers=splitSheetLine(lines[0]).map(normalizeHeader);
-    function idx(name){return headers.indexOf(name)}
-    var iCliente=idx('CLIENTE');
-    var iNome=idx('NOME CONTATO');
-    var iEmail=idx('EMAIL');
-    var iTelefone=idx('TELEFONE');
-    var iCargo=idx('CARGO');
-    var iResponde=idx('RESPONDE NPS');
-
+    return -1;
+  }
+  function buildContactsFromRows(rows, sourceLabel){
+    var stats=$('sheet-stats'),preview=$('sheet-preview'),wrap=$('sheet-preview-wrap');
+    if(!rows || rows.length<2){
+      processedContacts=[];
+      if(stats)stats.textContent='A fonte não possui cabeçalho e linhas suficientes.';
+      if(wrap)wrap.style.display='none';
+      return [];
+    }
+    var headers=rows[0].map(normalizeHeader);
+    var iCliente=getHeaderIndex(headers,['CLIENTE']);
+    var iNome=getHeaderIndex(headers,['NOME CONTATO','NOME','CONTATO']);
+    var iEmail=getHeaderIndex(headers,['EMAIL','E-MAIL']);
+    var iTelefone=getHeaderIndex(headers,['TELEFONE','TEL','CELULAR','WHATSAPP']);
+    var iCargo=getHeaderIndex(headers,['CARGO']);
+    var iResponde=getHeaderIndex(headers,['RESPONDE NPS','RESPONDE NPS?','RESPONDE']);
     if(iEmail<0 || iTelefone<0 || iResponde<0){
       processedContacts=[];
-      stats.textContent='Não encontrei as colunas obrigatórias: EMAIL, TELEFONE e RESPONDE NPS?. Confira o cabeçalho colado.';
+      if(stats)stats.textContent='Não encontrei as colunas obrigatórias: EMAIL, TELEFONE e RESPONDE NPS.';
       if(wrap)wrap.style.display='none';
-      return;
+      return [];
     }
-
-    var all=[];
-    var yes=[];
-    lines.slice(1).forEach(function(line){
-      var cols=splitSheetLine(line);
+    var all=[],yes=[];
+    rows.slice(1).forEach(function(row){
       var contato={
-        cliente:iCliente>=0?(cols[iCliente]||'').trim():'',
-        nome:iNome>=0?(cols[iNome]||'').trim():'',
-        email:iEmail>=0?extractEmailFromLine(cols[iEmail]||''):'',
-        telefone:iTelefone>=0?String(cols[iTelefone]||'').replace(/\D/g,'').trim():'',
-        cargo:iCargo>=0?(cols[iCargo]||'').trim():'',
-        responde:iResponde>=0?String(cols[iResponde]||'').trim().toUpperCase():''
+        cliente:iCliente>=0?String(row[iCliente]||'').trim():'',
+        nome:iNome>=0?String(row[iNome]||'').trim():'',
+        email:iEmail>=0?extractEmailFromLine(row[iEmail]||''):'',
+        telefone:iTelefone>=0?normalizePhone(row[iTelefone]||''):'',
+        cargo:iCargo>=0?String(row[iCargo]||'').trim():'',
+        responde:iResponde>=0?String(row[iResponde]||'').trim():''
       };
-      if(contato.email || contato.telefone) all.push(contato);
-      if(contato.responde==='SIM' && (contato.email || contato.telefone)) yes.push(contato);
+      if(contato.email || contato.telefone)all.push(contato);
+      if(isYes(contato.responde) && (contato.email || contato.telefone))yes.push(contato);
     });
-
     processedContacts=yes;
     var emails=uniqueEmails(yes.map(function(c){return c.email}).filter(Boolean));
     var phones=uniquePhones(yes.map(function(c){return c.telefone}).filter(Boolean));
-
-    stats.textContent='Linhas lidas: '+all.length+'. Contatos com RESPONDE NPS? = SIM: '+yes.length+'. E-mails únicos: '+emails.length+'. Telefones únicos: '+phones.length+'.';
-
-    preview.innerHTML=yes.slice(0,30).map(function(c){
-      return '<tr>'+
-        '<td>'+escapeHtml(c.cliente)+'</td>'+
-        '<td>'+escapeHtml(c.nome)+'</td>'+
-        '<td>'+escapeHtml(c.email)+'</td>'+
-        '<td>'+escapeHtml(c.telefone)+'</td>'+
-        '<td>'+escapeHtml(c.cargo)+'</td>'+
-      '</tr>';
-    }).join('');
-
+    if(stats)stats.textContent='Fonte: '+(sourceLabel||'dados informados')+'. Linhas lidas: '+all.length+'. Contatos com RESPONDE NPS = SIM: '+yes.length+'. E-mails únicos: '+emails.length+'. Telefones únicos: '+phones.length+'.';
+    if(preview){
+      preview.innerHTML=yes.slice(0,40).map(function(c){
+        return '<tr><td>'+escapeHtml(c.cliente)+'</td><td>'+escapeHtml(c.nome)+'</td><td>'+escapeHtml(c.email)+'</td><td>'+escapeHtml(c.telefone)+'</td><td>'+escapeHtml(c.cargo)+'</td></tr>';
+      }).join('');
+    }
     if(wrap)wrap.style.display=yes.length?'block':'none';
+    return yes;
   }
-  function copyText(text){if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text)}return new Promise(function(resolve){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(t);resolve()})}
-  function showBatchPanel(sentCount,totalCount,remainingList){var panel=$('batch-panel'),summary=$('batch-summary'),nextBox=$('emails-next');if(!panel||!summary||!nextBox)return;if(!remainingList||!remainingList.length){panel.style.display='none';nextBox.value='';summary.textContent='';return}panel.style.display='block';summary.textContent='Lote aberto com '+sentCount+' e-mails (CCO). Total na lista: '+totalCount+'. Restam '+remainingList.length+' para o próximo disparo.';nextBox.value=remainingList.join('\n')}
-  function updateEmailStats(){var emailsEl=$('emails'),stats=$('email-stats');if(!emailsEl||!stats)return;var list=uniqueEmails(parseEmailList(emailsEl.value||''));if(!list.length){stats.textContent='Cole os e-mails (um por linha). Limite por disparo no CCO: '+MAX_BCC+'.';return}var msg='E-mails válidos (únicos): '+list.length+'. Limite por disparo no CCO: '+MAX_BCC+'.';if(list.length>MAX_BCC){msg+=' Acima do limite: o sistema abrirá em lotes e mostrará o restante.'}stats.textContent=msg}
-  var __originalEmailsRaw=null;
-  function init(){
-    var blitz=$('blitz-text');if(blitz&&!blitz.value)blitz.value=defaultMessage;updateEmailStats();
+  function splitSheetLine(line){
+    if(line.indexOf('\t')>=0)return line.split('\t');
+    if(line.indexOf(';')>=0)return line.split(';');
+    return parseCsv(line)[0] || line.split(',');
+  }
+  function parseCsv(text){
+    var rows=[],row=[],field='',inQuotes=false;
+    for(var i=0;i<text.length;i++){
+      var ch=text[i],next=text[i+1];
+      if(ch==='"'){if(inQuotes&&next==='"'){field+='"';i++}else inQuotes=!inQuotes}
+      else if(ch===','&&!inQuotes){row.push(field);field=''}
+      else if((ch==='\n'||ch==='\r')&&!inQuotes){
+        if(ch==='\r'&&next==='\n')i++;
+        row.push(field);field='';
+        if(row.some(function(v){return String(v).trim()}))rows.push(row);
+        row=[];
+      }else field+=ch;
+    }
+    row.push(field);
+    if(row.some(function(v){return String(v).trim()}))rows.push(row);
+    return rows;
+  }
+  function getAutoSources(){
+    var custom=$('sheet-source-url')?String($('sheet-source-url').value||'').trim():'';
+    var sources=[];
+    if(custom)sources.push(custom);
+    [
+      'Tabela%20para%20envio%20de%20email%20aos%20clientes.xlsx',
+      'Tabela para envio de email aos clientes.xlsx',
+      'Tabela%20para%20envio%20de%20email%20aos%20clientes.XLSX',
+      'tabela-contatos-nps.xlsx',
+      'contatos-nps.xlsx',
+      'https://docs.google.com/spreadsheets/d/'+GOOGLE_SHEET_ID+'/export?format=xlsx&gid='+GOOGLE_GID,
+      'https://docs.google.com/spreadsheets/d/'+GOOGLE_SHEET_ID+'/gviz/tq?tqx=out:csv&gid='+GOOGLE_GID
+    ].forEach(function(src){if(sources.indexOf(src)<0)sources.push(src)});
+    return sources;
+  }
+  function resolveSource(src){if(/^https?:\/\//i.test(src))return src;return new URL(src,window.location.href).href}
+  function fetchWithTimeout(url,ms){
+    var controller=new AbortController();
+    var timer=setTimeout(function(){controller.abort()},ms||12000);
+    return fetch(url,{signal:controller.signal,cache:'no-store'}).finally(function(){clearTimeout(timer)});
+  }
+  async function loadContactsFromSource(){
+    if(typeof fetch!=='function')throw new Error('Este navegador não possui suporte a fetch().');
+    var errors=[],sources=getAutoSources();
+    for(var s=0;s<sources.length;s++){
+      var src=sources[s],url=resolveSource(src);
+      try{
+        setSheetStatus('Tentando buscar: '+url);
+        var res=await fetchWithTimeout(url,12000);
+        if(!res.ok)throw new Error('HTTP '+res.status);
+        var lower=url.split('?')[0].toLowerCase();
+        var rows=[];
+        if(lower.endsWith('.csv')||url.indexOf('tqx=out:csv')>=0){
+          rows=parseCsv(await res.text());
+        }else{
+          if(!window.XLSX)throw new Error('Biblioteca XLSX não carregou.');
+          var buffer=await res.arrayBuffer();
+          var workbook=XLSX.read(buffer,{type:'array',cellDates:false});
+          var sheetName=workbook.SheetNames[0];
+          var sheet=workbook.Sheets[sheetName];
+          rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:'',raw:false});
+        }
+        var contacts=buildContactsFromRows(rows,url);
+        if(contacts.length){setSheetStatus('Planilha carregada automaticamente com sucesso: '+url);return contacts}
+        errors.push(url+' retornou sem contatos SIM.');
+      }catch(err){
+        errors.push(url+' => '+(err&&err.message?err.message:err));
+      }
+    }
+    setSheetStatus('Falha na busca automática. Use a importação manual. Últimos erros: '+errors.slice(-3).join(' | '));
+    throw new Error('Não foi possível buscar a planilha automaticamente.');
+  }
+  function processSheetContacts(){
+    var paste=$('sheet-paste'),stats=$('sheet-stats'),wrap=$('sheet-preview-wrap');
+    if(!paste)return [];
+    var lines=(paste.value||'').split(/\r?\n/).filter(function(line){return line.trim()});
+    if(lines.length<2){
+      processedContacts=[];
+      if(stats)stats.textContent='Cole o cabeçalho e pelo menos uma linha da planilha.';
+      if(wrap)wrap.style.display='none';
+      return [];
+    }
+    var rows=lines.map(splitSheetLine);
+    return buildContactsFromRows(rows,'importação manual');
+  }
+  async function ensureContactsLoaded(force){
+    if(!force && processedContacts.length)return processedContacts;
+    try{return await loadContactsFromSource()}
+    catch(e){
+      var paste=$('sheet-paste');
+      if(paste&&paste.value.trim()){
+        processSheetContacts();
+        if(processedContacts.length)return processedContacts;
+      }
+      throw e;
+    }
+  }
+  function fillEmailsFromContacts(){
+    var emails=uniqueEmails(processedContacts.map(function(c){return c.email}).filter(Boolean));
+    if(!emails.length){alert('Nenhum e-mail encontrado com RESPONDE NPS = SIM.');return false}
+    var emailsEl=$('emails');
+    if(emailsEl)emailsEl.value=emails.join('\n');
+    updateEmailStats();
+    return true;
+  }
+  function fillPhonesFromContacts(){
+    var phones=uniquePhones(processedContacts.map(function(c){return c.telefone}).filter(Boolean));
+    if(!phones.length){alert('Nenhum telefone encontrado com RESPONDE NPS = SIM.');return false}
+    var phonesEl=$('whatsapps');
+    if(phonesEl)phonesEl.value=phones.join('\n');
+    return true;
+  }
+  async function fetchAndFill(mode){
+    try{
+      await ensureContactsLoaded(true);
+      if(mode==='emails'){
+        if(fillEmailsFromContacts())alert('E-mails preenchidos automaticamente com RESPONDE NPS = SIM.');
+      }else if(mode==='phones'){
+        if(fillPhonesFromContacts())alert('Telefones preenchidos automaticamente com RESPONDE NPS = SIM.');
+      }else{
+        var okE=fillEmailsFromContacts();
+        var okP=fillPhonesFromContacts();
+        if(okE||okP)alert('E-mails e telefones preenchidos automaticamente com RESPONDE NPS = SIM.');
+      }
+    }catch(e){
+      alert('Não consegui buscar a planilha automaticamente. Confira se o .xlsx está no mesmo repositório do GitHub Pages ou use a importação manual.');
+    }
+  }
+  function copyText(text){
+    if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(text);
+    return new Promise(function(resolve){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(t);resolve()});
+  }
+  function showBatchPanel(sentCount,totalCount,remainingList){
+    var panel=$('batch-panel'),summary=$('batch-summary'),nextBox=$('emails-next');
+    if(!panel||!summary||!nextBox)return;
+    if(!remainingList||!remainingList.length){panel.style.display='none';nextBox.value='';summary.textContent='';return}
+    panel.style.display='block';
+    summary.textContent='Lote aberto com '+sentCount+' e-mails (CCO). Total na lista: '+totalCount+'. Restam '+remainingList.length+' para o próximo disparo.';
+    nextBox.value=remainingList.join('\n');
+  }
+  function updateEmailStats(){
+    var emailsEl=$('emails'),stats=$('email-stats');
+    if(!emailsEl||!stats)return;
+    var list=uniqueEmails(parseEmailList(emailsEl.value||''));
+    if(!list.length){stats.textContent='Cole os e-mails (um por linha). Limite por disparo no CCO: '+MAX_BCC+'.';return}
+    var msg='E-mails válidos (únicos): '+list.length+'. Limite por disparo no CCO: '+MAX_BCC+'.';
+    if(list.length>MAX_BCC)msg+=' Acima do limite: o sistema abrirá em lotes e mostrará o restante.';
+    stats.textContent=msg;
+  }
 
+  function init(){
+    var blitz=$('blitz-text');
+    if(blitz&&!blitz.value)blitz.value=defaultMessage;
+    updateEmailStats();
+
+    on('btn-fetch-fill-both','click',function(){fetchAndFill('both')});
+    on('btn-fetch-fill-emails','click',function(){fetchAndFill('emails')});
+    on('btn-fetch-fill-phones','click',function(){fetchAndFill('phones')});
+    on('btn-gmail-auto-fill','click',function(){fetchAndFill('emails')});
+    on('btn-whatsapp-auto-fill','click',function(){fetchAndFill('phones')});
     on('btn-process-sheet','click',processSheetContacts);
-    on('btn-fill-emails','click',function(){
-      if(!processedContacts.length){processSheetContacts()}
-      var emails=uniqueEmails(processedContacts.map(function(c){return c.email}).filter(Boolean));
-      if(!emails.length){alert('Nenhum e-mail encontrado com RESPONDE NPS? = SIM.');return}
-      var emailsEl=$('emails');
-      if(emailsEl)emailsEl.value=emails.join('\n');
-      updateEmailStats();
-      alert('E-mails da Blitz preenchidos com contatos RESPONDE NPS? = SIM.');
-    });
-    on('btn-fill-phones','click',function(){
-      if(!processedContacts.length){processSheetContacts()}
-      var phones=uniquePhones(processedContacts.map(function(c){return c.telefone}).filter(Boolean));
-      if(!phones.length){alert('Nenhum telefone encontrado com RESPONDE NPS? = SIM.');return}
-      var phonesEl=$('whatsapps');
-      if(phonesEl)phonesEl.value=phones.join('\n');
-      alert('Telefones do WhatsApp preenchidos com contatos RESPONDE NPS? = SIM.');
-    });
-    on('btn-copy-apps-script','click',function(){
-      copyText(APPS_SCRIPT_TEMPLATE).then(function(){alert('Modelo de Apps Script copiado.')});
-    });
-    on('btn-copy-gpd','click',function(){
-      var tpl=$('gpd-template');
-      copyText(tpl ? tpl.value : 'Quem:\n\nO que:\n\nOnde:\n\nPorque:\n\nComo:\n\nQuanto custa:\n\nRetorno esperado:\n\nObservação:').then(function(){alert('Modelo GPD copiado.')});
-    });
+    on('btn-fill-emails','click',async function(){try{await ensureContactsLoaded(false);if(fillEmailsFromContacts())alert('E-mails da Blitz preenchidos com contatos RESPONDE NPS = SIM.')}catch(e){alert('Não há contatos processados. Use Buscar planilha ou cole os dados e clique em Processar contatos NPS.')}}); 
+    on('btn-fill-phones','click',async function(){try{await ensureContactsLoaded(false);if(fillPhonesFromContacts())alert('Telefones do WhatsApp preenchidos com contatos RESPONDE NPS = SIM.')}catch(e){alert('Não há contatos processados. Use Buscar planilha ou cole os dados e clique em Processar contatos NPS.')}}); 
+    on('btn-copy-gpd','click',function(){var tpl=$('gpd-template');copyText(tpl?tpl.value:'Quem:\n\nO que:\n\nOnde:\n\nPorque:\n\nComo:\n\nQuanto custa:\n\nRetorno esperado:\n\nObservação:').then(function(){alert('Modelo GPD copiado.')})});
     on('emails','input',updateEmailStats);
     on('btn-copy','click',function(){copyText(getMessage()).then(function(){alert('Texto da Blitz copiado.')})});
     on('btn-number-emails','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail para numerar.');return}emailsEl.value=list.map(function(e,i){return(i+1)+'. '+e}).join('\n');updateEmailStats();alert('Lista numerada.')});
     on('btn-clean-duplicates','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail.');return}emailsEl.value=list.join('\n');updateEmailStats();alert('Duplicados removidos.')});
-    on('btn-gmail','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var emailsRaw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=emailsRaw;var subjectEl=$('subject');var subject=(subjectEl&&subjectEl.value)?subjectEl.value:DEFAULT_SUBJECT;var list=uniqueEmails(parseEmailList(emailsRaw));if(!list.length){alert('Informe pelo menos um e-mail.');return}var batch=list.slice(0,MAX_BCC),remaining=list.slice(MAX_BCC);var body=getMessage()+'\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';var url=GMAIL_COMPOSE_BASE+'&to='+encodeURIComponent(FIXED_TO)+'&bcc='+encodeURIComponent(batch.join(','))+'&su='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);window.open(url,'_blank');showBatchPanel(batch.length,list.length,remaining);if(remaining.length){alert('Foi aberto o 1º lote com '+batch.length+' e-mails. Restam '+remaining.length+' no painel Próximos e-mails.')}});
+    on('btn-gmail','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var emailsRaw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=emailsRaw;var subjectEl=$('subject');var subject=(subjectEl&&subjectEl.value)?subjectEl.value:DEFAULT_SUBJECT;var list=uniqueEmails(parseEmailList(emailsRaw));if(!list.length){alert('Informe pelo menos um e-mail.');return}var batch=list.slice(0,MAX_BCC),remaining=list.slice(MAX_BCC);var body=getMessage()+'\n\n---\nQualquer dúvida, estou à disposição.\nGustavo Germano';var url=GMAIL_COMPOSE_BASE+'&to='+encodeURIComponent(FIXED_TO)+'&bcc='+encodeURIComponent(batch.join(','))+'&su='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);window.open(url,'_blank');showBatchPanel(batch.length,list.length,remaining);if(remaining.length){alert('Foi aberto o 1º lote com '+batch.length+' e-mails. Restam '+remaining.length+' no painel Próximos e-mails.')}}); 
     on('btn-copy-next','click',function(){var nextBox=$('emails-next');var text=nextBox?(nextBox.value||'').trim():'';if(!text){alert('Não há próximos e-mails para copiar.');return}copyText(text).then(function(){alert('Próximos e-mails copiados.')})});
     on('btn-apply-next','click',function(){var nextBox=$('emails-next');var text=nextBox?(nextBox.value||'').trim():'';if(!text){alert('Não há próximos e-mails para aplicar.');return}var emailsEl=$('emails');if(emailsEl)emailsEl.value=text;updateEmailStats();showBatchPanel(0,0,[]);alert('Próximos e-mails aplicados.')});
     on('btn-restore-original','click',function(){if(__originalEmailsRaw===null){alert('Nenhuma lista original salva ainda.');return}var emailsEl=$('emails');if(emailsEl)emailsEl.value=__originalEmailsRaw;updateEmailStats();showBatchPanel(0,0,[]);alert('Lista original restaurada.')});
-    on('btn-wa','click',function(){var rawEl=$('whatsapps');var raw=rawEl?(rawEl.value||''):'';var list=raw.split(/[\n;,]+/).map(function(x){return x.replace(/\D/g,'').trim()}).filter(Boolean);var container=$('wa-links');if(container)container.innerHTML='';if(!list.length){alert('Informe pelo menos um telefone.');return}var msg=getMessage();list.forEach(function(phone){var url='https://wa.me/'+encodeURIComponent(phone)+'?text='+encodeURIComponent(msg);if(!container)return;var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='Enviar Blitz para '+phone;container.appendChild(a)})});
-    Array.prototype.forEach.call(document.querySelectorAll('.acc-item .acc-head'),function(btn){btn.addEventListener('click',function(){var item=btn.parentElement;if(item)item.classList.toggle('open')})});
-    var modal=$('modal'),modalBody=$('modal-body'),modalTitle=$('modal-title');
-    function openModal(templateId,title){var tpl=$('tpl-'+templateId);if(!tpl||!modal||!modalBody||!modalTitle)return;modalTitle.textContent=title||'Roteiro';modalBody.innerHTML=tpl.innerHTML;modal.classList.add('open');modal.setAttribute('aria-hidden','false')}
-    function closeModal(){if(!modal||!modalBody)return;modal.classList.remove('open');modal.setAttribute('aria-hidden','true');modalBody.innerHTML=''}
-    on('modal-close','click',closeModal);if(modal){modal.addEventListener('click',function(e){if(e.target===modal)closeModal()})}
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal&&modal.classList.contains('open'))closeModal()});
-    Array.prototype.forEach.call(document.querySelectorAll('[data-modal]'),function(btn){btn.addEventListener('click',function(){openModal(btn.getAttribute('data-modal'),btn.getAttribute('data-title')||'Roteiro')})})
+    on('btn-wa','click',function(){var rawEl=$('whatsapps');var raw=rawEl?(rawEl.value||''):'';var list=uniquePhones(raw.split(/[\n;,]+/));var container=$('wa-links');if(container)container.innerHTML='';if(!list.length){alert('Informe pelo menos um telefone.');return}var msg=getMessage();list.forEach(function(phone){var url='https://wa.me/'+encodeURIComponent(phone)+'?text='+encodeURIComponent(msg);if(!container)return;var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='Enviar Blitz para '+phone;container.appendChild(a)})});
   }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body>
