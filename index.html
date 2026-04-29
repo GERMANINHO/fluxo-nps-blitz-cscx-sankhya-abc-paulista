@@ -33,7 +33,7 @@
     .mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}@media(max-width:880px){.mini-grid{grid-template-columns:1fr}}
     .info-card{background:rgba(2,6,23,.45);border:1px solid var(--border);border-radius:14px;padding:12px}.info-card h3{margin:0 0 5px;font-size:.92rem}.info-card p{font-size:.84rem;margin:0;color:var(--muted)}
     .note{padding:10px 12px;border-radius:12px;background:var(--accent-soft);border:1px solid rgba(34,197,94,.22);margin:.7rem 0;color:var(--text)}.note.warning{background:var(--warning-soft);border-color:rgba(251,191,36,.28)}.note.info{background:var(--info-soft);border-color:rgba(56,189,248,.28)}.note strong{color:#86efac}.note.warning strong{color:#fde68a}.note.info strong{color:#7dd3fc}
-    label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--muted)}textarea,input[type=text]{width:100%;border-radius:10px;border:1px solid #1e293b;background:#020617;color:var(--text);padding:9px 10px;font-size:.86rem;font-family:inherit;resize:vertical}textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,197,94,.35)}textarea{min-height:140px}.small-textarea{min-height:100px}
+    label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px;color:var(--muted)}textarea,input[type=text],input[type=password]{width:100%;border-radius:10px;border:1px solid #1e293b;background:#020617;color:var(--text);padding:9px 10px;font-size:.86rem;font-family:inherit;resize:vertical}textarea:focus,input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,197,94,.35)}textarea{min-height:140px}.small-textarea{min-height:100px}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:none;border-radius:999px;padding:8px 14px;font-size:.82rem;font-weight:650;cursor:pointer;margin-top:8px;background:var(--accent);color:#022c22;box-shadow:0 10px 30px rgba(16,185,129,.35);text-decoration:none}.btn.secondary{background:#0b1120;color:var(--text);box-shadow:none;border:1px solid #1f2937}.btn.info{background:var(--accent-2);color:#082f49;box-shadow:0 10px 30px rgba(56,189,248,.25)}.btn.danger{background:var(--danger);color:#2b0a12}.flow-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
     .hint{margin-top:6px;font-size:.76rem;color:var(--muted)}
     .status-box{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid #1f2937;background:rgba(2,6,23,.55);color:var(--muted);font-size:.82rem;line-height:1.45}
@@ -191,7 +191,28 @@
     <section class="grid">
       <section class="card" id="gmail">
         <h2>7. Disparo por E-mail (Gmail)</h2>
-        <p>O Gmail será aberto com seu e-mail corporativo em <strong>Para</strong> e os clientes em <strong>CCO</strong>. O limite seguro é de 49 clientes por lote.</p>
+        <p>O Gmail manual será aberto com seu e-mail corporativo em <strong>Para</strong> e os clientes em <strong>CCO</strong>. O limite seguro é de 49 clientes por lote.</p>
+
+        <div class="note info" id="apps-script-email">
+          <strong>Envio Blitz Email:</strong> usa o Google Apps Script para ler a planilha oficial, filtrar <code>RESPONDE NPS = Sim</code>, embutir a imagem da Blitz e enviar os e-mails automaticamente pela sua conta corporativa.
+        </div>
+
+        <label for="apps-script-url">URL do App da Web do Apps Script</label>
+        <input id="apps-script-url" type="text" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" autocomplete="off" />
+
+        <label for="apps-script-token" style="margin-top:8px;">Token secreto do Apps Script</label>
+        <input id="apps-script-token" type="password" placeholder="u5V3hPv2xj6NB3m" autocomplete="off" />
+
+        <div class="flow-actions">
+          <button class="btn secondary" type="button" id="btn-apps-script-test">Enviar teste por Apps Script</button>
+          <button class="btn info" type="button" id="btn-apps-script-email">Envio Blitz Email</button>
+        </div>
+        <div id="apps-script-status" class="status-box">Aguardando configuração da URL do App da Web e do token.</div>
+
+        <div class="note warning">
+          <strong>Atenção:</strong> o botão <strong>Envio Blitz Email</strong> executa o Apps Script e pode enviar para todos os contatos marcados como <strong>Sim</strong> na coluna <strong>RESPONDE NPS</strong>. Use o teste antes do envio real.
+        </div>
+
         <button class="btn secondary" type="button" id="btn-autofill-emails-inline">Preencher e-mails pela planilha</button>
         <label for="emails" style="margin-top:10px;">Lista de e-mails (um por linha)</label>
         <textarea id="emails" class="small-textarea" placeholder="cliente1@empresa.com&#10;cliente2@empresa.com"></textarea>
@@ -203,7 +224,7 @@
         <label for="subject" style="margin-top:8px;">Assunto</label>
         <input id="subject" type="text" value="Sankhya ABC Paulista | Pesquisa NPS Sankhya — a sua opinião tem poder transformador" />
         <button class="btn" id="btn-gmail">Abrir Gmail com a Blitz</button>
-        <p class="hint">Revise o Gmail, anexe <code>NPS_Blitz.jpg</code> e clique em Enviar manualmente.</p>
+        <p class="hint">Opção manual: revise o Gmail, anexe <code>NPS_Blitz.jpg</code> e clique em Enviar manualmente. Para envio com imagem automática, use o botão <strong>Envio Blitz Email</strong>.</p>
         <div id="batch-panel" class="batch-panel">
           <div id="batch-summary" class="hint"></div>
           <label for="emails-next">Próximos e-mails (restantes)</label>
@@ -376,17 +397,54 @@ Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa es
   function fillFromContacts(mode){return loadContactsFromPlanilha(false).then(function(contacts){var emails=uniqueEmails(contacts.map(function(c){return c.email}).filter(Boolean));var phoneSeen={},phones=[];contacts.forEach(function(c){if(c.telefone&&!phoneSeen[c.telefone]){phoneSeen[c.telefone]=true;phones.push(c.telefone)}});if((mode==='all'||mode==='email')&&$('emails'))$('emails').value=emails.join('\n');if((mode==='all'||mode==='phone')&&$('whatsapps'))$('whatsapps').value=phones.join('\n');updateEmailStats();renderContactsPreview(contacts);var source=contacts.sourceName||'planilha';setContactsStatus('Base carregada de '+source+'. Linhas com RESPONDE NPS = Sim: '+contacts.length+'. E-mails preenchidos: '+emails.length+'. Telefones preenchidos: '+phones.length+'.','ok');if(mode==='email'&&!emails.length)alert('Nenhum e-mail válido encontrado com RESPONDE NPS = Sim.');if(mode==='phone'&&!phones.length)alert('Nenhum telefone válido encontrado com RESPONDE NPS = Sim.')}).catch(function(err){setContactsStatus(err.message,'error');alert(err.message)})}
   function copyGpdModel(){var model='Quem:\n\nO que:\n\nOnde:\n\nPorque:\n\nComo:\n\nQuanto custa:\n\nRetorno esperado:\n\nObservação:';copyText(model).then(function(){alert('Modelo GPD copiado.')})}
 
+  var APPS_SCRIPT_URL_STORAGE_KEY='fluxoNpsAppsScriptWebAppUrl';
+  var APPS_SCRIPT_TOKEN_STORAGE_KEY='fluxoNpsAppsScriptWebAppToken';
+  function setAppsScriptStatus(message,type){var el=$('apps-script-status');if(!el)return;el.textContent=message;el.className='status-box '+(type||'')}
+  function loadAppsScriptConfig(){var urlEl=$('apps-script-url'),tokenEl=$('apps-script-token');try{if(urlEl&&!urlEl.value)localStorage.getItem(APPS_SCRIPT_URL_STORAGE_KEY)&&(urlEl.value=localStorage.getItem(APPS_SCRIPT_URL_STORAGE_KEY));if(tokenEl&&!tokenEl.value)localStorage.getItem(APPS_SCRIPT_TOKEN_STORAGE_KEY)&&(tokenEl.value=localStorage.getItem(APPS_SCRIPT_TOKEN_STORAGE_KEY))}catch(e){}}
+  function saveAppsScriptConfig(url,token){try{if(url)localStorage.setItem(APPS_SCRIPT_URL_STORAGE_KEY,url);if(token)localStorage.setItem(APPS_SCRIPT_TOKEN_STORAGE_KEY,token)}catch(e){}}
+  async function chamarAppsScript(action){
+    var urlEl=$('apps-script-url'),tokenEl=$('apps-script-token');
+    var url=urlEl?String(urlEl.value||'').trim():'';
+    var token=tokenEl?String(tokenEl.value||'').trim():'';
+    if(!url){alert('Informe a URL do App da Web do Apps Script.');if(urlEl)urlEl.focus();return}
+    if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(url)){var continuar=confirm('A URL informada não parece ser uma URL /exec do Apps Script. Deseja tentar mesmo assim?');if(!continuar)return}
+    if(!token){alert('Informe o token secreto configurado no WEBAPP_TOKEN do Apps Script.');if(tokenEl)tokenEl.focus();return}
+    if(action==='envio_real'){
+      var ok=confirm('Confirma o envio REAL da Blitz NPS por e-mail para todos os contatos com RESPONDE NPS = Sim?');
+      if(!ok)return;
+      var ok2=confirm('Última confirmação: o Apps Script vai enviar os e-mails com imagem embutida e registrar status na planilha. Continuar?');
+      if(!ok2)return;
+    }
+    saveAppsScriptConfig(url,token);
+    setAppsScriptStatus('Enviando solicitação ao Apps Script... Confira também o Registro de execução do Apps Script e as colunas de log da planilha.','loading');
+    try{
+      await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:action,token:token,source:'fluxo-nps-index-github-pages',requestedAt:new Date().toISOString()})});
+      if(action==='teste'){
+        setAppsScriptStatus('Solicitação de TESTE enviada ao Apps Script. Confira se o e-mail chegou em gustavo.germano@sankhya.com.br e veja o Registro de execução.','ok');
+        alert('Solicitação de teste enviada ao Apps Script. Confira seu e-mail e o Registro de execução.');
+      }else{
+        setAppsScriptStatus('Solicitação de ENVIO REAL enviada ao Apps Script. Confira as colunas BLITZ ENVIADA EM, STATUS ENVIO BLITZ e ERRO ENVIO BLITZ na planilha.','ok');
+        alert('Solicitação de envio real enviada ao Apps Script. Confira a planilha e o Registro de execução.');
+      }
+    }catch(err){
+      setAppsScriptStatus('Erro ao chamar o Apps Script: '+(err&&err.message?err.message:err),'error');
+      alert('Erro ao chamar o Apps Script: '+(err&&err.message?err.message:err));
+    }
+  }
+
   function showBatchPanel(sentCount,totalCount,remainingList){var panel=$('batch-panel'),summary=$('batch-summary'),nextBox=$('emails-next');if(!panel||!summary||!nextBox)return;if(!remainingList||!remainingList.length){panel.style.display='none';nextBox.value='';summary.textContent='';return}panel.style.display='block';summary.textContent='Lote aberto com '+sentCount+' e-mails (CCO). Total na lista: '+totalCount+'. Restam '+remainingList.length+' para o próximo disparo.';nextBox.value=remainingList.join('\n')}
   function updateEmailStats(){var emailsEl=$('emails'),stats=$('email-stats');if(!emailsEl||!stats)return;var list=uniqueEmails(parseEmailList(emailsEl.value||''));if(!list.length){stats.textContent='Cole os e-mails (um por linha). Limite por disparo no CCO: '+MAX_BCC+'.';return}var msg='E-mails válidos (únicos): '+list.length+'. Limite por disparo no CCO: '+MAX_BCC+'.';if(list.length>MAX_BCC){msg+=' Acima do limite: o sistema abrirá em lotes e mostrará o restante.'}stats.textContent=msg}
   var __originalEmailsRaw=null;
   function init(){
-    var blitz=$('blitz-text');if(blitz&&!blitz.value)blitz.value=defaultMessage;updateEmailStats();
+    var blitz=$('blitz-text');if(blitz&&!blitz.value)blitz.value=defaultMessage;updateEmailStats();loadAppsScriptConfig();
     on('emails','input',updateEmailStats);
     on('btn-autofill-all','click',function(){fillFromContacts('all')});
     on('btn-autofill-emails','click',function(){fillFromContacts('email')});
     on('btn-autofill-phones','click',function(){fillFromContacts('phone')});
     on('btn-autofill-emails-inline','click',function(){fillFromContacts('email')});
     on('btn-autofill-phones-inline','click',function(){fillFromContacts('phone')});
+    on('btn-apps-script-test','click',function(){chamarAppsScript('teste')});
+    on('btn-apps-script-email','click',function(){chamarAppsScript('envio_real')});
     on('btn-copy-gpd-model','click',copyGpdModel);
     on('btn-copy','click',function(){copyText(getMessage()).then(function(){alert('Texto da Blitz copiado.')})});
     on('btn-number-emails','click',function(){var emailsEl=$('emails');if(!emailsEl)return;var raw=emailsEl.value||'';if(__originalEmailsRaw===null)__originalEmailsRaw=raw;var list=uniqueEmails(parseEmailList(raw));if(!list.length){alert('Informe pelo menos um e-mail para numerar.');return}emailsEl.value=list.map(function(e,i){return(i+1)+'. '+e}).join('\n');updateEmailStats();alert('Lista numerada.')});
