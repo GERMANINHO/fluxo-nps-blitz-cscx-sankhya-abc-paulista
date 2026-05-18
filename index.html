@@ -17,6 +17,7 @@
       --text:#e5e7eb;
       --muted:#94a3b8;
       --danger:#fb7185;
+      --danger-soft:rgba(251,113,133,.12);
       --warning:#fbbf24;
       --warning-soft:rgba(251,191,36,.12);
       --shadow:0 18px 45px rgba(15,23,42,.9);
@@ -287,9 +288,15 @@
       border-color:rgba(56,189,248,.28);
     }
 
+    .note.danger{
+      background:var(--danger-soft);
+      border-color:rgba(251,113,133,.32);
+    }
+
     .note strong{color:#86efac}
     .note.warning strong{color:#fde68a}
     .note.info strong{color:#7dd3fc}
+    .note.danger strong{color:#fecdd3}
 
     label{
       display:block;
@@ -322,7 +329,6 @@
     }
 
     textarea{min-height:140px}
-    .small-textarea{min-height:100px}
 
     .btn{
       display:inline-flex;
@@ -402,48 +408,10 @@
       color:#bae6fd;
     }
 
-    .preview-box{
-      margin-top:10px;
-      display:none;
-    }
-
-    .preview-box.open{display:block}
-
     .footer-note{
       margin-top:18px;
       font-size:.78rem;
       color:var(--muted);
-    }
-
-    .links-list a{
-      display:block;
-      font-size:.82rem;
-      padding:3px 0;
-      color:#6ee7b7;
-      text-decoration:none;
-      word-break:break-all;
-    }
-
-    .links-list a:hover{text-decoration:underline}
-
-    .img-preview{
-      margin-top:10px;
-      border-radius:12px;
-      overflow:hidden;
-      border:1px solid #1f2937;
-      background:#020617;
-    }
-
-    .img-preview img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-
-    .img-caption{
-      font-size:.76rem;
-      color:var(--muted);
-      margin-top:4px;
     }
 
     .table-wrap{
@@ -475,6 +443,32 @@
     }
 
     .table tr:last-child td{border-bottom:0}
+
+    .official-number{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:6px;
+      padding:16px;
+      border-radius:16px;
+      background:linear-gradient(135deg,rgba(34,197,94,.14),rgba(56,189,248,.08));
+      border:1px solid rgba(34,197,94,.28);
+      margin-top:10px;
+    }
+
+    .official-number span{
+      color:var(--muted);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-weight:700;
+    }
+
+    .official-number strong{
+      font-size:1.35rem;
+      color:#bbf7d0;
+      letter-spacing:.02em;
+    }
 
     .checklist{
       display:grid;
@@ -630,34 +624,34 @@
           <span class="logo-dot"></span>
           Fluxo NPS • CS/CX Sankhya ABC Paulista
         </div>
-        <h1>Fluxo NPS</h1>
+        <h1>Central Operacional NPS — Blitz + WhatsApp Oficial</h1>
         <p class="subtitle">
-          Central operacional para a rotina mensal de NPS: consulta da base, extração do maille,
-          criação da Blitz por e-mail via Apps Script, WhatsApp manual, acompanhamento no INDECX,
-          tratativa de playbooks e apoio ao preenchimento da Apuração do Resultado/GPD quando solicitado.
+          Rotina operacional para preparação mensal da pesquisa NPS, criação da Blitz por e-mail,
+          acompanhamento do novo canal oficial de WhatsApp, controle de quarentena, consulta no INDECX,
+          tratativa de neutros/detratores e preenchimento de GPD quando solicitado.
         </p>
         <div class="chips">
           <span class="chip">Última semana do mês</span>
+          <span class="chip">WhatsApp oficial</span>
           <span class="chip">INDECX</span>
           <span class="chip">CS - NPS</span>
-          <span class="chip">Maille</span>
+          <span class="chip">Quarentena</span>
           <span class="chip">Playbooks</span>
-          <span class="chip">GPD</span>
         </div>
       </div>
 
       <aside class="hero-side">
         <div class="side-box">
-          <h2>Scheduler Blitz</h2>
-          <p>Última segunda-feira do mês, 09h: conferir maille e criar rascunho da Blitz.</p>
+          <h2>Canal oficial WhatsApp</h2>
+          <p>Sankhya - Experiência do Cliente: (11) 5028-9273.</p>
         </div>
         <div class="side-box">
-          <h2>Scheduler Playbooks</h2>
-          <p>Última quarta-feira do mês, 09h: revisar playbooks de neutros/detratores.</p>
+          <h2>Orientação interna</h2>
+          <p>Para o cliente, o canal não deve ser tratado como teste ou piloto.</p>
         </div>
         <div class="side-box">
-          <h2>Prazo de tratativa</h2>
-          <p>Playbooks de NPS devem ser concluídos até o final do mês seguinte.</p>
+          <h2>Período de piloto interno</h2>
+          <p>Maio, Junho e Julho. Respostas via WhatsApp não entram no cálculo oficial da nota NPS nesse período.</p>
         </div>
       </aside>
     </section>
@@ -665,23 +659,23 @@
     <nav class="quick-nav" aria-label="Atalhos do Fluxo NPS">
       <a href="#rotina">
         <strong>Rotina Mensal</strong>
-        <span>Passo a passo da última semana.</span>
+        <span>Passo a passo da preparação.</span>
+      </a>
+      <a href="#whatsapp-oficial">
+        <strong>WhatsApp Oficial</strong>
+        <span>Novo canal oficial de pesquisa.</span>
+      </a>
+      <a href="#quarentena">
+        <strong>Quarentena</strong>
+        <span>Regra de re-elegibilidade.</span>
       </a>
       <a href="#indecx">
         <strong>INDECX</strong>
-        <span>Acesso à plataforma de pesquisa.</span>
-      </a>
-      <a href="#cs-nps">
-        <strong>CS - NPS</strong>
-        <span>Dashboard, quadrante e sub-relatórios.</span>
+        <span>Filtro Pesquisa NPS Whatsapp.</span>
       </a>
       <a href="#blitz-email">
         <strong>Blitz Email</strong>
-        <span>Criação do rascunho via Apps Script.</span>
-      </a>
-      <a href="#whatsapp">
-        <strong>WhatsApp</strong>
-        <span>Envio manual e opcional.</span>
+        <span>Rascunho via Apps Script.</span>
       </a>
       <a href="#playbooks">
         <strong>Playbooks / GPD</strong>
@@ -692,8 +686,8 @@
     <section class="card" id="rotina">
       <h2>1. Rotina Mensal NPS</h2>
       <p>
-        Execute esta rotina na última semana de todo mês para preparar o cliente antes da pesquisa
-        e evitar pendências em playbooks.
+        Execute esta rotina na última semana de todo mês para preparar os clientes elegíveis,
+        revisar a base, criar a Blitz por e-mail e acompanhar respostas vindas do canal oficial.
       </p>
 
       <div class="mini-grid">
@@ -702,12 +696,12 @@
           <p>Acessar CS - NPS e abrir o quadrante CS - Pesquisas NPS.</p>
         </div>
         <div class="info-card">
-          <h3>2) Extrair maille</h3>
-          <p>Usar o sub-relatório Clientes Pesquisados com mais de 6 Meses.</p>
+          <h3>2) Criar Blitz</h3>
+          <p>Criar rascunho por Apps Script e revisar antes do envio manual.</p>
         </div>
         <div class="info-card">
-          <h3>3) Criar Blitz</h3>
-          <p>Criar rascunho do e-mail via Apps Script e revisar antes do envio.</p>
+          <h3>3) Acompanhar respostas</h3>
+          <p>Consultar o INDECX com o filtro Pesquisa NPS Whatsapp.</p>
         </div>
       </div>
 
@@ -749,12 +743,22 @@
             <tr>
               <td>6</td>
               <td>Revisar rascunho e enviar manualmente.</td>
-              <td>Clientes aquecidos para a pesquisa NPS.</td>
+              <td>Clientes orientados sobre a pesquisa NPS e sobre o novo canal oficial.</td>
             </tr>
             <tr>
               <td>7</td>
-              <td>Acompanhar INDECX e playbooks.</td>
-              <td>Notas neutras/detratoras tratadas no prazo.</td>
+              <td>Acompanhar INDECX com filtro Pesquisa NPS Whatsapp.</td>
+              <td>Respostas via WhatsApp acompanhadas e dores identificadas.</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Aplicar quarentena para clientes que responderem via WhatsApp.</td>
+              <td>Cliente retirado do mailing atual e reavaliado apenas no mês correto.</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Tratar neutros/detratores em playbook.</td>
+              <td>Plano de ação registrado e acompanhado até conclusão.</td>
             </tr>
           </tbody>
         </table>
@@ -763,22 +767,86 @@
 
     <section class="grid">
       <div>
+        <section class="card" id="whatsapp-oficial">
+          <h2>2. WhatsApp — Novo Canal Oficial de Pesquisa NPS</h2>
+          <p>
+            A Sankhya passou a utilizar o WhatsApp como novo canal oficial para a pesquisa NPS.
+            O canal deve ser apresentado ao cliente como um canal oficial e verificado da Sankhya.
+          </p>
+
+          <div class="official-number">
+            <span>Número oficial e verificado</span>
+            <strong>Sankhya - Experiência do Cliente</strong>
+            <strong>(11) 5028-9273</strong>
+          </div>
+
+          <div class="note danger">
+            <strong>Importante:</strong> para o cliente, não informar que se trata de teste ou piloto.
+            A informação de piloto é apenas escopo interno da Sankhya.
+          </div>
+
+          <div class="note info">
+            <strong>Comunicação correta:</strong> orientar o cliente de que ele poderá receber a pesquisa NPS
+            pelo WhatsApp oficial da Sankhya, além dos canais já utilizados.
+          </div>
+
+          <h3>O que muda no processo</h3>
+          <ul>
+            <li>O WhatsApp deixa de ser tratado como disparo manual da Blitz pelo CS.</li>
+            <li>O número oficial passa a ser <strong>(11) 5028-9273</strong>.</li>
+            <li>O cliente deve reconhecer o canal como <strong>Sankhya - Experiência do Cliente</strong>.</li>
+            <li>As respostas coletadas devem ser acompanhadas no INDECX.</li>
+            <li>As dores identificadas devem gerar tratativa, plano de ação ou playbook quando aplicável.</li>
+          </ul>
+        </section>
+
+        <section class="card" id="piloto">
+          <h2>3. Piloto Interno — Maio, Junho e Julho</h2>
+          <p>
+            Durante Maio, Junho e Julho, as respostas obtidas pelo canal WhatsApp fazem parte de um piloto interno.
+            Esse detalhe não deve ser comunicado ao cliente.
+          </p>
+
+          <div class="note warning">
+            <strong>Regra de cálculo:</strong> durante o período de piloto interno, as respostas do WhatsApp
+            não entram no cálculo oficial da nota NPS.
+          </div>
+
+          <div class="note">
+            <strong>Oportunidade operacional:</strong> mesmo sem entrar no cálculo oficial da nota durante o piloto,
+            as respostas devem ser usadas para identificar dores, riscos, oportunidades de melhoria e necessidade
+            de plano de ação.
+          </div>
+        </section>
+
         <section class="card" id="indecx">
-          <h2>2. INDECX</h2>
+          <h2>4. INDECX</h2>
           <p>
             Acesse o INDECX para acompanhar clientes pesquisados, notas, comentários,
             promotores, neutros, detratores e histórico das pesquisas.
           </p>
+
           <div class="note info">
-            <strong>SubAba:</strong> INDECX
+            <strong>Filtro obrigatório para o novo canal:</strong> <code>Pesquisa NPS Whatsapp</code>
           </div>
+
           <a class="btn info" href="https://v3.app-indecx.com/live-dash/687b07ebc9bc6a00278be59e" target="_blank" rel="noopener noreferrer">
             Abrir INDECX
           </a>
+
+          <h3>Como usar no acompanhamento</h3>
+          <ol>
+            <li>Acessar a Plataforma INDECX.</li>
+            <li>Aplicar o filtro <strong>Pesquisa NPS Whatsapp</strong>.</li>
+            <li>Verificar respostas recebidas, comentários e notas.</li>
+            <li>Identificar clientes com dores, riscos, neutros ou detratores.</li>
+            <li>Registrar tratativas internas e abrir playbook quando necessário.</li>
+            <li>Aplicar regra de quarentena para clientes que responderem.</li>
+          </ol>
         </section>
 
         <section class="card" id="cs-nps">
-          <h2>3. CS - NPS no Sankhya</h2>
+          <h2>5. CS - NPS no Sankhya</h2>
           <p><strong>Tela:</strong> CS - NPS</p>
           <p><strong>Caminho:</strong> Dashboards » Customer Success » CS - NPS</p>
           <p><strong>ID:</strong> <code>br.com.sankhya.menu.adicional.nuDsb.1431.1</code></p>
@@ -803,7 +871,7 @@
                 </tr>
                 <tr>
                   <td>Clientes Pesquisados com mais de 6 Meses</td>
-                  <td><strong>Lista principal para extração do maille.</strong></td>
+                  <td><strong>Lista principal para extração do mailing.</strong></td>
                 </tr>
                 <tr>
                   <td>Cliente Alvo - Nunca Pesquisados</td>
@@ -820,8 +888,50 @@
       </div>
 
       <aside>
-        <section class="card" id="maille">
-          <h2>4. Extração do Maille</h2>
+        <section class="card" id="quarentena">
+          <h2>6. Quarentena e Re-elegibilidade</h2>
+          <p>
+            Clientes que responderem à pesquisa via WhatsApp devem ser retirados do mailing atual
+            e só voltam a ser elegíveis para novos acionamentos 2 meses após o mês da resposta.
+          </p>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Mês da resposta</th>
+                  <th>Período de quarentena / Não pesquisar</th>
+                  <th>Mês de re-elegibilidade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Maio</strong></td>
+                  <td>Junho e Julho</td>
+                  <td><strong>Agosto</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Junho</strong></td>
+                  <td>Julho e Agosto</td>
+                  <td><strong>Setembro</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Julho</strong></td>
+                  <td>Agosto e Setembro</td>
+                  <td><strong>Outubro</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note warning">
+            <strong>Regra prática:</strong> respondeu pelo WhatsApp, retira do mailing atual e controla
+            o retorno pela tabela de re-elegibilidade.
+          </div>
+        </section>
+
+        <section class="card" id="mailing">
+          <h2>7. Extração do Mailing</h2>
           <ol>
             <li>Acessar <strong>CS - NPS</strong>.</li>
             <li>Localizar o quadrante <strong>CS - Pesquisas NPS</strong>.</li>
@@ -829,14 +939,17 @@
             <li>Exportar a lista.</li>
             <li>Conferir base de contatos na planilha oficial.</li>
             <li>Garantir que os clientes elegíveis estejam com <strong>RESPONDE NPS = Sim</strong>.</li>
+            <li>Remover clientes em quarentena por resposta via WhatsApp.</li>
           </ol>
+
           <div class="note">
-            <strong>Regra principal:</strong> o maille mensal sai de Clientes Pesquisados com mais de 6 Meses.
+            <strong>Regra principal:</strong> o mailing mensal sai de Clientes Pesquisados com mais de 6 Meses,
+            respeitando a quarentena do WhatsApp.
           </div>
         </section>
 
         <section class="card" id="schedulers">
-          <h2>5. Schedulers / Lembretes</h2>
+          <h2>8. Schedulers / Lembretes</h2>
           <p><strong>Preparar Fluxo NPS:</strong> última segunda-feira do mês, 09h.</p>
           <p><strong>Tratar Playbooks NPS:</strong> última quarta-feira do mês, 09h.</p>
           <div class="note warning">
@@ -848,7 +961,7 @@
     </section>
 
     <section class="card" id="blitz-email">
-      <h2>6/7. Blitz NPS — Envio Blitz Email</h2>
+      <h2>9. Blitz NPS — Envio Blitz Email</h2>
 
       <p>
         Use esta área para criar automaticamente um <strong>rascunho no Gmail</strong>
@@ -861,6 +974,11 @@
         o Fluxo NPS aciona o Google Apps Script. O Apps Script lê a planilha,
         filtra os contatos elegíveis, monta o e-mail com a imagem e cria um
         rascunho no Gmail. O envio final continua manual.
+      </div>
+
+      <div class="note warning">
+        <strong>Atenção:</strong> o texto da Blitz deve orientar o cliente sobre o canal oficial,
+        sem mencionar teste, piloto ou que a resposta não entrará no cálculo oficial.
       </div>
 
       <div class="grid">
@@ -918,106 +1036,46 @@
           <div class="checklist">
             <label class="check-item"><input type="checkbox"> Planilha de contatos atualizada.</label>
             <label class="check-item"><input type="checkbox"> Coluna RESPONDE NPS revisada.</label>
-            <label class="check-item"><input type="checkbox"> Contatos com Sim validados.</label>
-            <label class="check-item"><input type="checkbox"> Imagem NPS_Blitz.jpg atualizada no Drive/GitHub.</label>
-            <label class="check-item"><input type="checkbox"> Rascunho de teste validado.</label>
+            <label class="check-item"><input type="checkbox"> Clientes em quarentena removidos do mailing.</label>
+            <label class="check-item"><input type="checkbox"> Texto sem menção a teste/piloto.</label>
+            <label class="check-item"><input type="checkbox"> Canal oficial WhatsApp informado corretamente.</label>
             <label class="check-item"><input type="checkbox"> Rascunho real revisado antes do envio.</label>
           </div>
 
-          <div class="img-preview">
-            <img
-              src="NPS_Blitz.jpg"
-              alt="Arte da Blitz NPS"
-              onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;padding:18px;color:#94a3b8;font-size:.85rem;&quot;>Preview indisponível. Arquivo esperado: NPS_Blitz.jpg</div>');"
-            >
-          </div>
-
-          <div class="img-caption">
-            Preview da arte da Blitz. Arquivo: <code>NPS_Blitz.jpg</code>
+          <div class="note info">
+            <strong>Canal oficial para citar no e-mail:</strong><br>
+            Sankhya - Experiência do Cliente — <strong>(11) 5028-9273</strong>
           </div>
         </section>
       </div>
-    </section>
 
-    <section class="card" id="base-contatos">
-      <h2>Base automática de contatos NPS</h2>
-      <p>
-        Esta área serve como apoio para validar a base e preencher os telefones do WhatsApp manual.
-        O envio de e-mail via Apps Script já lê a planilha diretamente.
-      </p>
+      <h3>Texto-base sugerido para a Blitz</h3>
+      <textarea readonly id="texto-base-blitz">A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
 
-      <div class="note info">
-        <strong>Fonte principal no GitHub:</strong>
-        <code>Tabela para envio de email aos clientes.xlsx</code><br>
-        <strong>Fonte alternativa online:</strong>
-        Google Sheets informado no fluxo.
-      </div>
+O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
 
-      <div class="note warning">
-        <strong>Regra de filtro:</strong> o fluxo considera apenas linhas em que a coluna
-        <code>RESPONDE NPS</code> esteja como <strong>Sim</strong>.
-        Para buscar do GitHub, suba o arquivo XLSX na mesma pasta deste <code>index.html</code>.
-        Para buscar do Google Sheets, a planilha precisa estar pública/publicada ou liberada para leitura.
-      </div>
+"Em uma escala de 0 a 10, o quanto você recomendaria a Sankhya para um amigo ou familiar?"
 
-      <div class="flow-actions">
-        <button class="btn" type="button" id="btn-autofill-phones">
-          Preencher telefones para WhatsApp
-        </button>
+Na Sankhya, essa pesquisa é um dos principais indicadores do nosso time de Customer Success. Embora a pergunta cite a Sankhya de forma geral, a sua resposta reflete diretamente a qualidade do acompanhamento, da experiência e do relacionamento que construímos no dia a dia.
 
-        <button class="btn secondary" type="button" id="btn-preview-contacts">
-          Validar base de contatos
-        </button>
+Nessa escala, as notas de 0 a 6 são consideradas como detratoras. De 7 a 8, uma posição neutra. De 9 a 10, são consideradas como promotoras.
 
-        <a
-          class="btn info"
-          href="https://docs.google.com/spreadsheets/d/1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2/edit?gid=168915867#gid=168915867"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abrir planilha online
-        </a>
-      </div>
+Além da nota, é muito importante que você explique o motivo da sua avaliação. O seu comentário nos ajuda a entender melhor sua percepção, identificar oportunidades de melhoria e evoluir continuamente na sua jornada com a Sankhya.
 
-      <div id="contacts-status" class="status-box">
-        Aguardando busca da planilha.
-      </div>
+A pesquisa poderá chegar por ligação telefônica da INDECX e também pelo canal oficial de WhatsApp da Sankhya:
 
-      <div id="contacts-preview" class="preview-box"></div>
-    </section>
+Sankhya - Experiência do Cliente
+(11) 5028-9273
 
-    <section class="card" id="whatsapp">
-      <h2>8. WhatsApp manual — opcional</h2>
-      <p>
-        Gera links individuais do WhatsApp Web com a mensagem pronta.
-        O envio continua manual, de um em um. Não há disparo em massa para evitar riscos ao número,
-        já que não utilizamos API oficial do WhatsApp.
-      </p>
+Caso receba o contato, contamos muito com a sua participação. A sua opinião nos ajuda a transformar a experiência dos nossos clientes.</textarea>
 
-      <button class="btn secondary" type="button" id="btn-autofill-phones-inline">
-        Preencher telefones pela planilha
+      <button class="btn secondary" type="button" id="btn-copy-blitz-model">
+        Copiar texto-base da Blitz
       </button>
-
-      <label for="whatsapps" style="margin-top:10px;">Telefones com DDI/DDD, um por linha</label>
-      <textarea
-        id="whatsapps"
-        class="small-textarea"
-        placeholder="5511999999999&#10;5511988888888"
-      ></textarea>
-
-      <button class="btn" id="btn-wa">
-        Gerar links de envio
-      </button>
-
-      <p class="hint">
-        Abra cada link, revise a mensagem e envie pelo WhatsApp Web.
-      </p>
-
-      <div id="wa-links" class="links-list"></div>
     </section>
 
     <section class="card" id="playbooks">
-      <h2>9. Playbooks NPS — Neutros e Detratores</h2>
+      <h2>10. Playbooks NPS — Neutros e Detratores</h2>
       <p>
         Todo cliente neutro ou detrator precisa ter tratativa registrada por playbook.
         Se o playbook automático não aparecer, crie manualmente.
@@ -1025,6 +1083,11 @@
 
       <div class="note">
         <strong>Prazo:</strong> concluir até o final do mês seguinte.
+      </div>
+
+      <div class="note info">
+        <strong>Aplicação no WhatsApp:</strong> mesmo que a resposta via WhatsApp não entre no cálculo oficial
+        durante o piloto interno, dores relevantes devem ser tratadas operacionalmente.
       </div>
 
       <div class="accordion">
@@ -1130,7 +1193,7 @@
     </section>
 
     <section class="card" id="gpd">
-      <h2>10. Apuração do Resultado / GPD</h2>
+      <h2>11. Apuração do Resultado / GPD</h2>
       <p><strong>Tela:</strong> Apuração do Resultado</p>
       <p><strong>Caminho:</strong> Gestão Estratégica » Apuração do Resultado</p>
       <p><strong>ID:</strong> <code>br.com.sankhya.apuracao.resultado</code></p>
@@ -1159,7 +1222,7 @@
             </tr>
             <tr>
               <td>Onde</td>
-              <td>Informar onde o problema/ação aparece: NPS, INDECX, playbook, cliente, processo ou área.</td>
+              <td>Informar onde o problema/ação aparece: NPS, INDECX, WhatsApp, playbook, cliente, processo ou área.</td>
             </tr>
             <tr>
               <td>Porque</td>
@@ -1191,26 +1254,29 @@
     </section>
 
     <section class="card" id="checklist-final">
-      <h2>11. Checklist Final</h2>
+      <h2>12. Checklist Final</h2>
 
       <div class="checklist">
         <label class="check-item"><input type="checkbox"> Acessei CS - NPS.</label>
         <label class="check-item"><input type="checkbox"> Entrei no quadrante CS - Pesquisas NPS.</label>
         <label class="check-item"><input type="checkbox"> Extraí Clientes Pesquisados com mais de 6 Meses.</label>
         <label class="check-item"><input type="checkbox"> Conferi planilha de contatos NPS.</label>
+        <label class="check-item"><input type="checkbox"> Removi clientes em quarentena do mailing.</label>
         <label class="check-item"><input type="checkbox"> Criei rascunho da Blitz por Apps Script.</label>
+        <label class="check-item"><input type="checkbox"> Revisei texto sem mencionar teste/piloto ao cliente.</label>
         <label class="check-item"><input type="checkbox"> Revisei e enviei manualmente o rascunho no Gmail.</label>
-        <label class="check-item"><input type="checkbox"> Enviei WhatsApps necessários manualmente.</label>
-        <label class="check-item"><input type="checkbox"> Acompanhei retornos no INDECX.</label>
+        <label class="check-item"><input type="checkbox"> Acompanhei retornos no INDECX com filtro Pesquisa NPS Whatsapp.</label>
+        <label class="check-item"><input type="checkbox"> Registrei quarentena dos clientes que responderam.</label>
         <label class="check-item"><input type="checkbox"> Revisei playbooks de neutros/detratores.</label>
         <label class="check-item"><input type="checkbox"> Preenchi GPD se solicitado.</label>
       </div>
     </section>
 
     <div class="footer-note">
-      Observação: esta página não envia e-mails ou WhatsApps automaticamente.
+      Observação: esta página não envia e-mails automaticamente.
       Para e-mail, ela aciona o Apps Script para criar o rascunho no Gmail.
       O envio final deve ser feito manualmente após revisão.
+      O WhatsApp tratado nesta versão é o canal oficial da Sankhya, não um disparo manual pelo número do CS.
     </div>
 
   </div>
@@ -1234,6 +1300,7 @@
   <p><strong>Registrar no playbook:</strong></p>
   <ul>
     <li>Comentário do cliente e motivo da nota.</li>
+    <li>Canal de origem da resposta: ligação, e-mail, WhatsApp ou outro.</li>
     <li>Impacto na operação.</li>
     <li>O que o cliente considera essencial para resolver.</li>
     <li>Produto, módulo ou área citada.</li>
@@ -1307,39 +1374,14 @@
     <li>Ainda existe pendência?</li>
     <li>Qual próximo marco?</li>
     <li>O playbook pode ser concluído?</li>
+    <li>Cliente deve permanecer em acompanhamento preventivo?</li>
   </ul>
 </template>
 
 <script>
 (function(){
-  var DEFAULT_MESSAGE = `A SUA OPINIÃO TEM PODER TRANSFORMADOR E DISSO VOCÊ JÁ SABE!
-
-O NPS é uma metodologia utilizada mundialmente para medir a lealdade dos clientes através de uma pergunta bem simples:
-
-"Em uma escala de 0 a 10, o quanto você recomendaria a Sankhya para um amigo ou familiar?"
-
-Na Sankhya, essa pesquisa é um dos principais indicadores do nosso time de Customer Success. Embora a pergunta cite a Sankhya de forma geral, a sua resposta reflete diretamente a qualidade do acompanhamento e do atendimento que eu, Gustavo Germano, tenho prestado a você no dia a dia.
-
-Nessa escala, as notas de 0 a 6 são consideradas como detratores. De 7 a 8 uma posição neutra e de 9 a 10 são consideradas como promotores. Através da sua nota, podemos entender melhor qual a sua percepção sobre a nossa marca, sobre o nosso relacionamento e como tudo isso tem te impactado.
-
-Além da nota, é de extrema importância que você explique o motivo dela, para que possamos ser mais assertivos e continuar evoluindo por você. O seu feedback ajuda a Sankhya e também orienta diretamente o meu trabalho como CS responsável pelo seu atendimento.
-
-Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa especializada em pesquisa) e agora também por WhatsApp, por isso fique atento e não deixe de dar a sua opinião!`;
-
-  var CONTACTS_XLSX_URLS = [
-    './Tabela%20para%20envio%20de%20email%20aos%20clientes.xlsx',
-    './Tabela%20para%20envio%20de%20email%20aos%20clientes.XLSX',
-    './tabela-contatos-nps.xlsx',
-    './contatos-nps.xlsx'
-  ];
-
-  var CONTACTS_GOOGLE_CSV_URL =
-    'https://docs.google.com/spreadsheets/d/1h1OVkdOMMCKP_KBGaKdw4Je-TA5gFJX2/export?format=csv&gid=168915867';
-
   var APPS_SCRIPT_URL_STORAGE_KEY = 'fluxoNpsAppsScriptWebAppUrl';
   var APPS_SCRIPT_TOKEN_STORAGE_KEY = 'fluxoNpsAppsScriptWebAppToken';
-
-  var __contactsCache = null;
 
   function $(id){
     return document.getElementById(id);
@@ -1378,387 +1420,6 @@ Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa es
     el.textContent = message;
   }
 
-  function normalizeText(value){
-    return String(value == null ? '' : value)
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .trim();
-  }
-
-  function normalizeHeader(value){
-    return normalizeText(value)
-      .toUpperCase()
-      .replace(/[^A-Z0-9]+/g,' ')
-      .trim();
-  }
-
-  function getField(row, aliases){
-    var map = {};
-
-    Object.keys(row || {}).forEach(function(k){
-      map[normalizeHeader(k)] = row[k];
-    });
-
-    for (var i = 0; i < aliases.length; i++) {
-      var key = normalizeHeader(aliases[i]);
-
-      if (Object.prototype.hasOwnProperty.call(map, key)) {
-        return map[key];
-      }
-    }
-
-    return '';
-  }
-
-  function isYes(value){
-    var x = normalizeText(value).toUpperCase();
-
-    return x === 'SIM' ||
-           x === 'S' ||
-           x === 'YES' ||
-           x === 'TRUE' ||
-           x === '1';
-  }
-
-  function normalizePhone(value){
-    var digits = String(value == null ? '' : value).replace(/\D/g,'');
-
-    if (!digits || digits.length < 10) {
-      return '';
-    }
-
-    if ((digits.length === 10 || digits.length === 11) && digits.indexOf('55') !== 0) {
-      digits = '55' + digits;
-    }
-
-    return digits;
-  }
-
-  function normalizeEmail(value){
-    var m = String(value == null ? '' : value)
-      .trim()
-      .match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i);
-
-    return m ? m[1].trim() : '';
-  }
-
-  function uniqueList(list){
-    var seen = Object.create(null);
-    var out = [];
-
-    (list || []).forEach(function(item){
-      var k = String(item || '').trim().toLowerCase();
-
-      if (k && !seen[k]) {
-        seen[k] = true;
-        out.push(String(item).trim());
-      }
-    });
-
-    return out;
-  }
-
-  function mapContactRows(rows, sourceName){
-    var contacts = (rows || []).map(function(row){
-      return {
-        cliente: String(getField(row, ['CLIENTE','EMPRESA','PARCEIRO']) || '').trim(),
-        nome: String(getField(row, ['NOME CONTATO','NOME','CONTATO','NOME DO CONTATO']) || '').trim(),
-        email: normalizeEmail(getField(row, ['EMAIL','E MAIL','E-MAIL','MAIL'])),
-        telefone: normalizePhone(getField(row, ['TELEFONE','FONE','CELULAR','WHATSAPP','WHATSAPP TELEFONE'])),
-        responde: getField(row, ['RESPONDE NPS','RESPONDE NPS?','RESPONDE','NPS','RESPONDE_NPS']),
-        cargo: String(getField(row, ['CARGO','FUNCAO','FUNÇÃO']) || '').trim()
-      };
-    }).filter(function(c){
-      return isYes(c.responde);
-    });
-
-    contacts.sourceName = sourceName || 'planilha';
-
-    return contacts;
-  }
-
-  function parseCsv(text){
-    var rows = [];
-    var row = [];
-    var value = '';
-    var inQuotes = false;
-
-    text = String(text || '').replace(/^\uFEFF/,'');
-
-    for (var i = 0; i < text.length; i++) {
-      var ch = text[i];
-      var next = text[i + 1];
-
-      if (ch === '"') {
-        if (inQuotes && next === '"') {
-          value += '"';
-          i++;
-        } else {
-          inQuotes = !inQuotes;
-        }
-      } else if (ch === ',' && !inQuotes) {
-        row.push(value);
-        value = '';
-      } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
-        if (ch === '\r' && next === '\n') i++;
-        row.push(value);
-        value = '';
-
-        if (row.some(function(v){ return String(v).trim() !== ''; })) {
-          rows.push(row);
-        }
-
-        row = [];
-      } else {
-        value += ch;
-      }
-    }
-
-    row.push(value);
-
-    if (row.some(function(v){ return String(v).trim() !== ''; })) {
-      rows.push(row);
-    }
-
-    if (!rows.length) {
-      return [];
-    }
-
-    var headers = rows.shift().map(function(h){
-      return String(h || '').trim();
-    });
-
-    return rows.map(function(r){
-      var obj = {};
-
-      headers.forEach(function(h, idx){
-        obj[h] = r[idx] || '';
-      });
-
-      return obj;
-    });
-  }
-
-  function loadSheetJS(){
-    if (window.XLSX) {
-      return Promise.resolve();
-    }
-
-    return new Promise(function(resolve, reject){
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-      script.onload = function(){ resolve(); };
-      script.onerror = function(){
-        reject(new Error('Não foi possível carregar a biblioteca XLSX para ler arquivo Excel.'));
-      };
-      document.head.appendChild(script);
-    });
-  }
-
-  function fetchArrayBuffer(url){
-    return fetch(url, {cache:'no-store'}).then(function(resp){
-      if (!resp.ok) {
-        throw new Error('HTTP ' + resp.status + ' em ' + url);
-      }
-
-      return resp.arrayBuffer();
-    });
-  }
-
-  function fetchText(url){
-    return fetch(url, {cache:'no-store'}).then(function(resp){
-      if (!resp.ok) {
-        throw new Error('HTTP ' + resp.status + ' em ' + url);
-      }
-
-      return resp.text();
-    });
-  }
-
-  function parseXlsxBuffer(buffer, sourceName){
-    return loadSheetJS().then(function(){
-      var workbook = window.XLSX.read(buffer, {
-        type:'array',
-        cellDates:false
-      });
-
-      var firstSheet = workbook.SheetNames[0];
-
-      if (!firstSheet) {
-        throw new Error('Arquivo XLSX sem abas.');
-      }
-
-      var rows = window.XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], {
-        defval:'',
-        raw:false
-      });
-
-      return mapContactRows(rows, sourceName || firstSheet);
-    });
-  }
-
-  function loadContactsFromPlanilha(forceReload){
-    if (__contactsCache && !forceReload) {
-      return Promise.resolve(__contactsCache);
-    }
-
-    setStatus('contacts-status', 'Buscando planilha de contatos...', 'loading');
-
-    var errors = [];
-
-    function tryLocal(index){
-      if (index >= CONTACTS_XLSX_URLS.length) {
-        return Promise.reject(new Error(errors.join(' | ')));
-      }
-
-      var url = CONTACTS_XLSX_URLS[index];
-
-      return fetchArrayBuffer(url)
-        .then(function(buffer){
-          return parseXlsxBuffer(buffer, 'GitHub: ' + url);
-        })
-        .catch(function(err){
-          errors.push(err.message);
-          return tryLocal(index + 1);
-        });
-    }
-
-    return tryLocal(0)
-      .catch(function(){
-        return fetchText(CONTACTS_GOOGLE_CSV_URL).then(function(text){
-          return mapContactRows(parseCsv(text), 'Google Sheets online');
-        });
-      })
-      .then(function(contacts){
-        __contactsCache = contacts;
-        return contacts;
-      })
-      .catch(function(err){
-        throw new Error(
-          'Não consegui carregar a base automaticamente. Confira se o XLSX está na mesma pasta do GitHub Pages ou se o Google Sheets está público/publicado. Detalhe: ' +
-          err.message
-        );
-      });
-  }
-
-  function escapeHtml(value){
-    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch){
-      return {
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[ch];
-    });
-  }
-
-  function renderContactsPreview(contacts){
-    var box = $('contacts-preview');
-
-    if (!box) return;
-
-    var emails = uniqueList((contacts || []).map(function(c){
-      return c.email;
-    }).filter(Boolean));
-
-    var phones = uniqueList((contacts || []).map(function(c){
-      return c.telefone;
-    }).filter(Boolean));
-
-    var rows = (contacts || []).slice(0,12).map(function(c){
-      return '<tr>' +
-        '<td>' + escapeHtml(c.cliente) + '</td>' +
-        '<td>' + escapeHtml(c.nome) + '</td>' +
-        '<td>' + escapeHtml(c.email) + '</td>' +
-        '<td>' + escapeHtml(c.telefone) + '</td>' +
-      '</tr>';
-    }).join('');
-
-    box.className = 'preview-box open';
-    box.innerHTML =
-      '<div class="table-wrap">' +
-        '<table class="table">' +
-          '<thead>' +
-            '<tr>' +
-              '<th>Cliente</th>' +
-              '<th>Contato</th>' +
-              '<th>E-mail</th>' +
-              '<th>Telefone</th>' +
-            '</tr>' +
-          '</thead>' +
-          '<tbody>' + rows + '</tbody>' +
-        '</table>' +
-      '</div>' +
-      '<p class="hint">Prévia limitada a 12 linhas. Contatos filtrados com RESPONDE NPS = Sim: ' +
-      contacts.length +
-      '. E-mails válidos: ' +
-      emails.length +
-      '. Telefones válidos: ' +
-      phones.length +
-      '.</p>';
-  }
-
-  function preencherTelefonesDaPlanilha(){
-    loadContactsFromPlanilha(false)
-      .then(function(contacts){
-        var phones = uniqueList(contacts.map(function(c){
-          return c.telefone;
-        }).filter(Boolean));
-
-        if ($('whatsapps')) {
-          $('whatsapps').value = phones.join('\n');
-        }
-
-        renderContactsPreview(contacts);
-
-        var source = contacts.sourceName || 'planilha';
-
-        setStatus(
-          'contacts-status',
-          'Base carregada de ' + source + '. Linhas com RESPONDE NPS = Sim: ' +
-          contacts.length + '. Telefones preenchidos: ' + phones.length + '.',
-          'ok'
-        );
-
-        if (!phones.length) {
-          alert('Nenhum telefone válido encontrado com RESPONDE NPS = Sim.');
-        }
-      })
-      .catch(function(err){
-        setStatus('contacts-status', err.message, 'error');
-        alert(err.message);
-      });
-  }
-
-  function validarBaseContatos(){
-    loadContactsFromPlanilha(true)
-      .then(function(contacts){
-        renderContactsPreview(contacts);
-
-        var emails = uniqueList(contacts.map(function(c){
-          return c.email;
-        }).filter(Boolean));
-
-        var phones = uniqueList(contacts.map(function(c){
-          return c.telefone;
-        }).filter(Boolean));
-
-        var source = contacts.sourceName || 'planilha';
-
-        setStatus(
-          'contacts-status',
-          'Base carregada de ' + source + '. Linhas com RESPONDE NPS = Sim: ' +
-          contacts.length + '. E-mails válidos: ' + emails.length + '. Telefones válidos: ' + phones.length + '.',
-          'ok'
-        );
-      })
-      .catch(function(err){
-        setStatus('contacts-status', err.message, 'error');
-        alert(err.message);
-      });
-  }
-
   function copyGpdModel(){
     var model =
       'Quem:\n\n' +
@@ -1772,6 +1433,16 @@ Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa es
 
     copyText(model).then(function(){
       alert('Modelo GPD copiado.');
+    });
+  }
+
+  function copyBlitzModel(){
+    var el = $('texto-base-blitz');
+
+    if (!el) return;
+
+    copyText(el.value || el.textContent || '').then(function(){
+      alert('Texto-base da Blitz copiado.');
     });
   }
 
@@ -1878,43 +1549,6 @@ Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa es
     );
   }
 
-  function gerarLinksWhatsapp(){
-    var rawEl = $('whatsapps');
-    var raw = rawEl ? (rawEl.value || '') : '';
-
-    var list = raw
-      .split(/[\n;,]+/)
-      .map(function(x){
-        return x.replace(/\D/g,'').trim();
-      })
-      .filter(Boolean);
-
-    var container = $('wa-links');
-
-    if (container) {
-      container.innerHTML = '';
-    }
-
-    if (!list.length) {
-      alert('Informe pelo menos um telefone.');
-      return;
-    }
-
-    list.forEach(function(phone){
-      var url = 'https://wa.me/' + encodeURIComponent(phone) + '?text=' + encodeURIComponent(DEFAULT_MESSAGE);
-
-      if (!container) return;
-
-      var a = document.createElement('a');
-      a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.textContent = 'Enviar Blitz para ' + phone;
-
-      container.appendChild(a);
-    });
-  }
-
   function setupAccordion(){
     Array.prototype.forEach.call(document.querySelectorAll('.acc-item .acc-head'), function(btn){
       btn.addEventListener('click', function(){
@@ -1988,11 +1622,8 @@ Essa é uma pesquisa realizada por ligação telefônica pela INDECX (empresa es
       acionarAppsScriptRascunho('criar_rascunho');
     });
 
-    on('btn-autofill-phones','click', preencherTelefonesDaPlanilha);
-    on('btn-autofill-phones-inline','click', preencherTelefonesDaPlanilha);
-    on('btn-preview-contacts','click', validarBaseContatos);
-    on('btn-wa','click', gerarLinksWhatsapp);
     on('btn-copy-gpd-model','click', copyGpdModel);
+    on('btn-copy-blitz-model','click', copyBlitzModel);
 
     setupAccordion();
     setupModal();
