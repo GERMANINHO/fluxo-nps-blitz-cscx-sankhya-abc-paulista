@@ -1538,15 +1538,48 @@ Caso receba o contato, contamos muito com a sua participação. A sua opinião n
     form.appendChild(actionInput);
     form.appendChild(tokenInput);
 
+    var abrirGmailAposCriacao = action === 'criar_rascunho' || action === 'teste_rascunho';
+    var gmailWindow = null;
+
+    if (abrirGmailAposCriacao) {
+      gmailWindow = window.open('about:blank', 'gmailDraftsWindow');
+
+      if (gmailWindow) {
+        gmailWindow.document.open();
+        gmailWindow.document.write(
+          '<!doctype html><html lang="pt-br"><head><meta charset="utf-8">' +
+          '<title>Abrindo Gmail...</title></head>' +
+          '<body style="font-family:Arial,Helvetica,sans-serif;padding:24px;line-height:1.45;">' +
+          '<h2>Rascunho solicitado</h2>' +
+          '<p>O Apps Script está criando o rascunho no Gmail.</p>' +
+          '<p>Esta aba será redirecionada para <strong>Gmail &gt; Rascunhos</strong> em alguns segundos.</p>' +
+          '</body></html>'
+        );
+        gmailWindow.document.close();
+      }
+    }
+
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
 
-    setStatus(
-      'apps-script-status',
-      'Solicitação enviada ao Apps Script. Uma nova aba será aberta com o resultado. Depois confira os rascunhos no Gmail.',
-      'ok'
-    );
+    if (abrirGmailAposCriacao && gmailWindow) {
+      setTimeout(function(){
+        gmailWindow.location.href = 'https://mail.google.com/mail/u/0/#drafts';
+      }, 4500);
+
+      setStatus(
+        'apps-script-status',
+        'Solicitação enviada ao Apps Script. O Gmail será aberto automaticamente em Rascunhos.',
+        'ok'
+      );
+    } else {
+      setStatus(
+        'apps-script-status',
+        'Solicitação enviada ao Apps Script. Uma nova aba será aberta com o resultado. Se o navegador bloquear o Gmail, use o botão Abrir rascunhos Gmail.',
+        'ok'
+      );
+    }
   }
 
   function setupAccordion(){
