@@ -24,6 +24,7 @@
     }
 
     *{box-sizing:border-box}
+
     html{scroll-behavior:smooth}
 
     body{
@@ -988,7 +989,6 @@
           <input
             id="apps-script-webapp-url"
             type="text"
-            value="https://script.google.com/macros/s/AKfycbykLsa2EEnoGTNjMv270JxQYDUeN4asWogj8Uc3lb52sB0gLDpN3CjrvuV-0zpNLUC0ow/exec"
             placeholder="Cole aqui a URL do App da Web terminando em /exec"
             autocomplete="off"
           />
@@ -1476,6 +1476,50 @@ Caso receba o contato, contamos muito com a sua participação. A sua opinião n
     } catch(e) {}
   }
 
+  function getGmailDraftsUrl(){
+    return 'https://mail.google.com/mail/?authuser=gustavo.germano%40sankhya.com.br#drafts';
+  }
+
+  function abrirJanelaGmailAguardando(action){
+    var titulo = action === 'teste_rascunho' ? 'Rascunho de teste solicitado' : 'Rascunho da Blitz solicitado';
+    var janela = window.open('about:blank', 'gmailDraftsWindow');
+
+    if (!janela) {
+      return null;
+    }
+
+    janela.document.open();
+    janela.document.write(
+      '<!doctype html><html lang="pt-br"><head><meta charset="utf-8">' +
+      '<title>Abrindo Gmail...</title></head>' +
+      '<body style="font-family:Arial,Helvetica,sans-serif;padding:24px;line-height:1.45;color:#111827;">' +
+      '<h2>' + titulo + '</h2>' +
+      '<p>O Apps Script está criando o rascunho no Gmail da conta <strong>gustavo.germano@sankhya.com.br</strong>.</p>' +
+      '<p>Esta aba será redirecionada para <strong>Gmail &gt; Rascunhos</strong> em alguns segundos.</p>' +
+      '<p>Se o rascunho ainda não aparecer quando o Gmail abrir, aguarde mais alguns segundos e atualize a página.</p>' +
+      '</body></html>'
+    );
+    janela.document.close();
+
+    return janela;
+  }
+
+  function getOrCreateHiddenFrame(){
+    var iframeName = 'appsScriptHiddenFrame';
+    var iframe = document.getElementById(iframeName);
+
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = iframeName;
+      iframe.id = iframeName;
+      iframe.style.display = 'none';
+      iframe.setAttribute('title', 'Execução oculta do Apps Script');
+      document.body.appendChild(iframe);
+    }
+
+    return iframeName;
+  }
+
   function acionarAppsScriptRascunho(action){
     var urlEl = $('apps-script-webapp-url');
     var tokenEl = $('apps-script-token');
@@ -1519,10 +1563,13 @@ Caso receba o contato, contamos muito com a sua participação. A sua opinião n
       'loading'
     );
 
+    var abrirGmailAposCriacao = action === 'criar_rascunho' || action === 'teste_rascunho';
+    var gmailWindow = abrirGmailAposCriacao ? abrirJanelaGmailAguardando(action) : null;
+
     var form = document.createElement('form');
     form.method = 'POST';
     form.action = url;
-    form.target = '_blank';
+    form.target = getOrCreateHiddenFrame();
     form.style.display = 'none';
 
     var actionInput = document.createElement('input');
@@ -1542,11 +1589,29 @@ Caso receba o contato, contamos muito com a sua participação. A sua opinião n
     form.submit();
     document.body.removeChild(form);
 
-    setStatus(
-      'apps-script-status',
-      'Solicitação enviada ao Apps Script. Uma nova aba será aberta com o resultado. Depois confira os rascunhos no Gmail.',
-      'ok'
-    );
+    if (abrirGmailAposCriacao && gmailWindow) {
+      setTimeout(function(){
+        gmailWindow.location.href = getGmailDraftsUrl();
+      }, 7000);
+
+      setStatus(
+        'apps-script-status',
+        'Solicitação enviada ao Apps Script. O Gmail corporativo será aberto automaticamente em Rascunhos.',
+        'ok'
+      );
+    } else if (abrirGmailAposCriacao && !gmailWindow) {
+      setStatus(
+        'apps-script-status',
+        'Solicitação enviada ao Apps Script. O navegador bloqueou a abertura automática do Gmail; use o botão Abrir rascunhos Gmail.',
+        'ok'
+      );
+    } else {
+      setStatus(
+        'apps-script-status',
+        'Solicitação enviada ao Apps Script.',
+        'ok'
+      );
+    }
   }
 
   function setupAccordion(){
